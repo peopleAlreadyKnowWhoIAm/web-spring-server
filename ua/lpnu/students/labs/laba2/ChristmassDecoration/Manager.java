@@ -1,6 +1,7 @@
 package ua.lpnu.students.labs.laba2.ChristmassDecoration;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Manager {
     public Manager(List<Template> decorations) {
@@ -8,10 +9,10 @@ public class Manager {
     }
 
     public Manager() {
+        decorations = new ArrayList<Template>();
     }
 
     protected List<Template> decorations;
-
     public List<Template> getDecorations() {
         return decorations;
     }
