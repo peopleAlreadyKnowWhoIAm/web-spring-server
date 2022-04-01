@@ -1,7 +1,9 @@
-package ua.lpnu.students.labs.laba2.ChristmassDecoration;
+package ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
 
 public class Manager {
     public Manager(List<Template> decorations) {

@@ -1,8 +1,8 @@
-package ua.lpnu.students.labs.laba2.ChristmassDecoration;
+package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared;
 
-import ua.lpnu.students.labs.laba2.TextMenu;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu.TextMenu;
 
-public abstract class Template {
+public abstract class Template{
     public Template(String name, Type type, String usage, int avalaibleAmount) {
         this.name = name;
         this.type = type;
@@ -20,39 +20,34 @@ public abstract class Template {
     protected String material;
 
     public void editAll() {
-        System.out.print(nameStr + "(" + name + ")");
-        this.name = TextMenu.scanString();
-        printTypeOptions();
-        System.out.print(typeStr + "(" + type + ")");
-        this.type = Type.values()[TextMenu.scanInt(Type.values().length - 1)];
-        System.out.print(usageStr + "(" + usage + ")");
-        this.usage = TextMenu.scanString();
-        System.out.print(availableStr + "(" + avalaibleAmount + ")");
-        this.avalaibleAmount = TextMenu.scanInt( -1);
-        System.out.print(materialStr + "(" + material + ")");
-        this.material = TextMenu.scanString();
+        this.name = TextMenu.editString(this.name, nameStr);
+        
+        this.type = Type.values()[TextMenu.editInt(
+            this.type.ordinal(),
+            Type.allToString()+typeStr, 
+            Type.values().length - 1
+            )];
+
+        this.usage = TextMenu.editString(this.usage, usageStr);
+        
+        this.avalaibleAmount = TextMenu.editInt(this.avalaibleAmount, availableStr);
+
+        this.material = TextMenu.editString(this.material, materialStr);
     }
 
     public void setAll() {
-        System.out.print(nameStr);
-        this.name = TextMenu.scanString();
-        printTypeOptions();
-        System.out.print(typeStr);
-        this.type = Type.values()[TextMenu.scanInt( Type.values().length - 1)];
-        System.out.print(usageStr);
-        this.usage = TextMenu.scanString();
-        System.out.print(availableStr);
-        this.avalaibleAmount = TextMenu.scanInt( -1);
-        System.out.print(materialStr);
-        this.material = TextMenu.scanString();
-    }
+        this.name = TextMenu.setString(nameStr);
 
-    private void printTypeOptions(){
-        int count = 0;
-        for (Type i : Type.values()) {
-            System.out.println(count + ". " + i.toString());
-            count++;
-        }
+        this.type = Type.values()[TextMenu.setInt(
+            Type.allToString()+typeStr, 
+            Type.values().length - 1
+            )];
+
+        this.usage = TextMenu.setString(usageStr);
+
+        this.avalaibleAmount = TextMenu.setInt(availableStr);
+
+        this.material = TextMenu.setString(materialStr);
     }
 
     @Override
@@ -67,7 +62,8 @@ public abstract class Template {
     private static final String materialStr = "Material: ";
     private static final String descriptionStr =
     nameStr + "%s\t" + typeStr + "%s\t" + usageStr + "%s\t" + availableStr + "%s\t"
-     + materialStr + "%s\t"; 
+     + materialStr + "%s\t";
+    protected static final String showLastStr = "(%s) "; 
 
     public String getMaterial() {
         return material;
