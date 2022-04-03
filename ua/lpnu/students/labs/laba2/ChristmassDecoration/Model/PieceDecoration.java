@@ -1,20 +1,28 @@
 package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model;
 
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu.TextMenu;
 
 public class PieceDecoration extends Template {
+    public static final Type classType = Type.PIECE_DECORATION;
+//Variables
     protected String color;
     protected String style;
+
     protected int[] size = {0, 0, 0}; //3 value of width ,heihgt and depth
+
     protected float pricePerPiece;
+
+
+
+//Constructors
     public PieceDecoration(String name, Usage usage, int avalaibleAmount, String color, String style,
             String material, int[] size, float pricePerPiece) {
-        super(name, classType, usage, avalaibleAmount);
+        super(name, classType, usage, material, avalaibleAmount);
         this.color = color;
         this.style = style;
-        this.material = material;
         this.size = size;
         this.pricePerPiece = pricePerPiece;
     }
@@ -23,10 +31,13 @@ public class PieceDecoration extends Template {
         super(classType);
     }
 
-    protected PieceDecoration(String type){
+    protected PieceDecoration(Type type){
         super(type);
     }
 
+
+
+//Overriding
     @Override
     public void editAll(){
         super.editAll();
@@ -73,8 +84,10 @@ public class PieceDecoration extends Template {
         );
     }
 
-    private static final String classType = "Piece decoration";
 
+
+
+//String literals
     private static final String colorStr = "Color: ";
     private static final String styleStr = "Style: ";
     private static final String sizeStr = "Demensions: width, height, depth: \n";
@@ -83,6 +96,8 @@ public class PieceDecoration extends Template {
     private static final String descriptionStr = colorStr + "%s\t" + styleStr + "%s\tDemesions: %d x %d x %d\t Price: %s";
         
 
+
+//Getters/Setters
     public String getColor() {
         return color;
     }

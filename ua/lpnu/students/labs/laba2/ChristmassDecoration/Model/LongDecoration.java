@@ -3,22 +3,30 @@ package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model;
 import java.util.List;
 
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu.TextMenu;
 
 public class LongDecoration extends Template {
+    public static final Type classType = Type.LONG_DECORATION;
+//Variables
     protected List<String> color;
+
     protected String style;
+
     protected int minimalLength;
     protected int widthInCentimeters;
+
     protected float pricePerMeter;
 
+
+
+//Constructors
     public LongDecoration(String name,Usage usage, int avalaibleAmount, List<String> color, String style,
             String material, int minimalLength, int widthInCentimeters, float pricePerMeter) {
-        super(name, classType, usage, avalaibleAmount);
+        super(name, classType, usage, material, avalaibleAmount);
         this.color = color;
         this.style = style;
-        this.material = material;
         this.minimalLength = minimalLength;
         this.widthInCentimeters = widthInCentimeters;
         this.pricePerMeter = pricePerMeter;
@@ -28,10 +36,13 @@ public class LongDecoration extends Template {
         super(classType);
     }
 
-    protected LongDecoration(String type){
+    protected LongDecoration(Type type){
         super(type);
     }
 
+
+
+//Overriding
     @Override
     public void editAll(){
         super.editAll();
@@ -73,7 +84,19 @@ public class LongDecoration extends Template {
         );
     }
 
+//String literals 
+    
+    private static final String colorsStr = "Colors of the decoration\nSend empty to confirm\n";
+    private static final String styleStr = "Style: ";
+    private static final String minimalLengthStr = "Minimal length selling: ";
+    private static final String widthStr = "Width: ";
+    private static final String priceStr = "Price per meter multiplied by 100: ";
 
+    private static final String descriptionStr = "Colors: %s\t"+ styleStr + "%s\t" + minimalLengthStr +"%s\t" + widthStr + "%s\tPrice per meter: %s\t";
+
+
+
+//Getters/Setters
     public List<String> getColor() {
         return color;
     }
@@ -113,13 +136,4 @@ public class LongDecoration extends Template {
     public void setPricePerMeter(float pricePerMeter) {
         this.pricePerMeter = pricePerMeter;
     }
-    private static final String classType = "Long decoration";
-    
-    private static final String colorsStr = "Colors of the decoration\nSend empty to confirm\n";
-    private static final String styleStr = "Style: ";
-    private static final String minimalLengthStr = "Minimal length selling: ";
-    private static final String widthStr = "Width: ";
-    private static final String priceStr = "Price per meter multiplied by 100: ";
-
-    private static final String descriptionStr = "Colors: %s\t"+ styleStr + "%s\t" + minimalLengthStr +"%s\t" + widthStr + "%s\tPrice per meter: %s\t";
 }

@@ -4,25 +4,34 @@ package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu.TextMenu;
 
 public abstract class Template{
-    protected Template(String name, String type, Usage usage, int avalaibleAmount) {
+//Variables
+    protected String name;
+    protected String material;
+
+    protected Type type;
+
+    protected Usage usage;
+    
+    protected int avalaibleAmount;
+
+
+
+//Constructors
+    protected Template(String name, Type type, Usage usage, String material, int avalaibleAmount) {
         this.name = name;
         this.usage = usage;
         this.avalaibleAmount = avalaibleAmount;
         this.type = type;
+        this.material = material;
     }
 
-    protected Template(String type) {
+    protected Template(Type type) {
         this.type = type;
     }
 
-    protected String name;
 
-    protected String type;
-    
-    protected Usage usage;
-    protected int avalaibleAmount;
-    protected String material;
 
+//Text menu functions
     public void editAll() {
         this.name = TextMenu.editString(this.name, nameStr);
         
@@ -50,20 +59,30 @@ public abstract class Template{
         this.material = TextMenu.setString(materialStr);
     }
 
+
+
+//Overriding
     @Override
     public String toString(){
         return String.format(descriptionStr, this.name, this.type, this.usage.toString(), String.valueOf(this.avalaibleAmount), this.material);
     }
 
+
+
+//String literals
     private static final String nameStr = "Name: ";
     private static final String usageStr = "Usage: ";
     private static final String typeStr = "Type: ";
     private static final String availableStr = "Available: ";
     private static final String materialStr = "Material: ";
+
     private static final String descriptionStr =
     nameStr + "%s\t" + typeStr + "%s\t"+ usageStr + "%s\t" + availableStr + "%s\t"
      + materialStr + "%s\t";
 
+
+
+//Getters/Setters
     public String getMaterial() {
         return material;
     }
@@ -80,7 +99,7 @@ public abstract class Template{
         this.name = name;
     }
 
-    public String getType(){
+    public Type getType(){
         return this.type;
     }
 
