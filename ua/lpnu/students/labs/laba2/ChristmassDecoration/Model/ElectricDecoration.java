@@ -3,7 +3,7 @@ package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model;
 import java.util.List;
 
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
-import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu.TextMenu;
 
 public class ElectricDecoration extends Template {
@@ -13,9 +13,9 @@ public class ElectricDecoration extends Template {
     private int powerInWatts;
     protected float pricePerPiece;
 
-    public ElectricDecoration(String name, Type type, String usage, int avalaibleAmount, List<String> colorsOfLights,
+    public ElectricDecoration(String name, Usage usage, int avalaibleAmount, List<String> colorsOfLights,
             int length, int amountLampsPerMeter, int powerInWatts, float pricePerPiece) {
-        super(name, type, usage, avalaibleAmount);
+        super(name, classType , usage, avalaibleAmount);
         this.colorsOfLights = colorsOfLights;
         this.length = length;
         this.amountLampsPerMeter = amountLampsPerMeter;
@@ -24,7 +24,11 @@ public class ElectricDecoration extends Template {
     }
 
     public ElectricDecoration() {
-        
+        super(classType);
+    }
+
+    protected ElectricDecoration(String type){
+        super(type);
     }
 
     @Override
@@ -99,6 +103,8 @@ public class ElectricDecoration extends Template {
     public void setPowerInWatts(int powerInWatts) {
         this.powerInWatts = powerInWatts;
     }
+    private static final String classType = "Electric Decoration";
+
     private static final String colorsStr = "Colors of the lights\nSend empty to confirm\n";
     private static final String lengthStr = "Length: ";
     private static final String amountLampsStr = "Amount of lamps per meter: ";

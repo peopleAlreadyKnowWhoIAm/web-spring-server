@@ -1,7 +1,7 @@
 package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model;
 
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
-import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu.TextMenu;
 
 public class PieceDecoration extends Template {
@@ -9,9 +9,9 @@ public class PieceDecoration extends Template {
     protected String style;
     protected int[] size = {0, 0, 0}; //3 value of width ,heihgt and depth
     protected float pricePerPiece;
-    public PieceDecoration(String name, Type type, String usage, int avalaibleAmount, String color, String style,
+    public PieceDecoration(String name, Usage usage, int avalaibleAmount, String color, String style,
             String material, int[] size, float pricePerPiece) {
-        super(name, type, usage, avalaibleAmount);
+        super(name, classType, usage, avalaibleAmount);
         this.color = color;
         this.style = style;
         this.material = material;
@@ -20,6 +20,11 @@ public class PieceDecoration extends Template {
     }
 
     public PieceDecoration() {
+        super(classType);
+    }
+
+    protected PieceDecoration(String type){
+        super(type);
     }
 
     @Override
@@ -67,6 +72,8 @@ public class PieceDecoration extends Template {
             String.valueOf(this.pricePerPiece)
         );
     }
+
+    private static final String classType = "Piece decoration";
 
     private static final String colorStr = "Color: ";
     private static final String styleStr = "Style: ";

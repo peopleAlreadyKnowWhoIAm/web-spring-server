@@ -1,34 +1,36 @@
 package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared;
 
+
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu.TextMenu;
 
 public abstract class Template{
-    public Template(String name, Type type, String usage, int avalaibleAmount) {
+    protected Template(String name, String type, Usage usage, int avalaibleAmount) {
         this.name = name;
-        this.type = type;
         this.usage = usage;
         this.avalaibleAmount = avalaibleAmount;
+        this.type = type;
     }
 
-    public Template() {
+    protected Template(String type) {
+        this.type = type;
     }
 
     protected String name;
-    protected Type type;
-    protected String usage;
+
+    protected String type;
+    
+    protected Usage usage;
     protected int avalaibleAmount;
     protected String material;
 
     public void editAll() {
         this.name = TextMenu.editString(this.name, nameStr);
         
-        this.type = Type.values()[TextMenu.editInt(
-            this.type.ordinal(),
-            Type.allToString()+typeStr, 
-            Type.values().length - 1
+        this.usage = Usage.values()[TextMenu.editInt(
+            this.usage.ordinal(),
+            Usage.allToString() + usageStr, 
+            Usage.values().length - 1
             )];
-
-        this.usage = TextMenu.editString(this.usage, usageStr);
         
         this.avalaibleAmount = TextMenu.editInt(this.avalaibleAmount, availableStr);
 
@@ -38,12 +40,10 @@ public abstract class Template{
     public void setAll() {
         this.name = TextMenu.setString(nameStr);
 
-        this.type = Type.values()[TextMenu.setInt(
-            Type.allToString()+typeStr, 
-            Type.values().length - 1
+        this.usage = Usage.values()[TextMenu.setInt(
+            Usage.allToString() + usageStr, 
+            Usage.values().length - 1
             )];
-
-        this.usage = TextMenu.setString(usageStr);
 
         this.avalaibleAmount = TextMenu.setInt(availableStr);
 
@@ -52,18 +52,17 @@ public abstract class Template{
 
     @Override
     public String toString(){
-        return String.format(descriptionStr, name, type.toString(), usage, String.valueOf(avalaibleAmount), material);
+        return String.format(descriptionStr, this.name, this.type, this.usage.toString(), String.valueOf(this.avalaibleAmount), this.material);
     }
 
     private static final String nameStr = "Name: ";
-    private static final String typeStr = "Type: ";
     private static final String usageStr = "Usage: ";
+    private static final String typeStr = "Type: ";
     private static final String availableStr = "Available: ";
     private static final String materialStr = "Material: ";
     private static final String descriptionStr =
-    nameStr + "%s\t" + typeStr + "%s\t" + usageStr + "%s\t" + availableStr + "%s\t"
+    nameStr + "%s\t" + typeStr + "%s\t"+ usageStr + "%s\t" + availableStr + "%s\t"
      + materialStr + "%s\t";
-    protected static final String showLastStr = "(%s) "; 
 
     public String getMaterial() {
         return material;
@@ -81,19 +80,15 @@ public abstract class Template{
         this.name = name;
     }
 
-    public Type getType() {
-        return type;
+    public String getType(){
+        return this.type;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public Usage getUsage() {
+        return this.usage;
     }
 
-    public String getUsage() {
-        return usage;
-    }
-
-    public void setUsage(String usage) {
+    public void setUsage(Usage usage) {
         this.usage = usage;
     }
 

@@ -2,20 +2,25 @@ package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model;
 
 import java.util.Date;
 
-import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu.TextMenu;
 
 public class OrganicDecoration extends PieceDecoration {
     protected int numberOfDaysToExpiration;
     protected Date dateOfProduction;
     
-    public OrganicDecoration(String name, Type type, String usage, int avalaibleAmount, String color, String style,
+    public OrganicDecoration(String name, Usage usage, int avalaibleAmount, String color, String style,
             String material, int[] size, float pricePerPiece, int numberOfDaysToExpiration, Date dateOfProduction) {
-        super(name, type, usage, avalaibleAmount, color, style, material, size, pricePerPiece);
+        super(name, usage, avalaibleAmount, color, style, material, size, pricePerPiece);
         this.numberOfDaysToExpiration = numberOfDaysToExpiration;
         this.dateOfProduction = dateOfProduction;
     }
     public OrganicDecoration() {
+        super(classType);
+    }
+
+    protected OrganicDecoration(String type){
+        super(type);
     }
     
     @Override
@@ -40,6 +45,8 @@ public class OrganicDecoration extends PieceDecoration {
     public String toString(){
         return super.toString() + String.format(descriptionStr, TextMenu.dateFormat.format(this.dateOfProduction), String.valueOf(this.numberOfDaysToExpiration));
     }
+
+    private static final String classType = "Organic decoration";
 
     private static final String dateStr = "Date of production using patern " + TextMenu.datePatternStr + " :";
     private static final String expirationTermStr = "Number of days to expire: ";

@@ -3,7 +3,7 @@ package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model;
 import java.util.List;
 
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
-import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu.TextMenu;
 
 public class LongDecoration extends Template {
@@ -13,15 +13,23 @@ public class LongDecoration extends Template {
     protected int widthInCentimeters;
     protected float pricePerMeter;
 
-    public LongDecoration(String name, Type type, String usage, int avalaibleAmount, List<String> color, String style,
+    public LongDecoration(String name,Usage usage, int avalaibleAmount, List<String> color, String style,
             String material, int minimalLength, int widthInCentimeters, float pricePerMeter) {
-        super(name, type, usage, avalaibleAmount);
+        super(name, classType, usage, avalaibleAmount);
         this.color = color;
         this.style = style;
         this.material = material;
         this.minimalLength = minimalLength;
         this.widthInCentimeters = widthInCentimeters;
         this.pricePerMeter = pricePerMeter;
+    }
+
+    public LongDecoration() {
+        super(classType);
+    }
+
+    protected LongDecoration(String type){
+        super(type);
     }
 
     @Override
@@ -65,8 +73,6 @@ public class LongDecoration extends Template {
         );
     }
 
-    public LongDecoration() {
-    }
 
     public List<String> getColor() {
         return color;
@@ -107,6 +113,7 @@ public class LongDecoration extends Template {
     public void setPricePerMeter(float pricePerMeter) {
         this.pricePerMeter = pricePerMeter;
     }
+    private static final String classType = "Long decoration";
     
     private static final String colorsStr = "Colors of the decoration\nSend empty to confirm\n";
     private static final String styleStr = "Style: ";
