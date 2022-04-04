@@ -1,7 +1,9 @@
 package ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager;
 
-import java.util.LinkedList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
@@ -11,82 +13,105 @@ public class Manipulator {
     List<Template> allDecorations;
     List<Template> filteredDecorations;
 
-    Type[] types;
+    List<Type> types;
 
-    String[] names;
-    String[] materials;
-    String[] styles;
-    String[] colors;
+    List<String> names;
+    List<String> materials;
+    List<String> styles;
 
-    Usage[] usages;
+    List<String> colors;
+
+    List<Usage> usages;
 
     int minAmount;
 
     float priceFrom, priceTo;
 
-    List<FilterLambda> filterLambdas = new LinkedList<>();
-
 //Settings filter
-    public void setFilterByTypes(Type[] type){
-        
+    public void setFilterByTypes(List<Type> type){
+        this.types = type;
     }
 
-    public void setSearchWithNames(String[] name){
-
+    public void setSearchWithNames(List<String> name){
+        this.names = name;
     }
 
-    public void setFilterByUsages(Usage[] usage){
-        
+    public void setFilterByUsages(List<Usage> usage){
+        this.usages = usage;
     }
 
-    public void setFilterByMaterials(String[] material){
-
+    public void setFilterByMaterials(List<String> material){
+        this.materials = material;
     }
 
     public void setFilterByAmountMore(int amount){
-
+        this.minAmount = amount;
     }
 
     public void setFilterByPrice(float from, float to){
-
+        this.priceFrom = from;
+        this.priceTo = to;
     }
 
-    public void setFilterByStyles(String[] style){
-
+    public void setFilterByStyles(List<String> style){
+        this.styles = style;
     }
 
-    public void setFilterByColors(String[] colors){
-
+    public void setFilterByColors(List<String> colors){
+        this.colors = colors;
     }
 
 
 //Set sorting
     public void sortByName(boolean descending){
-
+        filteredDecorations.sort(Comparator.comparing(Template::getName));
+        if(descending){
+            Collections.reverse(filteredDecorations);
+        }
     }
 
     public void sortByPrice(boolean descending){
-
+        filteredDecorations.sort(Comparator.comparing(Template::getPrice));
+        if(descending){
+            Collections.reverse(filteredDecorations);
+        }
     }
 
 
 //Filtering utils
-    private void buildFilterList(){
+    public void filter(){
+        //Filter types
+        if(types != null)filterPart(a-> types.contains(a.getType()));
 
+        //Filter names
+        if(names != null)filterPart(a -> names.contains(a.getName()));
+
+        //Filter materials
+        if(materials != null)filterPart(a -> materials.contains(a.getMaterial()));
+
+        //Filter styles
+        if(styles != null)filterPart(a -> false ); //TODO end this, make it work
+
+        //Filter colors
+        if(colors != null)filterPart(a -> false); //TODO and this
+
+        //Filter usages
+        if(usages != null)filterPart(a -> usages.contains(a.getUsage()));
+
+        //Filter minimal amount
+        filterPart(a -> a.getAvalaibleAmount() >= this.minAmount );
+
+        //Filter price
+        filterPart(a -> this.priceFrom >= a.getPrice() && this.priceTo <= a.getPrice());
     }
 
-    private void filter(FilterLambda filter){
-
-    }
-
-//Lambda interface for filter function
-    @FunctionalInterface
-    interface FilterLambda{
-        boolean filter(Template a);
+    private void filterPart(Predicate<Template> filter){
+        filteredDecorations.removeIf(filter);
     }
 
 //Constructor
     public Manipulator(List<Template> allDecorations) {
+        this.filteredDecorations = allDecorations;
         this.allDecorations= allDecorations;
     }
 
@@ -105,27 +130,27 @@ public class Manipulator {
 
 
 //Getters of the filter parameters
-    public Type[] getTypes() {
+    public List<Type> getTypes() {
         return types;
     }
 
-    public String[] getNames() {
+    public List<String> getNames() {
         return names;
     }
 
-    public String[] getMaterials() {
+    public List<String> getMaterials() {
         return materials;
     }
 
-    public String[] getStyles() {
+    public List<String> getStyles() {
         return styles;
     }
 
-    public String[] getColors() {
+    public List<String> getColors() {
         return colors;
     }
 
-    public Usage[] getUsages() {
+    public List<Usage> getUsages() {
         return usages;
     }
 

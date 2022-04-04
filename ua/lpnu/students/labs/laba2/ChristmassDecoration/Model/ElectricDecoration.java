@@ -16,18 +16,16 @@ public class ElectricDecoration extends Template {
     private int amountLampsPerMeter;
     private int powerInWatts;
 
-    protected float pricePerPiece;
 
 
 //Constructors
     public ElectricDecoration(String name, Usage usage, String material, int avalaibleAmount, List<String> colorsOfLights, 
             int length, int amountLampsPerMeter, int powerInWatts, float pricePerPiece) {
-        super(name, classType , usage, material, avalaibleAmount);
+        super(name, classType , usage, material, avalaibleAmount, pricePerPiece);
         this.colorsOfLights = colorsOfLights;
         this.length = length;
         this.amountLampsPerMeter = amountLampsPerMeter;
         this.powerInWatts = powerInWatts;
-        this.pricePerPiece = pricePerPiece;
     }
 
     public ElectricDecoration() {
@@ -52,7 +50,7 @@ public class ElectricDecoration extends Template {
 
         this.powerInWatts = TextMenu.setInt(powerStr);
 
-        this.pricePerPiece = TextMenu.setInt(priceStr)/100.0f;
+        this.price = TextMenu.setInt(priceStr)/100.0f;
     }
 
     @Override
@@ -67,7 +65,7 @@ public class ElectricDecoration extends Template {
 
         this.powerInWatts = TextMenu.editInt(this.powerInWatts, powerStr);
 
-        this.pricePerPiece = TextMenu.editInt(this.pricePerPiece, priceStr)/100.0f;
+        this.price = TextMenu.editInt(this.price, priceStr)/100.0f;
     }
 
     @Override
@@ -77,7 +75,7 @@ public class ElectricDecoration extends Template {
             String.valueOf(this.length),
             String.valueOf(this.amountLampsPerMeter),
             String.valueOf(this.powerInWatts),
-            String.valueOf(this.pricePerPiece)
+            String.valueOf(this.price)
         );
     }
 

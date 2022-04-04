@@ -13,14 +13,19 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.LongDecoration;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.OrganicDecoration;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.PieceDecoration;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 
 public class TextMenu {
+//variables
     private Manager manager;
 
+//Constructor
     public TextMenu(Manager manager) {
         this.manager = manager;
     }
 
+//Functions
+    //Provide menu
     public void mainMenu() {
         boolean always = true;
         while (always) {
@@ -38,6 +43,9 @@ public class TextMenu {
                 case "e":
                     editDecoration();
                     break;
+                case "f":
+                    filterDecorations();
+                    break;
                 case "x":
                     always = false;
                     break;
@@ -47,19 +55,12 @@ public class TextMenu {
         }
     }
 
+    //Menu options
     public void addDecoration() {
         System.out.print(chooseTypeOfTheDecoration);
         listDecorationVariants();
-        int variant = scanInt(possibleClasses.length);
-        try {
-            Template tmp = (Template) possibleClasses[variant].getDeclaredConstructor().newInstance();
-            tmp.setAll();
-            manager.getDecorations().add(tmp);
-        } catch (Exception e) {
-
-            e.printStackTrace();
-            System.exit(11);
-        }
+        int variant = setInt(chooseNumberStr + Type.allToString(), Type.values().length);
+        //TODO end this
     }
 
     public void listDecoration() {
@@ -90,34 +91,15 @@ public class TextMenu {
 
     private void listDecorationVariants() {
         int count = 0;
-        for (Class<?> class1 : possibleClasses) {
-            System.out.println(count + lineNumberDividerStr + class1.getSimpleName());
+        for (Type type : Type.values()) {
+            System.out.println(count + lineNumberDividerStr + type.toString());
             count++;
         }
     }
+    //Menu options
 
-    public static int scanInt(int max) {
 
-        while (true) {
-            try{
-                String tmp = System.console().readLine();
-                if(tmp.isEmpty()){
-                    return -1;
-                }
-                int out = Integer.parseInt(tmp);
-            if (out <= max || max == -1)
-                return out;
-            }catch(NumberFormatException e){
-                System.out.print(invalidNumberStr);
-            }
-        }
-    }
-
-    public static String scanString() {
-        return System.console().readLine();
-    }
-
-    // output text section
+//String literals
     private static final String listStr = "There are %d decoration(s):\n";
     private static final String lineNumberDividerStr = ". ";
     private static final String chooseNumberStr = "Enter number of the decoration: ";
@@ -127,9 +109,10 @@ public class TextMenu {
     private static final String mainMenuStr = """
             Choose option:
             a - add decoration
-            l - list decoration
+            l - list decorations
             d - delete decoration
             e - edit decoration
+            f - filter decorations
             x - exit
             >>>""";
         private static final String invalidDateStr = "Invalid entered date\nTry again!\n";
@@ -137,20 +120,32 @@ public class TextMenu {
     public static final String datePatternStr = "dd/mm/yyyy";
 
     public static final DateFormat dateFormat = new SimpleDateFormat(datePatternStr);
+//String literals
 
-    static {
-
-        possibleClasses = new Class<?>[] {
-                ElectricDecoration.class,
-                LongDecoration.class,
-                OrganicDecoration.class,
-                PieceDecoration.class
-        };
-
+//Scanner functions (for input)
+public static int scanInt(int max) {
+    while (true) {
+        try{
+            String tmp = System.console().readLine();
+            if(tmp.isEmpty()){
+                return -1;
+            }
+            int out = Integer.parseInt(tmp);
+        if (out <= max || max == -1)
+            return out;
+        }catch(NumberFormatException e){
+            System.out.print(invalidNumberStr);
+        }
     }
+}
 
-    private static final Class<?>[] possibleClasses;
+public static String scanString() {
+    return System.console().readLine();
+}
 
+
+
+//Section of asking for input
     public static int editInt(final int previous, final String message, final int max){
         System.out.printf(message + lastValueStr, String.valueOf(previous));
         int tmp = scanInt(-1);

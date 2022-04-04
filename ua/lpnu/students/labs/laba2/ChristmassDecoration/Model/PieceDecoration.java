@@ -13,18 +13,15 @@ public class PieceDecoration extends Template {
 
     protected int[] size = {0, 0, 0}; //3 value of width ,heihgt and depth
 
-    protected float pricePerPiece;
-
 
 
 //Constructors
     public PieceDecoration(String name, Usage usage, int avalaibleAmount, String color, String style,
             String material, int[] size, float pricePerPiece) {
-        super(name, classType, usage, material, avalaibleAmount);
+        super(name, classType, usage, material, avalaibleAmount, pricePerPiece);
         this.color = color;
         this.style = style;
         this.size = size;
-        this.pricePerPiece = pricePerPiece;
     }
 
     public PieceDecoration() {
@@ -53,7 +50,7 @@ public class PieceDecoration extends Template {
         }
         this.size = size_new;
 
-        this.pricePerPiece = TextMenu.editInt(this.pricePerPiece, priceStr)/100.0f;
+        this.price = TextMenu.editInt(this.price, priceStr)/100.0f;
     }
 
     @Override
@@ -71,7 +68,7 @@ public class PieceDecoration extends Template {
         }
         this.size = size_new;
 
-        this.pricePerPiece = TextMenu.setInt(priceStr)/100.0f;
+        this.price = TextMenu.setInt(priceStr)/100.0f;
     }
 
     @Override
@@ -80,7 +77,7 @@ public class PieceDecoration extends Template {
             this.color,
             this.style,
             this.size[0], this.size[1], this.size[2],
-            String.valueOf(this.pricePerPiece)
+            String.valueOf(this.price)
         );
     }
 
@@ -116,11 +113,4 @@ public class PieceDecoration extends Template {
     public void setSize(int[] size) {
         this.size = size;
     }
-    public float getPricePerPiece() {
-        return pricePerPiece;
-    }
-    public void setPricePerPiece(float pricePerPiece) {
-        this.pricePerPiece = pricePerPiece;
-    }
-    
 }

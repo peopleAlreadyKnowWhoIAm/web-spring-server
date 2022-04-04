@@ -17,19 +17,17 @@ public class LongDecoration extends Template {
     protected int minimalLength;
     protected int widthInCentimeters;
 
-    protected float pricePerMeter;
 
 
 
 //Constructors
     public LongDecoration(String name,Usage usage, int avalaibleAmount, List<String> color, String style,
             String material, int minimalLength, int widthInCentimeters, float pricePerMeter) {
-        super(name, classType, usage, material, avalaibleAmount);
+        super(name, classType, usage, material, avalaibleAmount, pricePerMeter);
         this.color = color;
         this.style = style;
         this.minimalLength = minimalLength;
         this.widthInCentimeters = widthInCentimeters;
-        this.pricePerMeter = pricePerMeter;
     }
 
     public LongDecoration() {
@@ -55,7 +53,7 @@ public class LongDecoration extends Template {
 
         this.widthInCentimeters = TextMenu.editInt(this.widthInCentimeters, widthStr);
 
-        this.pricePerMeter = TextMenu.editInt(this.pricePerMeter, priceStr)/100.0f;        
+        this.price = TextMenu.editInt(this.price, priceStr)/100.0f;        
     }
 
     @Override
@@ -70,7 +68,7 @@ public class LongDecoration extends Template {
 
         this.widthInCentimeters = TextMenu.setInt(widthStr);
 
-        this.pricePerMeter = TextMenu.setInt(priceStr)/100.0f;
+        this.price = TextMenu.setInt(priceStr)/100.0f;
     }
 
     @Override
@@ -80,7 +78,7 @@ public class LongDecoration extends Template {
             this.style,
             String.valueOf(this.minimalLength),
             String.valueOf(this.widthInCentimeters),
-            String.valueOf(this.pricePerMeter)
+            String.valueOf(this.price)
         );
     }
 
@@ -127,13 +125,5 @@ public class LongDecoration extends Template {
 
     public void setWidthInCentimeters(int widthInCentimeters) {
         this.widthInCentimeters = widthInCentimeters;
-    }
-
-    public float getPricePerMeter() {
-        return pricePerMeter;
-    }
-
-    public void setPricePerMeter(float pricePerMeter) {
-        this.pricePerMeter = pricePerMeter;
     }
 }

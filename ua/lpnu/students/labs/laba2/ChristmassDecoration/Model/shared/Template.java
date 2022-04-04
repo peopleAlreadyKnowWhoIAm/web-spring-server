@@ -14,15 +14,18 @@ public abstract class Template{
     
     protected int avalaibleAmount;
 
+    protected float price;
+
 
 
 //Constructors
-    protected Template(String name, Type type, Usage usage, String material, int avalaibleAmount) {
+    protected Template(String name, Type type, Usage usage, String material, int avalaibleAmount,float price) {
         this.name = name;
         this.usage = usage;
         this.avalaibleAmount = avalaibleAmount;
         this.type = type;
         this.material = material;
+        this.price = price;
     }
 
     protected Template(Type type) {
@@ -117,5 +120,13 @@ public abstract class Template{
 
     public void setAvalaibleAmount(int avalaibleAmount) {
         this.avalaibleAmount = avalaibleAmount;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 }
