@@ -1,16 +1,17 @@
 package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model;
 
+import java.util.LinkedList;
 import java.util.List;
 
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager.utils.FieldDescription;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
-import ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu.TextMenu;
 
 public class ElectricDecoration extends Template {
     public static final Type classType = Type.ELECTRIC_DECORATION;
 //Variables
-    private List<String> colorsOfLights;
+    private List<String> colorsOfLights = new LinkedList<>();
 
     private int length;
     private int amountLampsPerMeter;
@@ -37,35 +38,31 @@ public class ElectricDecoration extends Template {
     }
 
 
-//Overriding
     @Override
-    public void setAll(){
-        super.setAll();
+    public List<FieldDescription> getFields() {
+        List<FieldDescription> out = super.getFields();
 
-        this.colorsOfLights = TextMenu.setStringList(colorsStr);
+        // Colors
+        var tmpColors = TEMPLATE_FIELDS[0];
+        tmpColors.setValue(this.colorsOfLights);
+        out.add(tmpColors);
 
-        this.length = TextMenu.setInt(lengthStr);
+        // Length
+        var tmpLen = TEMPLATE_FIELDS[1];
+        tmpLen.setValue(this.length);
+        out.add(tmpLen);
 
-        this.amountLampsPerMeter = TextMenu.setInt(amountLampsStr);
+        // Amount lamps per meter
+        var tmpAmountLampsMeter = TEMPLATE_FIELDS[2];
+        tmpAmountLampsMeter.setValue(this.amountLampsPerMeter);
+        out.add(tmpAmountLampsMeter);
 
-        this.powerInWatts = TextMenu.setInt(powerStr);
+        // power
+        var tmpPower = TEMPLATE_FIELDS[3];
+        tmpPower.setValue(this.powerInWatts);
+        out.add(tmpPower);
 
-        this.price = TextMenu.setInt(priceStr)/100.0f;
-    }
-
-    @Override
-    public void editAll(){
-        super.editAll();
-        
-        this.colorsOfLights = TextMenu.editStringList(this.colorsOfLights, colorsStr);
-
-        this.length = TextMenu.editInt(this.length, lengthStr);
-
-        this.amountLampsPerMeter = TextMenu.editInt(this.amountLampsPerMeter, amountLampsStr);
-
-        this.powerInWatts = TextMenu.editInt(this.powerInWatts, powerStr);
-
-        this.price = TextMenu.editInt(this.price, priceStr)/100.0f;
+        return out;
     }
 
     @Override
@@ -83,14 +80,20 @@ public class ElectricDecoration extends Template {
     
 //String literals
 
-    private static final String colorsStr = "Colors of the lights\nSend empty to confirm\n";
+    private static final String colorsStr = "Colors of the lights\n";
     private static final String lengthStr = "Length: ";
     private static final String amountLampsStr = "Amount of lamps per meter: ";
     private static final String powerStr = "Power in watts: ";
-    private static final String priceStr = "Price multiplied by 100: ";
 
     private static final String descriptionStr = "Color of lights: %s\t"+ lengthStr + "%s\t" + amountLampsStr +"%s\t" + powerStr + "%s\tPrice: %s\t";
 //---------------
+
+private final FieldDescription[] TEMPLATE_FIELDS = {
+    new FieldDescription(colorsStr, null),
+    new FieldDescription(lengthStr, 0),
+    new FieldDescription(amountLampsStr, 0),
+    new FieldDescription(powerStr, 0)
+};
 
 
 //Getters//Setters

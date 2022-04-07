@@ -1,18 +1,19 @@
 package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model;
 
+import java.util.LinkedList;
 import java.util.List;
 
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager.utils.FieldDescription;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
-import ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu.TextMenu;
 
 public class LongDecoration extends Template {
     public static final Type classType = Type.LONG_DECORATION;
 //Variables
-    protected List<String> color;
+    protected List<String> color = new LinkedList<String>();
 
-    protected String style;
+    protected String style = new String();
 
     protected int minimalLength;
     protected int widthInCentimeters;
@@ -39,36 +40,51 @@ public class LongDecoration extends Template {
     }
 
 
-
-//Overriding
+    // Text menu functions
     @Override
-    public void editAll(){
-        super.editAll();
+    @SuppressWarnings("unchecked")
+    public void setFields(final List<FieldDescription> fields) {
 
-        this.color = TextMenu.editStringList(this.color, colorsStr);
+        // Colors
+        this.color = (List<String>) fields.get(5).getValue();
 
-        this.style = TextMenu.editString(this.style, styleStr);
+        // Style
+        this.style = (String) fields.get(6).getValue();
 
-        this.minimalLength = TextMenu.editInt(this.minimalLength, minimalLengthStr);
+        // Minimal length
+        this.minimalLength = (Integer) fields.get(7).getValue();
 
-        this.widthInCentimeters = TextMenu.editInt(this.widthInCentimeters, widthStr);
+        //Width
+        this.widthInCentimeters = (Integer) fields.get(8).getValue();
 
-        this.price = TextMenu.editInt(this.price, priceStr)/100.0f;        
+        super.setFields(fields);
     }
 
     @Override
-    public void setAll(){
-        super.setAll();
+    public List<FieldDescription> getFields() {
+        List<FieldDescription> out = super.getFields();
 
-        this.color = TextMenu.setStringList(colorsStr);
+        // Colors
+        var tmpColors = TEMPLATE_FIELDS[0];
+        tmpColors.setValue(this.color);
+        out.add(tmpColors);
 
-        this.style = TextMenu.setString(styleStr);
+        // Style
+        var tmpStyle = TEMPLATE_FIELDS[1];
+        tmpStyle.setValue(this.style);
+        out.add(tmpStyle);
 
-        this.minimalLength = TextMenu.setInt(minimalLengthStr);
+        // Minimal length
+        var tmpMinLen = TEMPLATE_FIELDS[2];
+        tmpMinLen.setValue(this.minimalLength);
+        out.add(tmpMinLen);
 
-        this.widthInCentimeters = TextMenu.setInt(widthStr);
+        // Width
+        var tmpWidth = TEMPLATE_FIELDS[3];
+        tmpWidth.setValue(this.widthInCentimeters);
+        out.add(tmpWidth);
 
-        this.price = TextMenu.setInt(priceStr)/100.0f;
+        return out;
     }
 
     @Override
@@ -88,11 +104,15 @@ public class LongDecoration extends Template {
     private static final String styleStr = "Style: ";
     private static final String minimalLengthStr = "Minimal length selling: ";
     private static final String widthStr = "Width: ";
-    private static final String priceStr = "Price per meter multiplied by 100: ";
 
     private static final String descriptionStr = "Colors: %s\t"+ styleStr + "%s\t" + minimalLengthStr +"%s\t" + widthStr + "%s\tPrice per meter: %s\t";
 
-
+    private final FieldDescription[] TEMPLATE_FIELDS = {
+        new FieldDescription(colorsStr, null),
+        new FieldDescription(styleStr, null),
+        new FieldDescription(minimalLengthStr, null),
+        new FieldDescription(widthStr, null)
+    };
 
 //Getters/Setters
     public List<String> getColor() {

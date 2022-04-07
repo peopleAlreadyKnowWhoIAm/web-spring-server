@@ -1,18 +1,22 @@
 package ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager.utils.FieldDescription;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.ElectricDecoration;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.LongDecoration;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.OrganicDecoration;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.PieceDecoration;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 
 public class Manager {
+
     public Manager(List<Template> decorations) {
         this.decorations = decorations;
     }
@@ -21,7 +25,6 @@ public class Manager {
         decorations = new ArrayList<Template>();
     }
 
-    protected List<Template> decorations;
     public List<Template> getDecorations() {
         return decorations;
     }
@@ -30,26 +33,56 @@ public class Manager {
         this.decorations.add(decorations);
     }
 
-    //Initing list of classes
-    public static final Class<?>[] POSSIBLE_CLASSES =  new Class<?>[]{
-        ElectricDecoration.class,
-        LongDecoration.class,
-        OrganicDecoration.class,
-        PieceDecoration.class
+    public void deleteDecoration(int pos) {
+        this.decorations.remove(pos);
+    }
 
-    
-};
-    public static final Map<Class<?>, Map<Method, String>> setMap;
-    public static final Map<Class<?>, Map<Method, String>> getMap;
+    public List<Type> getPossibleTypes() {
+        return Arrays.asList(Type.values());
+    }
 
-    static{
-        setMap = new HashMap<>();
+    public List<FieldDescription> getFieldsOf(Type type) {
+        try {
+            Template tmp = (Template) POSSIBLE_CLASSES.get(type).getConstructor().newInstance();
+            return tmp.getFields();
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-        Map<Method, String> templateSets = new HashMap<>();
-        var a () -> = PieceDecoration::setAvalaibleAmount;
-        templateSets.put(Template::setAvalaibleAmount, null);
-        Map<Method, String> pieceDecorationSets = new HashMap<>();
-        pieceDecorationSets.put()
+    public List<FieldDescription> getFieldsOf(int pos) {
+        return decorations.get(pos).getFields();
+    }
 
+    public void addDecoration(Type type, List<FieldDescription> fields) {
+        try {
+            Template tmp = (Template) POSSIBLE_CLASSES.get(type).getConstructor().newInstance();
+            tmp.setFields(fields);
+            decorations.add(tmp);
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setDecoration(int position, List<FieldDescription> fields) {
+        Template tmp = decorations.get(position);
+        tmp.setFields(fields);
+        decorations.add(tmp);
+    }
+
+    protected List<Template> decorations;
+
+    // Initing list of classes
+    public static final Map<Type, Class<?>> POSSIBLE_CLASSES;
+
+    static {
+        POSSIBLE_CLASSES = new HashMap<>();
+        POSSIBLE_CLASSES.put(Type.ELECTRIC_DECORATION, ElectricDecoration.class);
+        POSSIBLE_CLASSES.put(Type.LONG_DECORATION, LongDecoration.class);
+        POSSIBLE_CLASSES.put(Type.ORGANIC_DECORATION, OrganicDecoration.class);
+        POSSIBLE_CLASSES.put(Type.PIECE_DECORATION, PieceDecoration.class);
     }
 }

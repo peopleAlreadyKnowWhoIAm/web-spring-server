@@ -1,7 +1,7 @@
 package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared;
 
 public enum Usage {
-    OUTSIDE_DECORATION, FOR_CHRISTMASS, UNIVERSAL, FOR_WINDOWS;
+    UNKNOWN, OUTSIDE_DECORATION, FOR_CHRISTMASS, UNIVERSAL, FOR_WINDOWS;
 
     public static String allToString(){
         int count = 0;

@@ -6,10 +6,8 @@ public enum Type {
     public static String allToString(){
         String out = new String();
         Type[] types = Type.values();
-        int count = 0;
         for(Type type: types){
-            out += String.format("%d - %s\n", count, type.toString());
-            count++;
+            out += String.format("%d - %s\n", type.ordinal(), type.toString());
         }
         return out;
     }
