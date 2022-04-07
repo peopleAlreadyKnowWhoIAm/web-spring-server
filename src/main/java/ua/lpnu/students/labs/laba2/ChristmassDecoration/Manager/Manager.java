@@ -29,6 +29,7 @@ public class Manager {
     //All decorations
     protected List<Template> decorations;
 
+    protected Manipulator manipulator = new Manipulator();
     // Initing Map of classes
     public static final Map<Type, Class<?>> POSSIBLE_CLASSES;
     static {
@@ -85,6 +86,19 @@ public class Manager {
 
     public List<Type> getPossibleTypes() {
         return Arrays.asList(Type.values());
+    }
+
+    public List<FieldDescription> getFilters() {
+        return manipulator.getFilters();
+    }
+
+    public void setFilters(List<FieldDescription> filters) {
+        manipulator.setFilters(filters);
+    }
+    public List<Template> filter(){
+        manipulator.setAllDecorations(decorations);
+        manipulator.filter();
+        return manipulator.getFilteredDecorations();
     }
 
 }

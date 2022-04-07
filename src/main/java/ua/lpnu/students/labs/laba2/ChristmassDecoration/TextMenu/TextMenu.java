@@ -51,10 +51,25 @@ public class TextMenu {
     }
 
 
+    //Menu options
     private void filterDecorations() {
+        List<FieldDescription> filters = manager.getFilters();
+        filters.forEach((field)->{
+            Object a = (Object) ConsoleTextFormatter.set(field.getValue().getClass().cast(field.getValue()), field.getMessage());
+            field.setValue(a);
+        });
+        
+        manager.setFilters(filters);
+        
+        List<Template> filtered = manager.filter();
+
+        filtered.forEach((decoration) -> {
+            ConsoleTextFormatter.print(String.format("%s\n", decoration.toString()));
+        });
+
     }
 
-    //Menu options
+
     public void addDecoration() {
         ConsoleTextFormatter.print(chooseTypeOfTheDecoration);
 

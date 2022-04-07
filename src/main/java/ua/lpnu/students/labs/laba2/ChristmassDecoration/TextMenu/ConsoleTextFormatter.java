@@ -213,7 +213,90 @@ public class ConsoleTextFormatter{
         return Type.values()[scanInt(Type.values().length - 1)];
     }
 
+    private static List<Type> setTypeList(String message) {
+        print(message);
+        print(Type.allToString());
+        List<Type> out = new LinkedList<>();
+        int tmp = -1;
+        do {
+            tmp = scanInt(Type.values().length);
+            if (tmp != -1) {
+                out.add(Type.values()[tmp]);
+            }
+        } while (tmp != -1);
+        return out;
+    }
+
+
+    public static List<Usage> editUsageList(final List<Usage> previous, final String message) {
+        print(String.format(message + lastValueStr, previous.toString()));
+        List<Usage> out = new LinkedList<>();
+        print(Usage.allToString());
+        int tmp = -1;
+        do {
+            tmp = scanInt(Usage.values().length - 1);
+            if (tmp != -1) {
+                out.add(Usage.values()[tmp]);
+            }
+        } while (tmp != -1);
+        if (out.isEmpty()) {
+            return previous;
+        }
+        return out;
+    }
+
+    public static List<Usage> setUsageList(final String message) {
+        print(message);
+        print(Usage.allToString());
+        List<Usage> out = new LinkedList<>();
+        int tmp = -1;
+        do {
+            tmp = scanInt(Usage.values().length);
+            if (tmp != -1) {
+                out.add(Usage.values()[tmp]);
+            }
+        } while (tmp != -1);
+        return out;
+    }
+
+    @SuppressWarnings("unchecked")
     public static Object edit(final Object a, final String message){
+        String clazz = a.getClass().getName();
+
+        if(clazz == String.class.getName()){
+            return editString((String)a, message);
+        }
+        if(clazz == Integer.class.getName()){
+            return editInt((Integer)a, message);
+        }
+        if(clazz == List.class.getName()){
+            var list = (List<?>) a;
+            var listItemClass = list.get(0).getClass();
+
+            if(listItemClass == String.class){
+                return editStringList((List<String>)a, message);
+            }
+
+            if(listItemClass == Usage.class){
+                return editUsageList((List<Usage>)a, message);
+            }
+
+            return null;
+        }
+        if(clazz == Date.class.getName()){
+            return editDate((Date)a, message);
+        }
+        if(clazz == Usage.class.getName()){
+            return editUsage((Usage)a, message);
+        }
+        if(clazz == Size.class.getName()){
+            return editSize((Size)a, message);
+        }
+        if(clazz == Float.class.getName()){
+            return editFloat((Float)a, message);
+        }
+
+    
         return null;
     }
 
@@ -227,7 +310,22 @@ public class ConsoleTextFormatter{
             return setInt(message);
         }
         if(clazz == List.class.getName()){
-            return setStringList(message);
+            var list = (List<?>) a;
+            var listItemClass = list.get(0).getClass();
+
+            if(listItemClass == String.class){
+                return setStringList(message);
+            }
+
+            if(listItemClass == Type.class){
+                return setTypeList(message);
+            }
+
+            if(listItemClass == Usage.class){
+                return setUsageList(message);
+            }
+
+            return null;
         }
         if(clazz == Date.class.getName()){
             return setDate(message);
@@ -248,5 +346,4 @@ public class ConsoleTextFormatter{
     
         return null;
     }
-
 }
