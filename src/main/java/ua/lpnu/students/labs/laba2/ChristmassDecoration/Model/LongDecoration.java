@@ -10,12 +10,11 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 
-
 @Setter
 @Getter
 public class LongDecoration extends Template {
-    public static final Type classType = Type.LONG_DECORATION;
-//Variables
+    public static final Type CLASS_TYPE = Type.LONG_DECORATION;
+    // Variables
     protected List<String> color = new LinkedList<String>();
 
     protected String style = new String();
@@ -23,13 +22,10 @@ public class LongDecoration extends Template {
     protected int minimalLength;
     protected int widthInCentimeters;
 
-
-
-
-//Constructors
-    public LongDecoration(String name,Usage usage, int avalaibleAmount, List<String> color, String style,
+    // Constructors
+    public LongDecoration(String name, Usage usage, int avalaibleAmount, List<String> color, String style,
             String material, int minimalLength, int widthInCentimeters, float pricePerMeter) {
-        super(name, classType, usage, material, avalaibleAmount, pricePerMeter);
+        super(name, CLASS_TYPE, usage, material, avalaibleAmount, pricePerMeter);
         this.color = color;
         this.style = style;
         this.minimalLength = minimalLength;
@@ -37,13 +33,12 @@ public class LongDecoration extends Template {
     }
 
     public LongDecoration() {
-        super(classType);
+        super(CLASS_TYPE);
     }
 
-    protected LongDecoration(Type type){
+    protected LongDecoration(Type type) {
         super(type);
     }
-
 
     // Text menu functions
     @Override
@@ -59,7 +54,7 @@ public class LongDecoration extends Template {
         // Minimal length
         this.minimalLength = (Integer) fields.get(7).getValue();
 
-        //Width
+        // Width
         this.widthInCentimeters = (Integer) fields.get(8).getValue();
 
         super.setFields(fields);
@@ -93,29 +88,29 @@ public class LongDecoration extends Template {
     }
 
     @Override
-    public String toString(){
-        return super.toString() + String.format(descriptionStr,
-            this.color.toString(),
-            this.style,
-            String.valueOf(this.minimalLength),
-            String.valueOf(this.widthInCentimeters),
-            String.valueOf(this.price)
-        );
+    public String toString() {
+        return super.toString() + String.format(DESCRIPTION_STR,
+                this.color.toString(),
+                this.style,
+                String.valueOf(this.minimalLength),
+                String.valueOf(this.widthInCentimeters),
+                String.valueOf(this.price));
     }
 
-//String literals 
-    
-    private static final String colorsStr = "Colors of the decoration\nSend empty to confirm\n";
-    private static final String styleStr = "Style: ";
-    private static final String minimalLengthStr = "Minimal length selling: ";
-    private static final String widthStr = "Width: ";
+    // String literals
 
-    private static final String descriptionStr = "Colors: %s\t"+ styleStr + "%s\t" + minimalLengthStr +"%s\t" + widthStr + "%s\tPrice per meter: %s\t";
+    private static final String COLORS_STR = "Colors of the decoration\nSend empty to confirm\n";
+    private static final String STYLE_STR = "Style: ";
+    private static final String MINIMAL_LENGTH_STR = "Minimal length selling: ";
+    private static final String WIDTH_STR = "Width: ";
+
+    private static final String DESCRIPTION_STR = "Colors: %s\t" + STYLE_STR + "%s\t" + MINIMAL_LENGTH_STR + "%s\t"
+            + WIDTH_STR + "%s\tPrice per meter: %s\t";
 
     private final FieldDescription[] TEMPLATE_FIELDS = {
-        new FieldDescription(null, colorsStr),
-        new FieldDescription(null, styleStr),
-        new FieldDescription(null, minimalLengthStr),
-        new FieldDescription(null, widthStr)
+            new FieldDescription(null, COLORS_STR),
+            new FieldDescription(null, STYLE_STR),
+            new FieldDescription(null, MINIMAL_LENGTH_STR),
+            new FieldDescription(null, WIDTH_STR)
     };
 }

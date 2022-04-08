@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class FieldDescription{
+public class FieldDescription {
     private Object value;
     private final String message;
 }

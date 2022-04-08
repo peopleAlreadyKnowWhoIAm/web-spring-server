@@ -11,11 +11,10 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu.ConsoleTextFormatter;
 
-
 @Setter
 @Getter
 public class OrganicDecoration extends PieceDecoration {
-    public static final Type classType = Type.ORGANIC_DECORATION;
+    public static final Type CLASS_TYPE = Type.ORGANIC_DECORATION;
     // Variables
     protected int numberOfDaysToExpiration;
 
@@ -30,7 +29,7 @@ public class OrganicDecoration extends PieceDecoration {
     }
 
     public OrganicDecoration() {
-        super(classType);
+        super(CLASS_TYPE);
     }
 
     protected OrganicDecoration(Type type) {
@@ -67,23 +66,23 @@ public class OrganicDecoration extends PieceDecoration {
         return out;
     }
 
-
     @Override
     public String toString() {
-        return super.toString() + String.format(descriptionStr, ConsoleTextFormatter.dateFormat.format(this.dateOfProduction),
-                String.valueOf(this.numberOfDaysToExpiration));
+        return super.toString()
+                + String.format(DSCRIPTION_STR, ConsoleTextFormatter.DATE_FORMATTER.format(this.dateOfProduction),
+                        String.valueOf(this.numberOfDaysToExpiration));
     }
 
     // String literals
 
-    private static final String dateStr = "Date of production using patern " + ConsoleTextFormatter.datePatternStr + " :";
-    private static final String expirationTermStr = "Number of days to expire: ";
+    private static final String DATE_STR = "Date of production using patern " + ConsoleTextFormatter.DATE_PATTERN_STR
+            + " :";
+    private static final String EXPIRATION_TERM_STR = "Number of days to expire: ";
 
-    private static final String descriptionStr = "Date of production: %s\t" + expirationTermStr + "%s\t";
-
+    private static final String DSCRIPTION_STR = "Date of production: %s\t" + EXPIRATION_TERM_STR + "%s\t";
 
     private final FieldDescription[] TEMPLATE_FIELDS = {
-        new FieldDescription(null, expirationTermStr),
-        new FieldDescription(null, dateStr)
+            new FieldDescription(null, EXPIRATION_TERM_STR),
+            new FieldDescription(null, DATE_STR)
     };
 }

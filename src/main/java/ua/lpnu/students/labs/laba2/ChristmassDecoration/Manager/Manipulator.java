@@ -36,59 +36,108 @@ public class Manipulator {
 
     float priceFrom = 0.0f, priceTo = 0.0f;
 
+    private static final String BY_TYPE = "By type";
+    private static final String BY_NAME = "By name";
+    private static final String BY_MATERIALS = "By material";
+    private static final String BY_STYLE = "By style";
+    private static final String BY_COLOR = "By color";
+    private static final String BY_USAGE = "By usage";
+    private static final String AMOUNT_MORE = "More than";
+    private static final String PRICE_FROM = "Price from";
+    private static final String PRICE_TO = "Price to";
+    private static final String BY_PRICE = "By price";
+    private static final String BY_AMOUNT = "By amount";
+    private static final String DIVIDER = ": ";
+
     private static final FieldDescription[] FILTER_TYPES = {
-        new FieldDescription(null, "By type: "),
-        new FieldDescription(null, "By name: "),
-        new FieldDescription(null, "By material: "),
-        new FieldDescription(null, "By style: "),
-        new FieldDescription(null, "By color: "),
-        new FieldDescription(null, "By usage: "),
-        new FieldDescription(null, "More than: "),
-        new FieldDescription(null, "Price from: "),
-        new FieldDescription(null, "Price to: ")
+        new FieldDescription(null, BY_TYPE + DIVIDER),
+        new FieldDescription(null, BY_NAME + DIVIDER),
+        new FieldDescription(null, BY_MATERIALS + DIVIDER),
+        new FieldDescription(null, BY_STYLE + DIVIDER),
+        new FieldDescription(null, BY_COLOR + DIVIDER),
+        new FieldDescription(null, BY_USAGE + DIVIDER),
+        new FieldDescription(null, AMOUNT_MORE + DIVIDER),
+        new FieldDescription(null, PRICE_FROM + DIVIDER),
+        new FieldDescription(null, PRICE_TO + DIVIDER)
+    };
+
+    @Getter
+    private static final String[] AVAILABLE_SORTING = {
+        BY_NAME, BY_PRICE, BY_AMOUNT
     };
 
 //Set sorting
     public void sortByName(boolean descending){
-        filteredDecorations.sort(Comparator.comparing(Template::getName));
+        filteredDecorations.sort(Comparator.comparing((a) ->{
+            var tmp = (Template)a;
+            return tmp.getName();
+        } ));
         if(descending){
             Collections.reverse(filteredDecorations);
         }
     }
 
     public void sortByPrice(boolean descending){
-        filteredDecorations.sort(Comparator.comparing(Template::getPrice));
+        filteredDecorations.sort(Comparator.comparing((a) ->{
+            var tmp = (Template)a;
+            return tmp.getPrice();
+        } ));
         if(descending){
             Collections.reverse(filteredDecorations);
         }
     }
 
+    public void sortByAmount(boolean descending){
+        filteredDecorations.sort(Comparator.comparing((a) ->{
+            var tmp = (Template)a;
+            return tmp.getAvalaibleAmount();
+        } ));
+        if(descending){
+            Collections.reverse(filteredDecorations);
+        }
+    }
+
+    public void sort(final String sortingType, boolean descending){
+        switch(sortingType){
+            case BY_NAME:
+                sortByName(descending);
+                break;
+            case BY_PRICE:
+                sortByPrice(descending);
+                break;
+            case BY_AMOUNT:
+                sortByAmount(descending);
+                break;
+            default:
+
+        }
+    }
 
 //Filtering utils
     public void filter(){
         //Filter types
-        if(types != null)filterPart(a-> types.contains(a.getType()));
+        if(!types.isEmpty())filterPart(a-> types.contains(a.getType()));
 
         //Filter names
-        if(names != null)filterPart(a -> names.contains(a.getName()));
+        if(!names.isEmpty())filterPart(a -> names.contains(a.getName()));
 
         //Filter materials
-        if(materials != null)filterPart(a -> materials.contains(a.getMaterial()));
+        if(!materials.isEmpty())filterPart(a -> materials.contains(a.getMaterial()));
 
         //Filter styles
-        if(styles != null)filterPart(a -> false ); //TODO end this, make it work
+        if(!styles.isEmpty())filterPart(a -> false ); //TODO end this, make it work
 
         //Filter colors
-        if(colors != null)filterPart(a -> false); //TODO and this
+        if(!colors.isEmpty())filterPart(a -> false); //TODO and this
 
         //Filter usages
-        if(usages != null)filterPart(a -> usages.contains(a.getUsage()));
+        if(!usages.isEmpty())filterPart(a -> usages.contains(a.getUsage()));
 
         //Filter minimal amount
-        filterPart(a -> a.getAvalaibleAmount() >= this.minAmount );
+        if(minAmount != 0)filterPart(a -> a.getAvalaibleAmount() >= this.minAmount );
 
         //Filter price
-        filterPart(a -> this.priceFrom >= a.getPrice() && this.priceTo <= a.getPrice());
+        if(priceTo != 0)filterPart(a -> this.priceFrom >= a.getPrice() && this.priceTo <= a.getPrice());
     }
 
     private void filterPart(Predicate<Template> filter){

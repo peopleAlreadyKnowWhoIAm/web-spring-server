@@ -10,24 +10,22 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 
-
 @Getter
 @Setter
 public class ElectricDecoration extends Template {
-    public static final Type classType = Type.ELECTRIC_DECORATION;
-//Variables
+    public static final Type CLASS_TYPE = Type.ELECTRIC_DECORATION;
+    // Variables
     private List<String> colorsOfLights = new LinkedList<>();
 
     private int length;
     private int amountLampsPerMeter;
     private int powerInWatts;
 
-
-
-//Constructors
-    public ElectricDecoration(String name, Usage usage, String material, int avalaibleAmount, List<String> colorsOfLights, 
+    // Constructors
+    public ElectricDecoration(String name, Usage usage, String material, int avalaibleAmount,
+            List<String> colorsOfLights,
             int length, int amountLampsPerMeter, int powerInWatts, float pricePerPiece) {
-        super(name, classType , usage, material, avalaibleAmount, pricePerPiece);
+        super(name, CLASS_TYPE, usage, material, avalaibleAmount, pricePerPiece);
         this.colorsOfLights = colorsOfLights;
         this.length = length;
         this.amountLampsPerMeter = amountLampsPerMeter;
@@ -35,13 +33,12 @@ public class ElectricDecoration extends Template {
     }
 
     public ElectricDecoration() {
-        super(classType);
+        super(CLASS_TYPE);
     }
 
-    protected ElectricDecoration(Type type){
+    protected ElectricDecoration(Type type) {
         super(type);
     }
-
 
     @Override
     public List<FieldDescription> getFields() {
@@ -71,32 +68,31 @@ public class ElectricDecoration extends Template {
     }
 
     @Override
-    public String toString(){
-        return super.toString() + String.format(descriptionStr, 
-            this.colorsOfLights.toString(),
-            String.valueOf(this.length),
-            String.valueOf(this.amountLampsPerMeter),
-            String.valueOf(this.powerInWatts),
-            String.valueOf(this.price)
-        );
+    public String toString() {
+        return super.toString() + String.format(DESCRIPTION_STR,
+                this.colorsOfLights.toString(),
+                String.valueOf(this.length),
+                String.valueOf(this.amountLampsPerMeter),
+                String.valueOf(this.powerInWatts),
+                String.valueOf(this.price));
     }
 
+    // String literals
 
-    
-//String literals
+    private static final String COLORS_STR = "Colors of the lights\n";
+    private static final String LENGTH_STR = "Length: ";
+    private static final String AMOUNT_LAMPS_STR = "Amount of lamps per meter: ";
+    private static final String POWER_STR = "Power in watts: ";
 
-    private static final String colorsStr = "Colors of the lights\n";
-    private static final String lengthStr = "Length: ";
-    private static final String amountLampsStr = "Amount of lamps per meter: ";
-    private static final String powerStr = "Power in watts: ";
+    private static final String DESCRIPTION_STR = "Color of lights: %s\t" + LENGTH_STR + "%s\t" + AMOUNT_LAMPS_STR
+            + "%s\t"
+            + POWER_STR + "%s\tPrice: %s\t";
+    // ---------------
 
-    private static final String descriptionStr = "Color of lights: %s\t"+ lengthStr + "%s\t" + amountLampsStr +"%s\t" + powerStr + "%s\tPrice: %s\t";
-//---------------
-
-private final FieldDescription[] TEMPLATE_FIELDS = {
-    new FieldDescription(null, colorsStr),
-    new FieldDescription(null, lengthStr),
-    new FieldDescription(null, amountLampsStr),
-    new FieldDescription(null, powerStr)
-};
+    private final FieldDescription[] TEMPLATE_FIELDS = {
+            new FieldDescription(null, COLORS_STR),
+            new FieldDescription(null, LENGTH_STR),
+            new FieldDescription(null, AMOUNT_LAMPS_STR),
+            new FieldDescription(null, POWER_STR)
+    };
 }

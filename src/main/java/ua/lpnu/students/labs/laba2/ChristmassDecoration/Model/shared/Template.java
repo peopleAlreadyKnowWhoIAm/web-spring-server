@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager.utils.FieldDescription;
 
-
 @Getter
 @Setter
 public abstract class Template {
@@ -90,27 +89,28 @@ public abstract class Template {
     // Overriding
     @Override
     public String toString() {
-        return String.format(descriptionStr, this.name, this.type, this.usage.toString(),
+        return String.format(DESCRIPTION_STR, this.name, this.type, this.usage.toString(),
                 String.valueOf(this.avalaibleAmount), this.material);
     }
 
     private final FieldDescription[] TEMPLATE_FIELDS = {
-            new FieldDescription(null, nameStr),
-            new FieldDescription(null, usageStr),
-            new FieldDescription(null, materialStr),
-            new FieldDescription(null, availableStr),
-            new FieldDescription(null, "Price:")
+            new FieldDescription(null, NAME_STR),
+            new FieldDescription(null, USAGE_STR),
+            new FieldDescription(null, MATERIAL_STR),
+            new FieldDescription(null, AVAILABLE_AMOUNT_STR),
+            new FieldDescription(null, PRICE_STR)
     };
 
     // String literals
-    private static final String nameStr = "Name: ";
-    private static final String usageStr = "Usage: ";
-    private static final String typeStr = "Type: ";
-    private static final String availableStr = "Available: ";
-    private static final String materialStr = "Material: ";
+    private static final String NAME_STR = "Name: ";
+    private static final String USAGE_STR = "Usage: ";
+    private static final String TYPE_STR = "Type: ";
+    private static final String AVAILABLE_AMOUNT_STR = "Available: ";
+    private static final String MATERIAL_STR = "Material: ";
+    private static final String PRICE_STR = "Price: ";
 
-    private static final String descriptionStr = nameStr + "%s\t" + typeStr + "%s\t" + usageStr + "%s\t" + availableStr
+    private static final String DESCRIPTION_STR = NAME_STR + "%s\t" + TYPE_STR + "%s\t" + USAGE_STR + "%s\t" + AVAILABLE_AMOUNT_STR
             + "%s\t"
-            + materialStr + "%s\t";
+            + MATERIAL_STR + "%s\t";
 
 }

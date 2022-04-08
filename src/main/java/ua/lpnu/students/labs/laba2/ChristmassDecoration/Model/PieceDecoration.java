@@ -10,11 +10,10 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 
-
 @Getter
 @Setter
 public class PieceDecoration extends Template {
-    public static final Type classType = Type.PIECE_DECORATION;
+    public static final Type CLASS_TYPE = Type.PIECE_DECORATION;
     // Variables
     protected String color = new String();
     protected String style = new String();
@@ -24,14 +23,14 @@ public class PieceDecoration extends Template {
     // Constructors
     public PieceDecoration(String name, Usage usage, int avalaibleAmount, String color, String style,
             String material, Size size, float pricePerPiece) {
-        super(name, classType, usage, material, avalaibleAmount, pricePerPiece);
+        super(name, CLASS_TYPE, usage, material, avalaibleAmount, pricePerPiece);
         this.color = color;
         this.style = style;
         this.size = size;
     }
 
     public PieceDecoration() {
-        super(classType);
+        super(CLASS_TYPE);
     }
 
     protected PieceDecoration(Type type) {
@@ -78,7 +77,7 @@ public class PieceDecoration extends Template {
 
     @Override
     public String toString() {
-        return super.toString() + String.format(descriptionStr,
+        return super.toString() + String.format(DESCRIPTION_STR,
                 this.color,
                 this.style,
                 this.size.width, this.size.height, this.size.depth,
@@ -86,13 +85,13 @@ public class PieceDecoration extends Template {
     }
 
     // String literals
-    private static final String colorStr = "Color: ";
-    private static final String styleStr = "Style: ";
-    private static final String descriptionStr = colorStr + "%s\t" + styleStr
+    private static final String COLOR_STR = "Color: ";
+    private static final String STYLE_STR = "Style: ";
+    private static final String DESCRIPTION_STR = COLOR_STR + "%s\t" + STYLE_STR
             + "%s\tDemesions: %d x %d x %d\t Price: %s";
     private final FieldDescription[] TEMPLATE_FIELDS = {
-            new FieldDescription("Color: ", null),
-            new FieldDescription("Style: ", null),
-            new FieldDescription("Demensions: width, height, depth: \n", null)
+            new FieldDescription(null, COLOR_STR),
+            new FieldDescription(null, STYLE_STR),
+            new FieldDescription(null, "Demensions: width, height, depth: \n")
     };
 }

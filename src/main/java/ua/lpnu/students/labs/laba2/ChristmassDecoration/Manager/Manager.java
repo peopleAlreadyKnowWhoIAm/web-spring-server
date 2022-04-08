@@ -25,8 +25,7 @@ public class Manager {
         decorations = new ArrayList<Template>();
     }
 
-
-    //All decorations
+    // All decorations
     protected List<Template> decorations;
 
     protected Manipulator manipulator = new Manipulator();
@@ -95,7 +94,16 @@ public class Manager {
     public void setFilters(List<FieldDescription> filters) {
         manipulator.setFilters(filters);
     }
-    public List<Template> filter(){
+
+    public String[] getSortings() {
+        return Manipulator.getAVAILABLE_SORTING();
+    }
+
+    public void setSorting(final String sorting, final boolean descending) {
+        manipulator.sort(sorting, descending);
+    }
+
+    public List<Template> filter() {
         manipulator.setAllDecorations(decorations);
         manipulator.filter();
         return manipulator.getFilteredDecorations();

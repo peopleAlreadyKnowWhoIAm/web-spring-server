@@ -10,16 +10,18 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Size;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 
-public class ConsoleTextFormatter{
-    private static final String invalidDateStr = "Invalid entered date\nTry again!\n";
-    private static final String lastValueStr = "(%s) ";
-    private static final String invalidNumberStr = "Incorrect number\n try again\n";
+public class ConsoleTextFormatter {
+    private static final String INVALID_DATE_STR = "Invalid entered date\nTry again!\n";
+    private static final String LAST_VALUE_STR = "(%s) ";
+    private static final String INVALID_NUMBER_STR = "Incorrect number\n try again\n";
 
-    public static final String datePatternStr = "dd/mm/yyyy";
+    private static final String BOOLEAN_OPTIONS = "0. - false\n1. - true\n";
 
-    public static final DateFormat dateFormat = new SimpleDateFormat(datePatternStr);
+    public static final String DATE_PATTERN_STR = "dd/mm/yyyy";
 
-    public static void print(String str){
+    public static final DateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_PATTERN_STR);
+
+    public static void print(String str) {
         System.out.print(str);
     }
 
@@ -35,7 +37,7 @@ public class ConsoleTextFormatter{
                 if (out <= max || max == -1)
                     return out;
             } catch (NumberFormatException e) {
-                print(invalidNumberStr);
+                print(INVALID_NUMBER_STR);
             }
         }
     }
@@ -46,7 +48,7 @@ public class ConsoleTextFormatter{
 
     // Section of asking for input
     public static int editInt(final int previous, final String message) {
-        print(String.format(message + lastValueStr, String.valueOf(previous)));
+        print(String.format(message + LAST_VALUE_STR, String.valueOf(previous)));
         int tmp = scanInt(-1);
         if (tmp == -1) {
             return previous;
@@ -54,13 +56,13 @@ public class ConsoleTextFormatter{
         return tmp;
     }
 
-    public static int setInt( final String message) {
+    public static int setInt(final String message) {
         print(message);
         return scanInt(-1);
     }
 
-    public static float editFloat(final float previous, final String message){
-        print(String.format(message + lastValueStr, String.valueOf(previous)));
+    public static float editFloat(final float previous, final String message) {
+        print(String.format(message + LAST_VALUE_STR, String.valueOf(previous)));
 
         while (true) {
             try {
@@ -71,12 +73,12 @@ public class ConsoleTextFormatter{
                 float out = Float.parseFloat(tmp);
                 return out;
             } catch (NumberFormatException e) {
-                print(invalidNumberStr);
+                print(INVALID_NUMBER_STR);
             }
         }
     }
 
-    public static float setFloat(final String message){
+    public static float setFloat(final String message) {
         print(message);
         while (true) {
             try {
@@ -84,13 +86,13 @@ public class ConsoleTextFormatter{
                 float out = Float.parseFloat(tmp);
                 return out;
             } catch (NumberFormatException e) {
-                print(invalidNumberStr);
+                print(INVALID_NUMBER_STR);
             }
         }
     }
 
     public static String editString(final String previous, final String message) {
-        print(String.format(message + lastValueStr, previous));
+        print(String.format(message + LAST_VALUE_STR, previous));
         String tmp = scanString();
         if (tmp.isEmpty()) {
             return previous;
@@ -104,7 +106,7 @@ public class ConsoleTextFormatter{
     }
 
     public static List<String> editStringList(final List<String> previous, final String message) {
-        print(String.format(message + lastValueStr, previous.toString()));
+        print(String.format(message + LAST_VALUE_STR, previous.toString()));
         List<String> out = new LinkedList<>();
         String tmp = new String();
         do {
@@ -133,7 +135,7 @@ public class ConsoleTextFormatter{
     }
 
     public static Date editDate(final Date previous, final String message) {
-        print(String.format(message + lastValueStr, dateFormat.format(previous)));
+        print(String.format(message + LAST_VALUE_STR, DATE_FORMATTER.format(previous)));
         Date out;
         while (true) {
             String buf = scanString();
@@ -141,10 +143,10 @@ public class ConsoleTextFormatter{
                 return previous;
             }
             try {
-                out = dateFormat.parse(buf);
+                out = DATE_FORMATTER.parse(buf);
                 break;
             } catch (Exception e) {
-                System.out.println(invalidDateStr);
+                System.out.println(INVALID_DATE_STR);
                 continue;
             }
         }
@@ -157,45 +159,45 @@ public class ConsoleTextFormatter{
         while (true) {
             String buf = scanString();
             try {
-                out = dateFormat.parse(buf);
+                out = DATE_FORMATTER.parse(buf);
                 break;
             } catch (Exception e) {
-                System.out.println(invalidDateStr);
+                System.out.println(INVALID_DATE_STR);
                 continue;
             }
         }
         return out;
     }
 
-    public static Usage editUsage(final Usage previous, final String message){
+    public static Usage editUsage(final Usage previous, final String message) {
         print(Usage.allToString());
-        print(String.format(message + lastValueStr, previous.toString()));
+        print(String.format(message + LAST_VALUE_STR, previous.toString()));
         return Usage.values()[scanInt(Usage.values().length)];
     }
 
-    public static Usage setUsage(final String message){
+    public static Usage setUsage(final String message) {
         print(Usage.allToString());
         print(message);
         return Usage.values()[scanInt(Usage.values().length)];
     }
-    
-    public static Size editSize(final Size previous, final String message){
+
+    public static Size editSize(final Size previous, final String message) {
         print(message);
 
         Size tmp = new Size();
-        print(String.format("width: " + lastValueStr, String.valueOf(previous.width)));
+        print(String.format("width: " + LAST_VALUE_STR, String.valueOf(previous.width)));
         tmp.width = scanInt(-1);
-        print(String.format("height: " + lastValueStr, String.valueOf(previous.height)));
+        print(String.format("height: " + LAST_VALUE_STR, String.valueOf(previous.height)));
         tmp.height = scanInt(-1);
-        print(String.format("depth: " + lastValueStr, String.valueOf(previous.depth)));
+        print(String.format("depth: " + LAST_VALUE_STR, String.valueOf(previous.depth)));
         tmp.depth = scanInt(-1);
 
         return tmp;
     }
 
-    public static Size setSize(final String message){
+    public static Size setSize(final String message) {
         print(message);
-        
+
         Size tmp = new Size();
         print("width: ");
         tmp.width = scanInt(-1);
@@ -207,7 +209,7 @@ public class ConsoleTextFormatter{
         return tmp;
     }
 
-    public static Type setType(final String message){
+    public static Type setType(final String message) {
         print(message);
         print(Type.allToString());
         return Type.values()[scanInt(Type.values().length - 1)];
@@ -227,9 +229,8 @@ public class ConsoleTextFormatter{
         return out;
     }
 
-
     public static List<Usage> editUsageList(final List<Usage> previous, final String message) {
-        print(String.format(message + lastValueStr, previous.toString()));
+        print(String.format(message + LAST_VALUE_STR, previous.toString()));
         List<Usage> out = new LinkedList<>();
         print(Usage.allToString());
         int tmp = -1;
@@ -259,91 +260,110 @@ public class ConsoleTextFormatter{
         return out;
     }
 
+    public static boolean editBool(final boolean previous, final String message) {
+        print(String.format(message + LAST_VALUE_STR, String.valueOf(previous)));
+        print(BOOLEAN_OPTIONS);
+        int option = scanInt(1);
+        return (option == -1) ? previous : (option == 1);
+    }
+
+    public static boolean setBool(final String message) {
+        print(message);
+        print(BOOLEAN_OPTIONS);
+        int option = scanInt(1);
+        return option == 1;
+    }
+
     @SuppressWarnings("unchecked")
-    public static Object edit(final Object a, final String message){
+    public static Object edit(final Object a, final String message) {
         String clazz = a.getClass().getName();
 
-        if(clazz == String.class.getName()){
-            return editString((String)a, message);
+        if (clazz == String.class.getName()) {
+            return editString((String) a, message);
         }
-        if(clazz == Integer.class.getName()){
-            return editInt((Integer)a, message);
+        if (clazz == Integer.class.getName()) {
+            return editInt((Integer) a, message);
         }
-        if(clazz == List.class.getName()){
+        if (clazz == List.class.getName()) {
             var list = (List<?>) a;
             var listItemClass = list.get(0).getClass();
 
-            if(listItemClass == String.class){
-                return editStringList((List<String>)a, message);
+            if (listItemClass == String.class) {
+                return editStringList((List<String>) a, message);
             }
 
-            if(listItemClass == Usage.class){
-                return editUsageList((List<Usage>)a, message);
+            if (listItemClass == Usage.class) {
+                return editUsageList((List<Usage>) a, message);
             }
 
             return null;
         }
-        if(clazz == Date.class.getName()){
-            return editDate((Date)a, message);
+        if (clazz == Date.class.getName()) {
+            return editDate((Date) a, message);
         }
-        if(clazz == Usage.class.getName()){
-            return editUsage((Usage)a, message);
+        if (clazz == Usage.class.getName()) {
+            return editUsage((Usage) a, message);
         }
-        if(clazz == Size.class.getName()){
-            return editSize((Size)a, message);
+        if (clazz == Size.class.getName()) {
+            return editSize((Size) a, message);
         }
-        if(clazz == Float.class.getName()){
-            return editFloat((Float)a, message);
+        if (clazz == Float.class.getName()) {
+            return editFloat((Float) a, message);
+        }
+        if (clazz == Boolean.class.getName()) {
+            return editBool((Boolean) a, message);
         }
 
-    
         return null;
     }
 
-    public static Object set(final Object a, final String message){
+    public static Object set(final Object a, final String message) {
         String clazz = a.getClass().getName();
 
-        if(clazz == String.class.getName()){
+        if (clazz == String.class.getName()) {
             return setString(message);
         }
-        if(clazz == Integer.class.getName()){
+        if (clazz == Integer.class.getName()) {
             return setInt(message);
         }
-        if(clazz == List.class.getName()){
+        if (clazz == List.class.getName()) {
             var list = (List<?>) a;
             var listItemClass = list.get(0).getClass();
 
-            if(listItemClass == String.class){
+            if (listItemClass == String.class) {
                 return setStringList(message);
             }
 
-            if(listItemClass == Type.class){
+            if (listItemClass == Type.class) {
                 return setTypeList(message);
             }
 
-            if(listItemClass == Usage.class){
+            if (listItemClass == Usage.class) {
                 return setUsageList(message);
             }
 
             return null;
         }
-        if(clazz == Date.class.getName()){
+        if (clazz == Date.class.getName()) {
             return setDate(message);
         }
-        if(clazz == Usage.class.getName()){
+        if (clazz == Usage.class.getName()) {
             return setUsage(message);
         }
-        if(clazz == Size.class.getName()){
+        if (clazz == Size.class.getName()) {
             return setSize(message);
         }
-        if(clazz == Type.class.getName()){
+        if (clazz == Type.class.getName()) {
             return setType(message);
         }
-        if(clazz == Float.class.getName()){
+        if (clazz == Float.class.getName()) {
             return setFloat(message);
         }
 
-    
+        if (clazz == Boolean.class.getName()) {
+            return setBool(message);
+        }
+
         return null;
     }
 }
