@@ -1,4 +1,4 @@
-# The usniversity labs in Java language
+# Java labs for university
 
 ## Tasks
 
