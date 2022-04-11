@@ -18,7 +18,8 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 public class Manager {
 
     public Manager(List<Template> decorations) {
-        this.decorations = decorations;
+        this.decorations = new ArrayList<>();
+        this.decorations.addAll(decorations);
     }
 
     public Manager() {
@@ -68,7 +69,7 @@ public class Manager {
     public void setDecoration(int position, List<FieldDescription> fields) {
         Template tmp = decorations.get(position);
         tmp.setFields(fields);
-        decorations.add(tmp);
+        decorations.set(position,tmp);
     }
 
     public List<Template> getDecorations() {

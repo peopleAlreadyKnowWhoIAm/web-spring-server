@@ -65,12 +65,16 @@ public class TextMenu {
 
         String[] sorting = manager.getSortings();
 
+        String out = new String();
         int count = 0;
         for (String i : sorting) {
-            ConsoleTextFormatter.print(String.format("%d. %s \n", count++, i));
+            out += String.format("%d. %s \n", count++, i);
         }
-        int option = ConsoleTextFormatter.scanInt(sorting.length - 1);
-
+        ConsoleTextFormatter.print(out);
+        int option;
+        do{
+            option = ConsoleTextFormatter.scanInt(sorting.length - 1);
+        }while(option == -1);
         boolean descending = ConsoleTextFormatter.setBool(DESCENDING_STRING);
 
         manager.setSorting(sorting[option], descending);
@@ -95,7 +99,7 @@ public class TextMenu {
     }
 
     private String listDecorationIndexed() {
-        String out = LIST_OPTION_STR;
+        String out = String.format(LIST_OPTION_STR, manager.getDecorations().size());
         out.formatted(manager.getDecorations().size());
         int count = 0;
         for (Template i : manager.getDecorations()) {
@@ -110,8 +114,8 @@ public class TextMenu {
         ConsoleTextFormatter.print(EDITING_OPTION_STR);
         int position;
         do {
-            position = (Integer) ConsoleTextFormatter.set(0, CHOOSE_NUMBER_STR);
-        } while (position <= manager.getDecorations().size());
+            position = (Integer) ConsoleTextFormatter.setInt(CHOOSE_NUMBER_STR);
+        } while (position >= manager.getDecorations().size());
         List<FieldDescription> fields = manager.getFieldsOf(position);
         fields.forEach((field) -> {
             Object a = ConsoleTextFormatter.edit(field.getValue(), field.getMessage());
@@ -125,7 +129,7 @@ public class TextMenu {
         ConsoleTextFormatter.print(DELETING_OPTION_STR);
         int position;
         do {
-            position = (Integer) ConsoleTextFormatter.set(0, CHOOSE_NUMBER_STR);
+            position = ConsoleTextFormatter.setInt(CHOOSE_NUMBER_STR);
         } while (position >= manager.getDecorations().size());
         manager.deleteDecoration(position);
     }
@@ -136,7 +140,7 @@ public class TextMenu {
     private static final String LIST_OPTION_STR = "There are %d decoration(s):\n";
     private static final String LINE_NUMBER_DIVADER_STR = ". ";
     private static final String CHOOSE_NUMBER_STR = "Enter number of the decoration: ";
-    private static final String EDITING_OPTION_STR = "Edit decoration";
+    private static final String EDITING_OPTION_STR = "Edit decoration\n";
     private static final String CHOOSE_TYPE_STR = "Adding new decoration\nChoose the type of the decoration:\n";
     private static final String MAIN_MENU_STR = """
             Choose option:

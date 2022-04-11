@@ -2,6 +2,7 @@ package ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -186,11 +187,14 @@ public class ConsoleTextFormatter {
 
         Size tmp = new Size();
         print(String.format("width: " + LAST_VALUE_STR, String.valueOf(previous.width)));
-        tmp.width = scanInt(-1);
+        int tmpInt = scanInt(-1);
+        tmp.width = (tmpInt == -1)? previous.width: tmpInt;
         print(String.format("height: " + LAST_VALUE_STR, String.valueOf(previous.height)));
-        tmp.height = scanInt(-1);
+        tmpInt = scanInt(-1);
+        tmp.height = (tmpInt == -1)? previous.height: tmpInt;
         print(String.format("depth: " + LAST_VALUE_STR, String.valueOf(previous.depth)));
-        tmp.depth = scanInt(-1);
+        tmpInt = scanInt(-1);
+        tmp.depth = (tmpInt == -1)? previous.depth: tmpInt;
 
         return tmp;
     }
@@ -317,28 +321,29 @@ public class ConsoleTextFormatter {
         return null;
     }
 
+
     public static Object set(final Object a, final String message) {
         String clazz = a.getClass().getName();
-
         if (clazz == String.class.getName()) {
             return setString(message);
         }
         if (clazz == Integer.class.getName()) {
             return setInt(message);
         }
-        if (clazz == List.class.getName()) {
-            var list = (List<?>) a;
-            var listItemClass = list.get(0).getClass();
+        if (clazz == LinkedList.class.getName() || clazz == ArrayList.class.getName()) {
+            var list = (List<Object>) a;
+            String listItemClass = list.get(0).getClass().getName();
 
-            if (listItemClass == String.class) {
+
+            if (listItemClass == String.class.getName()) {
                 return setStringList(message);
             }
 
-            if (listItemClass == Type.class) {
+            if (listItemClass == Type.class.getName()) {
                 return setTypeList(message);
             }
 
-            if (listItemClass == Usage.class) {
+            if (listItemClass == Usage.class.getName()) {
                 return setUsageList(message);
             }
 
