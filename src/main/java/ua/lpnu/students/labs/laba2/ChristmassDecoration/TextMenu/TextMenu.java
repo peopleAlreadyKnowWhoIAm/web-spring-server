@@ -24,13 +24,13 @@ public class TextMenu {
     public void mainMenu() {
         boolean always = true;
         while (always) {
-            ConsoleTextFormatter.print(MAIN_MENU_STR);
-            switch (ConsoleTextFormatter.scanString()) {
+            ConsoleComunicator.print(MAIN_MENU_STR);
+            switch (ConsoleComunicator.scanString()) {
                 case "a":
                     addDecoration();
                     break;
                 case "l":
-                    ConsoleTextFormatter.print(listDecorationIndexed());
+                    ConsoleComunicator.print(listDecorationIndexed());
                     break;
                 case "d":
                     deleteDecoration();
@@ -45,7 +45,7 @@ public class TextMenu {
                     always = false;
                     break;
                 default:
-                    ConsoleTextFormatter.print(INVALID_STRING);
+                    ConsoleComunicator.print(INVALID_STRING);
             }
         }
     }
@@ -54,9 +54,11 @@ public class TextMenu {
     private void filterDecorations() {
         List<FieldDescription> filters = manager.getFilters();
         filters.forEach((field) -> {
-            Object a = (Object) ConsoleTextFormatter.set(field.getValue().getClass().cast(field.getValue()),
-                    field.getMessage());
-            field.setValue(a);
+            Object tmp = (Object) ConsoleComunicator.set(
+                field.getValue(),
+                field.getMessage()
+            );
+            field.setValue(tmp);
         });
 
         manager.setFilters(filters);
@@ -70,28 +72,25 @@ public class TextMenu {
         for (String i : sorting) {
             out += String.format("%d. %s \n", count++, i);
         }
-        ConsoleTextFormatter.print(out);
-        int option;
-        do{
-            option = ConsoleTextFormatter.scanInt(sorting.length - 1);
-        }while(option == -1);
-        boolean descending = ConsoleTextFormatter.setBool(DESCENDING_STRING);
+        ConsoleComunicator.print(out);
+        int option = ConsoleComunicator.scanStrictlyInt(sorting.length - 1);
+        boolean descending = ConsoleComunicator.setBool(DESCENDING_STRING);
 
         manager.setSorting(sorting[option], descending);
 
         filtered.forEach((decoration) -> {
-            ConsoleTextFormatter.print(String.format("%s\n", decoration.toString()));
+            ConsoleComunicator.print(String.format("%s\n", decoration.toString()));
         });
 
     }
 
     public void addDecoration() {
-        ConsoleTextFormatter.print(CHOOSE_TYPE_STR);
+        ConsoleComunicator.print(CHOOSE_TYPE_STR);
 
-        Type type = (Type) ConsoleTextFormatter.set(Type.ELECTRIC_DECORATION, "");
+        Type type = (Type) ConsoleComunicator.set(Type.ELECTRIC_DECORATION, "");
         List<FieldDescription> fields = manager.getFieldsOf(type);
         fields.forEach((field) -> {
-            Object a = (Object) ConsoleTextFormatter.set(field.getValue().getClass().cast(field.getValue()),
+            Object a = (Object) ConsoleComunicator.set(field.getValue().getClass().cast(field.getValue()),
                     field.getMessage());
             field.setValue(a);
         });
@@ -110,26 +109,27 @@ public class TextMenu {
     }
 
     public void editDecoration() {
-        ConsoleTextFormatter.print(listDecorationIndexed());
-        ConsoleTextFormatter.print(EDITING_OPTION_STR);
+        ConsoleComunicator.print(listDecorationIndexed());
+        ConsoleComunicator.print(EDITING_OPTION_STR);
         int position;
         do {
-            position = (Integer) ConsoleTextFormatter.setInt(CHOOSE_NUMBER_STR);
+            position = ConsoleComunicator.setInt(CHOOSE_NUMBER_STR);
         } while (position >= manager.getDecorations().size());
+
         List<FieldDescription> fields = manager.getFieldsOf(position);
         fields.forEach((field) -> {
-            Object a = ConsoleTextFormatter.edit(field.getValue(), field.getMessage());
+            Object a = ConsoleComunicator.edit(field.getValue(), field.getMessage());
             field.setValue(a);
         });
         manager.setDecoration(position, fields);
     }
 
     public void deleteDecoration() {
-        ConsoleTextFormatter.print(listDecorationIndexed());
-        ConsoleTextFormatter.print(DELETING_OPTION_STR);
+        ConsoleComunicator.print(listDecorationIndexed());
+        ConsoleComunicator.print(DELETING_OPTION_STR);
         int position;
         do {
-            position = ConsoleTextFormatter.setInt(CHOOSE_NUMBER_STR);
+            position = ConsoleComunicator.setInt(CHOOSE_NUMBER_STR);
         } while (position >= manager.getDecorations().size());
         manager.deleteDecoration(position);
     }

@@ -63,30 +63,21 @@ public class Manipulator {
 
 //Set sorting
     public void sortByName(boolean descending){
-        filteredDecorations.sort(Comparator.comparing((a) ->{
-            var tmp = (Template)a;
-            return tmp.getName();
-        } ));
+        filteredDecorations.sort(Comparator.comparing(Template::getName));
         if(descending){
             Collections.reverse(filteredDecorations);
         }
     }
 
     public void sortByPrice(boolean descending){
-        filteredDecorations.sort(Comparator.comparing((a) ->{
-            var tmp = (Template)a;
-            return tmp.getPrice();
-        } ));
+        filteredDecorations.sort(Comparator.comparing(Template::getPrice));
         if(descending){
             Collections.reverse(filteredDecorations);
         }
     }
 
     public void sortByAmount(boolean descending){
-        filteredDecorations.sort(Comparator.comparing((a) ->{
-            var tmp = (Template)a;
-            return tmp.getAvalaibleAmount();
-        } ));
+        filteredDecorations.sort(Comparator.comparing(Template::getAvalaibleAmount));
         if(descending){
             Collections.reverse(filteredDecorations);
         }
@@ -111,23 +102,23 @@ public class Manipulator {
 //Filtering utils
     public void filter(){
         //Filter types
-        if(!types.isEmpty())filterPart(a-> types.contains(a.getType()));
+        if(!types.isEmpty())filterPart(decoration-> types.contains(decoration.getType()));
 
         //Filter names
-        if(!names.isEmpty())filterPart(a -> names.contains(a.getName()));
+        if(!names.isEmpty())filterPart(decoration -> names.contains(decoration.getName()));
 
         //Filter materials
-        if(!materials.isEmpty())filterPart(a -> materials.contains(a.getMaterial()));
+        if(!materials.isEmpty())filterPart(decoration -> materials.contains(decoration.getMaterial()));
 
         //Filter usages
-        if(!usages.isEmpty())filterPart(a -> usages.contains(a.getUsage()));
+        if(!usages.isEmpty())filterPart(decoration -> usages.contains(decoration.getUsage()));
 
         //Filter minimal amount
-        if(minAmount != 0)filterPart(a -> a.getAvalaibleAmount() <= this.minAmount );
+        if(minAmount != 0)filterPart(decoration -> decoration.getAvalaibleAmount() <= this.minAmount );
 
         //Filter price
-        if(priceTo != 0)filterPart(a -> this.priceTo <= a.getPrice());
-        if(priceFrom != 0)filterPart(a -> this.priceFrom >= a.getPrice());
+        if(priceTo != 0)filterPart(decoration -> this.priceTo <= decoration.getPrice());
+        if(priceFrom != 0)filterPart(decoration -> this.priceFrom >= decoration.getPrice());
     }
 
     private void filterPart(Predicate<Template> filter){
