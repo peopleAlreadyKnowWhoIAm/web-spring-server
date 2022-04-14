@@ -80,7 +80,7 @@ public class PieceDecoration extends Template {
         return super.toString() + String.format(DESCRIPTION_STR,
                 this.color,
                 this.style,
-                this.size.width, this.size.height, this.size.depth,
+                this.size.toString(),
                 String.valueOf(this.price));
     }
 
@@ -88,7 +88,7 @@ public class PieceDecoration extends Template {
     private static final String COLOR_STR = "Color: ";
     private static final String STYLE_STR = "Style: ";
     private static final String DESCRIPTION_STR = COLOR_STR + "%s\t" + STYLE_STR
-            + "%s\tDemesions: %d x %d x %d\t Price: %s";
+            + "%s\tDemesions: %s\t Price: %s";
     private final FieldDescription[] TEMPLATE_FIELDS = {
             new FieldDescription(null, COLOR_STR),
             new FieldDescription(null, STYLE_STR),

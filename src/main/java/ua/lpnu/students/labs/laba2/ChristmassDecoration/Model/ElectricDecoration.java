@@ -68,6 +68,21 @@ public class ElectricDecoration extends Template {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
+    public void setFields(final List<FieldDescription> fields){
+        this.colorsOfLights = (List<String>) fields.get(5).getValue();
+
+        this.length = (Integer) fields.get(6).getValue();
+
+        this.amountLampsPerMeter = (Integer) fields.get(7).getValue();
+
+        this.powerInWatts = (Integer) fields.get(8).getValue();
+
+        super.setFields(fields);
+
+    }
+
+    @Override
     public String toString() {
         return super.toString() + String.format(DESCRIPTION_STR,
                 this.colorsOfLights.toString(),

@@ -84,6 +84,10 @@ public class Manager {
         this.decorations.remove(pos);
     }
 
+    public void deleteDecoration(Template delete) {
+        this.decorations.remove(delete);
+    }
+
     public List<Type> getPossibleTypes() {
         return Arrays.asList(Type.values());
     }
