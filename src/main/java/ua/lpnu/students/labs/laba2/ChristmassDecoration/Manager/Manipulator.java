@@ -16,7 +16,6 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -47,44 +46,50 @@ public class Manipulator {
     private static final String DIVIDER = ": ";
 
     private static final FieldDescription[] FILTER_TYPES = {
-        new FieldDescription(null, BY_TYPE + DIVIDER),
-        new FieldDescription(null, BY_NAME + DIVIDER),
-        new FieldDescription(null, BY_MATERIALS + DIVIDER),
-        new FieldDescription(null, BY_USAGE + DIVIDER),
-        new FieldDescription(null, AMOUNT_MORE + DIVIDER),
-        new FieldDescription(null, PRICE_FROM + DIVIDER),
-        new FieldDescription(null, PRICE_TO + DIVIDER)
+            new FieldDescription(null, BY_TYPE + DIVIDER),
+            new FieldDescription(null, BY_NAME + DIVIDER),
+            new FieldDescription(null, BY_MATERIALS + DIVIDER),
+            new FieldDescription(null, BY_USAGE + DIVIDER),
+            new FieldDescription(null, AMOUNT_MORE + DIVIDER),
+            new FieldDescription(null, PRICE_FROM + DIVIDER),
+            new FieldDescription(null, PRICE_TO + DIVIDER)
     };
+
+    // Constructor
+    public Manipulator(List<Template> allDecorations) {
+        this.filteredDecorations = new ArrayList<>(allDecorations);
+        this.allDecorations = new ArrayList<>(allDecorations);
+    }
 
     @Getter
     private static final String[] AVAILABLE_SORTING = {
-        BY_NAME, BY_PRICE, BY_AMOUNT
+            BY_NAME, BY_PRICE, BY_AMOUNT
     };
 
-//Set sorting
-    public void sortByName(boolean descending){
+    // Set sorting
+    public void sortByName(boolean descending) {
         filteredDecorations.sort(Comparator.comparing(Template::getName));
-        if(descending){
+        if (descending) {
             Collections.reverse(filteredDecorations);
         }
     }
 
-    public void sortByPrice(boolean descending){
+    public void sortByPrice(boolean descending) {
         filteredDecorations.sort(Comparator.comparing(Template::getPrice));
-        if(descending){
+        if (descending) {
             Collections.reverse(filteredDecorations);
         }
     }
 
-    public void sortByAmount(boolean descending){
+    public void sortByAmount(boolean descending) {
         filteredDecorations.sort(Comparator.comparing(Template::getAvalaibleAmount));
-        if(descending){
+        if (descending) {
             Collections.reverse(filteredDecorations);
         }
     }
 
-    public void sort(final String sortingType, boolean descending){
-        switch(sortingType){
+    public void sort(final String sortingType, boolean descending) {
+        switch (sortingType) {
             case BY_NAME:
                 sortByName(descending);
                 break;
@@ -99,80 +104,85 @@ public class Manipulator {
         }
     }
 
-//Filtering utils
-    public void filter(){
-        //Filter types
-        if(!types.isEmpty())filterPart(decoration-> types.contains(decoration.getType()));
+    // Filtering utils
+    public void filter() {
+        // Filter types
+        if (!types.isEmpty())
+            filterPart(decoration -> !types.contains(decoration.getType()));
 
-        //Filter names
-        if(!names.isEmpty())filterPart(decoration -> names.contains(decoration.getName()));
+        // Filter names
+        if (!names.isEmpty())
+            filterPart(decoration -> !names.contains(decoration.getName()));
 
-        //Filter materials
-        if(!materials.isEmpty())filterPart(decoration -> materials.contains(decoration.getMaterial()));
+        // Filter materials
+        if (!materials.isEmpty())
+            filterPart(decoration -> !materials.contains(decoration.getMaterial()));
 
-        //Filter usages
-        if(!usages.isEmpty())filterPart(decoration -> usages.contains(decoration.getUsage()));
+        // Filter usages
+        if (!usages.isEmpty())
+            filterPart(decoration -> !usages.contains(decoration.getUsage()));
 
-        //Filter minimal amount
-        if(minAmount != 0)filterPart(decoration -> decoration.getAvalaibleAmount() <= this.minAmount );
+        // Filter minimal amount
+        if (minAmount != 0)
+            filterPart(decoration -> decoration.getAvalaibleAmount() <= this.minAmount);
 
-        //Filter price
-        if(priceTo != 0)filterPart(decoration -> this.priceTo <= decoration.getPrice());
-        if(priceFrom != 0)filterPart(decoration -> this.priceFrom >= decoration.getPrice());
+        // Filter price
+        if (priceTo != 0)
+            filterPart(decoration -> this.priceTo <= decoration.getPrice());
+        if (priceFrom != 0)
+            filterPart(decoration -> this.priceFrom >= decoration.getPrice());
     }
 
-    private void filterPart(Predicate<Template> filter){
-        if(!this.filteredDecorations.isEmpty()){
+    private void filterPart(Predicate<Template> filter) {
+        if (!this.filteredDecorations.isEmpty()) {
             filteredDecorations.removeIf(filter);
- 
+
         }
     }
 
-//Constructor
-    public Manipulator(List<Template> allDecorations) {
-        this.filteredDecorations = allDecorations;
-        this.allDecorations= allDecorations;
-    }
-
-//Filter and get
+    // Filter and get
     public List<Template> getFilteredDecorations() {
         return filteredDecorations;
     }
 
-    public List<FieldDescription> getFilters(){
+    // If empty send trash in it
+    // Needs creating new value of describtion
+    public List<FieldDescription> getFilters() {
         List<FieldDescription> filters = new ArrayList<>(7);
 
-        //Types
+        // Types
         var tmpTypes = FILTER_TYPES[0];
-        tmpTypes.setValue((this.types.isEmpty())?new LinkedList<>(Arrays.asList(Type.ELECTRIC_DECORATION)): this.types);
+        tmpTypes.setValue(
+                (this.types.isEmpty()) ? new LinkedList<>(Arrays.asList(Type.ELECTRIC_DECORATION)) : this.types);
         filters.add(tmpTypes);
 
-        //Names
+        // Names
         var tmpNames = FILTER_TYPES[1];
-        tmpNames.setValue((this.names.isEmpty())? new LinkedList<>(Arrays.asList("")): this.names);
+        tmpNames.setValue((this.names.isEmpty()) ? new LinkedList<>(Arrays.asList("")) : this.names);
         filters.add(tmpNames);
 
-        //Materials
+        // Materials
         var tmpMaterials = FILTER_TYPES[2];
-        tmpMaterials.setValue((this.materials.isEmpty())? new LinkedList<>(Arrays.asList("")): this.materials);
+        tmpMaterials.setValue((this.materials.isEmpty()) ? new LinkedList<>(Arrays.asList("")) : this.materials);
         filters.add(tmpMaterials);
 
-        //Usages
+        // Usages
         var tmpUsages = FILTER_TYPES[3];
-        tmpUsages.setValue((this.usages.isEmpty())? new LinkedList<>(Arrays.asList(Usage.UNKNOWN)): this.usages);;
+        tmpUsages.setValue((this.usages.isEmpty()) ? new LinkedList<>(Arrays.asList(Usage.UNKNOWN)) : this.usages);
+        ;
         filters.add(tmpUsages);
 
-        //Minimal amount
+        // Minimal amount
         var tmpMinAmount = FILTER_TYPES[4];
         tmpMinAmount.setValue(this.minAmount);
         filters.add(tmpMinAmount);
 
-        //Price from
+        // Price from
         var tmpPriceFrom = FILTER_TYPES[5];
         tmpPriceFrom.setValue(this.priceFrom);
         filters.add(tmpPriceFrom);
 
-        //Price to
+        // Price to
         var tmpPriceTo = FILTER_TYPES[6];
         tmpPriceTo.setValue(this.priceTo);
         filters.add(tmpPriceTo);
@@ -180,9 +190,8 @@ public class Manipulator {
         return filters;
     }
 
-
     @SuppressWarnings("unchecked")
-    public void setFilters(final List<FieldDescription> filters){
+    public void setFilters(final List<FieldDescription> filters) {
         this.types = (List<Type>) filters.get(0).getValue();
 
         this.names = (List<String>) filters.get(1).getValue();
@@ -198,9 +207,9 @@ public class Manipulator {
         this.priceTo = (Float) filters.get(6).getValue();
     }
 
-    public void setAllDecorations(final List<Template> decorations){
-        this.allDecorations = decorations;
-        this.filteredDecorations = decorations;
+    public void setAllDecorations(final List<Template> decorations) {
+        this.allDecorations = new ArrayList<>(decorations);
+        this.filteredDecorations = new ArrayList<>(decorations);
     }
 
 }
