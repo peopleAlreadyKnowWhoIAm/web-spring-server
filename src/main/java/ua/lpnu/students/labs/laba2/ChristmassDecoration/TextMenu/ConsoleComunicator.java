@@ -2,6 +2,7 @@ package ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +11,7 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Size;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 
-public class ConsoleTextFormatter {
+public class ConsoleComunicator {
     private static final String INVALID_DATE_STR = "Invalid entered date\nTry again!\n";
     private static final String LAST_VALUE_STR = "(%s) ";
     private static final String INVALID_NUMBER_STR = "Incorrect number\n try again\n";
@@ -40,6 +41,18 @@ public class ConsoleTextFormatter {
                 print(INVALID_NUMBER_STR);
             }
         }
+    }
+
+    public static int scanStrictlyInt(int max){
+        int out;
+        while(true){
+            out = scanInt(max);
+            if(max != -1){
+                break;
+            }
+            print(INVALID_NUMBER_STR);
+        }
+        return out;
     }
 
     public static String scanString() {
@@ -186,11 +199,14 @@ public class ConsoleTextFormatter {
 
         Size tmp = new Size();
         print(String.format("width: " + LAST_VALUE_STR, String.valueOf(previous.width)));
-        tmp.width = scanInt(-1);
+        int tmpInt = scanInt(-1);
+        tmp.width = (tmpInt == -1)? previous.width: tmpInt;
         print(String.format("height: " + LAST_VALUE_STR, String.valueOf(previous.height)));
-        tmp.height = scanInt(-1);
+        tmpInt = scanInt(-1);
+        tmp.height = (tmpInt == -1)? previous.height: tmpInt;
         print(String.format("depth: " + LAST_VALUE_STR, String.valueOf(previous.depth)));
-        tmp.depth = scanInt(-1);
+        tmpInt = scanInt(-1);
+        tmp.depth = (tmpInt == -1)? previous.depth: tmpInt;
 
         return tmp;
     }
@@ -275,92 +291,94 @@ public class ConsoleTextFormatter {
     }
 
     @SuppressWarnings("unchecked")
-    public static Object edit(final Object a, final String message) {
-        String clazz = a.getClass().getName();
+    public static Object edit(final Object previous, final String message) {
+        String className = previous.getClass().getName();
 
-        if (clazz == String.class.getName()) {
-            return editString((String) a, message);
+        if (className == String.class.getName()) {
+            return editString((String) previous, message);
         }
-        if (clazz == Integer.class.getName()) {
-            return editInt((Integer) a, message);
+        if (className == Integer.class.getName()) {
+            return editInt((Integer) previous, message);
         }
-        if (clazz == List.class.getName()) {
-            var list = (List<?>) a;
+        if (className == List.class.getName()) {
+            var list = (List<?>) previous;
             var listItemClass = list.get(0).getClass();
 
             if (listItemClass == String.class) {
-                return editStringList((List<String>) a, message);
+                return editStringList((List<String>) previous, message);
             }
 
             if (listItemClass == Usage.class) {
-                return editUsageList((List<Usage>) a, message);
+                return editUsageList((List<Usage>) previous, message);
             }
 
             return null;
         }
-        if (clazz == Date.class.getName()) {
-            return editDate((Date) a, message);
+        if (className == Date.class.getName()) {
+            return editDate((Date) previous, message);
         }
-        if (clazz == Usage.class.getName()) {
-            return editUsage((Usage) a, message);
+        if (className == Usage.class.getName()) {
+            return editUsage((Usage) previous, message);
         }
-        if (clazz == Size.class.getName()) {
-            return editSize((Size) a, message);
+        if (className == Size.class.getName()) {
+            return editSize((Size) previous, message);
         }
-        if (clazz == Float.class.getName()) {
-            return editFloat((Float) a, message);
+        if (className == Float.class.getName()) {
+            return editFloat((Float) previous, message);
         }
-        if (clazz == Boolean.class.getName()) {
-            return editBool((Boolean) a, message);
+        if (className == Boolean.class.getName()) {
+            return editBool((Boolean) previous, message);
         }
 
         return null;
     }
 
-    public static Object set(final Object a, final String message) {
-        String clazz = a.getClass().getName();
 
-        if (clazz == String.class.getName()) {
+    @SuppressWarnings("unchecked")
+    public static Object set(final Object pointOnType, final String message) {
+        String className = pointOnType.getClass().getName();
+        if (className == String.class.getName()) {
             return setString(message);
         }
-        if (clazz == Integer.class.getName()) {
+        if (className == Integer.class.getName()) {
             return setInt(message);
         }
-        if (clazz == List.class.getName()) {
-            var list = (List<?>) a;
-            var listItemClass = list.get(0).getClass();
+        if (className == LinkedList.class.getName() || className == ArrayList.class.getName()) {
+            var list = (List<Object>) pointOnType;
+            String listItemClass = list.get(0).getClass().getName();
 
-            if (listItemClass == String.class) {
+
+            if (listItemClass == String.class.getName()) {
                 return setStringList(message);
             }
 
-            if (listItemClass == Type.class) {
+            if (listItemClass == Type.class.getName()) {
                 return setTypeList(message);
             }
 
-            if (listItemClass == Usage.class) {
+            if (listItemClass == Usage.class.getName()) {
                 return setUsageList(message);
             }
 
             return null;
         }
-        if (clazz == Date.class.getName()) {
+        if (className == Date.class.getName()) {
             return setDate(message);
         }
-        if (clazz == Usage.class.getName()) {
+        if (className == Usage.class.getName()) {
             return setUsage(message);
         }
-        if (clazz == Size.class.getName()) {
+        if (className == Size.class.getName()) {
             return setSize(message);
         }
-        if (clazz == Type.class.getName()) {
+        if (className == Type.class.getName()) {
             return setType(message);
         }
-        if (clazz == Float.class.getName()) {
+        if (className == Float.class.getName()) {
             return setFloat(message);
         }
 
-        if (clazz == Boolean.class.getName()) {
+        if (className == Boolean.class.getName()) {
             return setBool(message);
         }
 

@@ -9,7 +9,7 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager.utils.FieldDescr
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Size;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
-import ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu.ConsoleTextFormatter;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu.ConsoleComunicator;
 
 @Setter
 @Getter
@@ -69,13 +69,13 @@ public class OrganicDecoration extends PieceDecoration {
     @Override
     public String toString() {
         return super.toString()
-                + String.format(DSCRIPTION_STR, ConsoleTextFormatter.DATE_FORMATTER.format(this.dateOfProduction),
+                + String.format(DSCRIPTION_STR, ConsoleComunicator.DATE_FORMATTER.format(this.dateOfProduction),
                         String.valueOf(this.numberOfDaysToExpiration));
     }
 
     // String literals
 
-    private static final String DATE_STR = "Date of production using patern " + ConsoleTextFormatter.DATE_PATTERN_STR
+    private static final String DATE_STR = "Date of production using patern " + ConsoleComunicator.DATE_PATTERN_STR
             + " :";
     private static final String EXPIRATION_TERM_STR = "Number of days to expire: ";
 

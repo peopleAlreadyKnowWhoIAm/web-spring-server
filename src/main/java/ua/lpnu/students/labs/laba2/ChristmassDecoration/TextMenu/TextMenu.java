@@ -24,13 +24,13 @@ public class TextMenu {
     public void mainMenu() {
         boolean always = true;
         while (always) {
-            ConsoleTextFormatter.print(MAIN_MENU_STR);
-            switch (ConsoleTextFormatter.scanString()) {
+            ConsoleComunicator.print(MAIN_MENU_STR);
+            switch (ConsoleComunicator.scanString()) {
                 case "a":
                     addDecoration();
                     break;
                 case "l":
-                    ConsoleTextFormatter.print(listDecorationIndexed());
+                    ConsoleComunicator.print(listDecorationIndexed());
                     break;
                 case "d":
                     deleteDecoration();
@@ -45,7 +45,7 @@ public class TextMenu {
                     always = false;
                     break;
                 default:
-                    ConsoleTextFormatter.print(INVALID_STRING);
+                    ConsoleComunicator.print(INVALID_STRING);
             }
         }
     }
@@ -54,9 +54,11 @@ public class TextMenu {
     private void filterDecorations() {
         List<FieldDescription> filters = manager.getFilters();
         filters.forEach((field) -> {
-            Object a = (Object) ConsoleTextFormatter.set(field.getValue().getClass().cast(field.getValue()),
-                    field.getMessage());
-            field.setValue(a);
+            Object tmp = (Object) ConsoleComunicator.set(
+                field.getValue(),
+                field.getMessage()
+            );
+            field.setValue(tmp);
         });
 
         manager.setFilters(filters);
@@ -65,29 +67,30 @@ public class TextMenu {
 
         String[] sorting = manager.getSortings();
 
+        String out = new String();
         int count = 0;
         for (String i : sorting) {
-            ConsoleTextFormatter.print(String.format("%d. %s \n", count++, i));
+            out += String.format("%d. %s \n", count++, i);
         }
-        int option = ConsoleTextFormatter.scanInt(sorting.length - 1);
-
-        boolean descending = ConsoleTextFormatter.setBool(DESCENDING_STRING);
+        ConsoleComunicator.print(out);
+        int option = ConsoleComunicator.scanStrictlyInt(sorting.length - 1);
+        boolean descending = ConsoleComunicator.setBool(DESCENDING_STRING);
 
         manager.setSorting(sorting[option], descending);
 
         filtered.forEach((decoration) -> {
-            ConsoleTextFormatter.print(String.format("%s\n", decoration.toString()));
+            ConsoleComunicator.print(String.format("%s\n", decoration.toString()));
         });
 
     }
 
     public void addDecoration() {
-        ConsoleTextFormatter.print(CHOOSE_TYPE_STR);
+        ConsoleComunicator.print(CHOOSE_TYPE_STR);
 
-        Type type = (Type) ConsoleTextFormatter.set(Type.ELECTRIC_DECORATION, "");
+        Type type = (Type) ConsoleComunicator.set(Type.ELECTRIC_DECORATION, "");
         List<FieldDescription> fields = manager.getFieldsOf(type);
         fields.forEach((field) -> {
-            Object a = (Object) ConsoleTextFormatter.set(field.getValue().getClass().cast(field.getValue()),
+            Object a = (Object) ConsoleComunicator.set(field.getValue().getClass().cast(field.getValue()),
                     field.getMessage());
             field.setValue(a);
         });
@@ -95,7 +98,7 @@ public class TextMenu {
     }
 
     private String listDecorationIndexed() {
-        String out = LIST_OPTION_STR;
+        String out = String.format(LIST_OPTION_STR, manager.getDecorations().size());
         out.formatted(manager.getDecorations().size());
         int count = 0;
         for (Template i : manager.getDecorations()) {
@@ -106,26 +109,27 @@ public class TextMenu {
     }
 
     public void editDecoration() {
-        ConsoleTextFormatter.print(listDecorationIndexed());
-        ConsoleTextFormatter.print(EDITING_OPTION_STR);
+        ConsoleComunicator.print(listDecorationIndexed());
+        ConsoleComunicator.print(EDITING_OPTION_STR);
         int position;
         do {
-            position = (Integer) ConsoleTextFormatter.set(0, CHOOSE_NUMBER_STR);
-        } while (position <= manager.getDecorations().size());
+            position = ConsoleComunicator.setInt(CHOOSE_NUMBER_STR);
+        } while (position >= manager.getDecorations().size());
+
         List<FieldDescription> fields = manager.getFieldsOf(position);
         fields.forEach((field) -> {
-            Object a = ConsoleTextFormatter.edit(field.getValue(), field.getMessage());
+            Object a = ConsoleComunicator.edit(field.getValue(), field.getMessage());
             field.setValue(a);
         });
         manager.setDecoration(position, fields);
     }
 
     public void deleteDecoration() {
-        ConsoleTextFormatter.print(listDecorationIndexed());
-        ConsoleTextFormatter.print(DELETING_OPTION_STR);
+        ConsoleComunicator.print(listDecorationIndexed());
+        ConsoleComunicator.print(DELETING_OPTION_STR);
         int position;
         do {
-            position = (Integer) ConsoleTextFormatter.set(0, CHOOSE_NUMBER_STR);
+            position = ConsoleComunicator.setInt(CHOOSE_NUMBER_STR);
         } while (position >= manager.getDecorations().size());
         manager.deleteDecoration(position);
     }
@@ -136,7 +140,7 @@ public class TextMenu {
     private static final String LIST_OPTION_STR = "There are %d decoration(s):\n";
     private static final String LINE_NUMBER_DIVADER_STR = ". ";
     private static final String CHOOSE_NUMBER_STR = "Enter number of the decoration: ";
-    private static final String EDITING_OPTION_STR = "Edit decoration";
+    private static final String EDITING_OPTION_STR = "Edit decoration\n";
     private static final String CHOOSE_TYPE_STR = "Adding new decoration\nChoose the type of the decoration:\n";
     private static final String MAIN_MENU_STR = """
             Choose option:
