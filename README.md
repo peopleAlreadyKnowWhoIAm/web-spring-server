@@ -17,3 +17,7 @@
   - make filtering by all fields
 
 Use variant same as in previous laba
+
+### 4 Tranfer to maven project
+
+Use variant previous laba
