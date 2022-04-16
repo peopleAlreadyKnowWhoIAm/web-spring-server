@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Manipulator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">laba3</a> &gt; <a href="index.source.html" class="el_package">ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager</a> &gt; <span class="el_source">Manipulator.java</span></div><h1>Manipulator.java</h1><pre class="source lang-java linenums">package ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.function.Predicate;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager.utils.FieldDescription;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
+
+@Getter
+<span class="nc" id="L20">@Setter</span>
+<span class="fc" id="L21">@NoArgsConstructor</span>
+public class Manipulator {
+<span class="fc" id="L23">    List&lt;Template&gt; allDecorations;</span>
+    List&lt;Template&gt; filteredDecorations;
+
+<span class="pc" id="L26">    List&lt;Type&gt; types = new LinkedList&lt;&gt;();</span>
+
+<span class="pc" id="L28">    List&lt;String&gt; names = new LinkedList&lt;&gt;();</span>
+<span class="pc" id="L29">    List&lt;String&gt; materials = new LinkedList&lt;&gt;();</span>
+
+<span class="pc" id="L31">    List&lt;Usage&gt; usages = new LinkedList&lt;&gt;();</span>
+
+<span class="pc" id="L33">    int minAmount = 0;</span>
+
+<span class="pc" id="L35">    float priceFrom = 0.0f, priceTo = 0.0f;</span>
+
+    private static final String BY_TYPE = &quot;By type&quot;;
+    private static final String BY_NAME = &quot;By name&quot;;
+    private static final String BY_MATERIALS = &quot;By material&quot;;
+    private static final String BY_USAGE = &quot;By usage&quot;;
+    private static final String AMOUNT_MORE = &quot;More than&quot;;
+    private static final String PRICE_FROM = &quot;Price from&quot;;
+    private static final String PRICE_TO = &quot;Price to&quot;;
+    private static final String BY_PRICE = &quot;By price&quot;;
+    private static final String BY_AMOUNT = &quot;By amount&quot;;
+    private static final String DIVIDER = &quot;: &quot;;
+
+<span class="fc" id="L48">    private static final FieldDescription[] FILTER_TYPES = {</span>
+            new FieldDescription(null, BY_TYPE + DIVIDER),
+            new FieldDescription(null, BY_NAME + DIVIDER),
+            new FieldDescription(null, BY_MATERIALS + DIVIDER),
+            new FieldDescription(null, BY_USAGE + DIVIDER),
+            new FieldDescription(null, AMOUNT_MORE + DIVIDER),
+            new FieldDescription(null, PRICE_FROM + DIVIDER),
+            new FieldDescription(null, PRICE_TO + DIVIDER)
+    };
+
+    // Constructor
+<span class="fc" id="L59">    public Manipulator(List&lt;Template&gt; allDecorations) {</span>
+<span class="fc" id="L60">        this.filteredDecorations = new ArrayList&lt;&gt;(allDecorations);</span>
+<span class="fc" id="L61">        this.allDecorations = new ArrayList&lt;&gt;(allDecorations);</span>
+<span class="fc" id="L62">    }</span>
+
+<span class="fc" id="L64">    @Getter</span>
+<span class="fc" id="L65">    private static final String[] AVAILABLE_SORTING = {</span>
+            BY_NAME, BY_PRICE, BY_AMOUNT
+    };
+
+    // Set sorting
+    public void sortByName(boolean descending) {
+<span class="fc" id="L71">        filteredDecorations.sort(Comparator.comparing(Template::getName));</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (descending) {</span>
+<span class="fc" id="L73">            Collections.reverse(filteredDecorations);</span>
+        }
+<span class="fc" id="L75">    }</span>
+
+    public void sortByPrice(boolean descending) {
+<span class="fc" id="L78">        filteredDecorations.sort(Comparator.comparing(Template::getPrice));</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        if (descending) {</span>
+<span class="fc" id="L80">            Collections.reverse(filteredDecorations);</span>
+        }
+<span class="fc" id="L82">    }</span>
+
+    public void sortByAmount(boolean descending) {
+<span class="fc" id="L85">        filteredDecorations.sort(Comparator.comparing(Template::getAvalaibleAmount));</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        if (descending) {</span>
+<span class="fc" id="L87">            Collections.reverse(filteredDecorations);</span>
+        }
+<span class="fc" id="L89">    }</span>
+
+    public void sort(final String sortingType, boolean descending) {
+<span class="pc bpc" id="L92" title="1 of 4 branches missed.">        switch (sortingType) {</span>
+            case BY_NAME:
+<span class="fc" id="L94">                sortByName(descending);</span>
+<span class="fc" id="L95">                break;</span>
+            case BY_PRICE:
+<span class="fc" id="L97">                sortByPrice(descending);</span>
+<span class="fc" id="L98">                break;</span>
+            case BY_AMOUNT:
+<span class="fc" id="L100">                sortByAmount(descending);</span>
+<span class="fc" id="L101">                break;</span>
+            default:
+
+        }
+<span class="fc" id="L105">    }</span>
+
+    // Filtering utils
+    public void filter() {
+        // Filter types
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        if (!types.isEmpty())</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">            filterPart(decoration -&gt; !types.contains(decoration.getType()));</span>
+
+        // Filter names
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        if (!names.isEmpty())</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">            filterPart(decoration -&gt; !names.contains(decoration.getName()));</span>
+
+        // Filter materials
+<span class="fc bfc" id="L118" title="All 2 branches covered.">        if (!materials.isEmpty())</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">            filterPart(decoration -&gt; !materials.contains(decoration.getMaterial()));</span>
+
+        // Filter usages
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        if (!usages.isEmpty())</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">            filterPart(decoration -&gt; !usages.contains(decoration.getUsage()));</span>
+
+        // Filter minimal amount
+<span class="fc bfc" id="L126" title="All 2 branches covered.">        if (minAmount != 0)</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">            filterPart(decoration -&gt; decoration.getAvalaibleAmount() &lt;= this.minAmount);</span>
+
+        // Filter price
+<span class="fc bfc" id="L130" title="All 2 branches covered.">        if (priceTo != 0)</span>
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">            filterPart(decoration -&gt; this.priceTo &lt;= decoration.getPrice());</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">        if (priceFrom != 0)</span>
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">            filterPart(decoration -&gt; this.priceFrom &gt;= decoration.getPrice());</span>
+<span class="fc" id="L134">    }</span>
+
+    private void filterPart(Predicate&lt;Template&gt; filter) {
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">        if (!this.filteredDecorations.isEmpty()) {</span>
+<span class="fc" id="L138">            filteredDecorations.removeIf(filter);</span>
+
+        }
+<span class="fc" id="L141">    }</span>
+
+    // Filter and get
+    public List&lt;Template&gt; getFilteredDecorations() {
+<span class="fc" id="L145">        return filteredDecorations;</span>
+    }
+
+    // If empty send trash in it
+    // Needs creating new value of describtion
+    public List&lt;FieldDescription&gt; getFilters() {
+<span class="fc" id="L151">        List&lt;FieldDescription&gt; filters = new ArrayList&lt;&gt;(7);</span>
+
+        // Types
+<span class="fc" id="L154">        var tmpTypes = FILTER_TYPES[0];</span>
+<span class="fc" id="L155">        tmpTypes.setValue(</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">                (this.types.isEmpty()) ? new LinkedList&lt;&gt;(Arrays.asList(Type.ELECTRIC_DECORATION)) : this.types);</span>
+<span class="fc" id="L157">        filters.add(tmpTypes);</span>
+
+        // Names
+<span class="fc" id="L160">        var tmpNames = FILTER_TYPES[1];</span>
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">        tmpNames.setValue((this.names.isEmpty()) ? new LinkedList&lt;&gt;(Arrays.asList(&quot;&quot;)) : this.names);</span>
+<span class="fc" id="L162">        filters.add(tmpNames);</span>
+
+        // Materials
+<span class="fc" id="L165">        var tmpMaterials = FILTER_TYPES[2];</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">        tmpMaterials.setValue((this.materials.isEmpty()) ? new LinkedList&lt;&gt;(Arrays.asList(&quot;&quot;)) : this.materials);</span>
+<span class="fc" id="L167">        filters.add(tmpMaterials);</span>
+
+        // Usages
+<span class="fc" id="L170">        var tmpUsages = FILTER_TYPES[3];</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">        tmpUsages.setValue((this.usages.isEmpty()) ? new LinkedList&lt;&gt;(Arrays.asList(Usage.UNKNOWN)) : this.usages);</span>
+        ;
+<span class="fc" id="L173">        filters.add(tmpUsages);</span>
+
+        // Minimal amount
+<span class="fc" id="L176">        var tmpMinAmount = FILTER_TYPES[4];</span>
+<span class="fc" id="L177">        tmpMinAmount.setValue(this.minAmount);</span>
+<span class="fc" id="L178">        filters.add(tmpMinAmount);</span>
+
+        // Price from
+<span class="fc" id="L181">        var tmpPriceFrom = FILTER_TYPES[5];</span>
+<span class="fc" id="L182">        tmpPriceFrom.setValue(this.priceFrom);</span>
+<span class="fc" id="L183">        filters.add(tmpPriceFrom);</span>
+
+        // Price to
+<span class="fc" id="L186">        var tmpPriceTo = FILTER_TYPES[6];</span>
+<span class="fc" id="L187">        tmpPriceTo.setValue(this.priceTo);</span>
+<span class="fc" id="L188">        filters.add(tmpPriceTo);</span>
+
+<span class="fc" id="L190">        return filters;</span>
+    }
+
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public void setFilters(final List&lt;FieldDescription&gt; filters) {
+<span class="fc" id="L195">        this.types = (List&lt;Type&gt;) filters.get(0).getValue();</span>
+
+<span class="fc" id="L197">        this.names = (List&lt;String&gt;) filters.get(1).getValue();</span>
+
+<span class="fc" id="L199">        this.materials = (List&lt;String&gt;) filters.get(2).getValue();</span>
+
+<span class="fc" id="L201">        this.usages = (List&lt;Usage&gt;) filters.get(3).getValue();</span>
+
+<span class="fc" id="L203">        this.minAmount = (Integer) filters.get(4).getValue();</span>
+
+<span class="fc" id="L205">        this.priceFrom = (Float) filters.get(5).getValue();</span>
+
+<span class="fc" id="L207">        this.priceTo = (Float) filters.get(6).getValue();</span>
+<span class="fc" id="L208">    }</span>
+
+    public void setAllDecorations(final List&lt;Template&gt; decorations) {
+<span class="fc" id="L211">        this.allDecorations = new ArrayList&lt;&gt;(decorations);</span>
+<span class="fc" id="L212">        this.filteredDecorations = new ArrayList&lt;&gt;(decorations);</span>
+<span class="fc" id="L213">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

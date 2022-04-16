@@ -212,17 +212,20 @@ public class ConsoleComunicator {
         return out;
     }
 
-    boolean booleanScanner(final String message) {
+    Boolean booleanScanner(final String message) {
         print(message);
         print(BOOLEAN_OPTIONS);
         Integer option = scanInt(1);
-        return option != null && option == 1;
+        if(option == null){
+            return null;
+        }
+        return option == 1;
     }
 
 
     public  Object edit(final Object previous, final String message) {
         String className = previous.getClass().getName();
-
+        //System.out.println(className);
         if (className == String.class.getName()) {
             String tmp = stringScanner(String.format(LAST_VALUE_STR,message,previous));
             return tmp == null? previous: tmp;
@@ -232,7 +235,7 @@ public class ConsoleComunicator {
             Integer tmp = integerScanner(String.format(LAST_VALUE_STR,message,previous.toString()));
             return tmp == null? previous: tmp;
         }
-        if (className == List.class.getName()) {
+        if (className == LinkedList.class.getName() || className == ArrayList.class.getName()) {
             var list = (List<?>) previous;
             var listItemClass = list.get(0).getClass();
 
@@ -246,6 +249,10 @@ public class ConsoleComunicator {
                 return tmp == null? previous: tmp;
             }
 
+            if (listItemClass == Type.class) {
+                List<Type> tmp = typeListScanner(String.format(LAST_VALUE_STR,message,previous.toString()));
+                return tmp == null? previous: tmp;
+            }
             return null;
         }
         if (className == Date.class.getName()) {
@@ -254,6 +261,10 @@ public class ConsoleComunicator {
         }
         if (className == Usage.class.getName()) {
             Usage tmp = usageScanner(String.format(LAST_VALUE_STR,message,previous.toString()));
+            return tmp == null? previous: tmp;
+        }
+        if (className == Type.class.getName()) {
+            Type tmp = typeScanner(String.format(LAST_VALUE_STR,message,previous.toString()));
             return tmp == null? previous: tmp;
         }
         if (className == Size.class.getName()) {
@@ -303,7 +314,7 @@ public class ConsoleComunicator {
                 var tmp = usageListScanner(message);
                 return tmp == null? new LinkedList<>(): tmp;
             }
-
+            
             return null;
         }
         if (className == Date.class.getName()) {
@@ -328,9 +339,10 @@ public class ConsoleComunicator {
         }
 
         if (className == Boolean.class.getName()) {
-            return booleanScanner(message);
+            Boolean tmp = booleanScanner(message);
+            return tmp == null? false: tmp;
         }
-
+        
         return null;
     }
 }

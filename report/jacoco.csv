@@ -1,0 +1,14 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+laba3,ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager,Manager,50,127,0,0,17,31,6,11,6,11
+laba3,ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager,Manipulator,59,571,5,43,1,89,20,42,15,22
+laba3,ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu,ConsoleComunicator,18,813,9,127,6,185,9,78,0,19
+laba3,ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu,TextMenu,176,186,13,4,44,39,15,8,5,7
+laba3,ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager.utils,FieldDescription,0,19,0,0,0,4,0,4,0,4
+laba3,ua.lpnu.students.labs.laba2.ChristmassDecoration.Model,LongDecoration,69,283,0,2,3,39,6,11,6,10
+laba3,ua.lpnu.students.labs.laba2.ChristmassDecoration.Model,OrganicDecoration,40,154,0,0,3,25,4,8,4,8
+laba3,ua.lpnu.students.labs.laba2.ChristmassDecoration.Model,PieceDecoration,15,269,0,0,1,33,4,10,4,10
+laba3,ua.lpnu.students.labs.laba2.ChristmassDecoration.Model,ElectricDecoration,64,276,0,2,3,41,6,11,6,10
+laba3,ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared,Size,37,58,5,7,0,4,6,6,1,5
+laba3,ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared,Template,199,344,37,7,4,45,28,16,8,14
+laba3,ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared,Type,0,69,0,2,0,7,0,3,0,2
+laba3,ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared,Usage,0,64,0,2,0,8,0,3,0,2

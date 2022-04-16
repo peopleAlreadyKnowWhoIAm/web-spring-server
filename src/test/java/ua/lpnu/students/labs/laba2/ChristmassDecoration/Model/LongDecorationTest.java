@@ -33,7 +33,7 @@ public class LongDecorationTest {
             Assertions.assertEquals(fields.get(3).getValue(), a.getAvalaibleAmount());
             Assertions.assertEquals(fields.get(4).getValue(), a.getPrice());
 
-            Assertions.assertEquals(fields.get(5).getValue(), a.getColor());
+            Assertions.assertEquals(fields.get(5).getValue().toString(), a.getColor().toString());
             Assertions.assertEquals(fields.get(6).getValue(), a.getStyle());
             Assertions.assertEquals(fields.get(7).getValue(), a.getMinimalLength());
             Assertions.assertEquals(fields.get(8).getValue(), a.getWidthInCentimeters());

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Manager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">laba3</a> &gt; <a href="index.source.html" class="el_package">ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager</a> &gt; <span class="el_source">Manager.java</span></div><h1>Manager.java</h1><pre class="source lang-java linenums">package ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager.utils.FieldDescription;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.ElectricDecoration;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.LongDecoration;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.OrganicDecoration;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.PieceDecoration;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
+
+public class Manager {
+
+<span class="fc" id="L20">    public Manager(List&lt;Template&gt; decorations) {</span>
+<span class="fc" id="L21">        this.decorations = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L22">        this.decorations.addAll(decorations);</span>
+<span class="fc" id="L23">    }</span>
+
+<span class="nc" id="L25">    public Manager() {</span>
+<span class="nc" id="L26">        decorations = new ArrayList&lt;Template&gt;();</span>
+<span class="nc" id="L27">    }</span>
+
+    // All decorations
+    protected List&lt;Template&gt; decorations;
+
+<span class="pc" id="L32">    protected Manipulator manipulator = new Manipulator();</span>
+    // Initing Map of classes
+    public static final Map&lt;Type, Class&lt;?&gt;&gt; POSSIBLE_CLASSES;
+    static {
+<span class="fc" id="L36">        POSSIBLE_CLASSES = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L37">        POSSIBLE_CLASSES.put(Type.ELECTRIC_DECORATION, ElectricDecoration.class);</span>
+<span class="fc" id="L38">        POSSIBLE_CLASSES.put(Type.LONG_DECORATION, LongDecoration.class);</span>
+<span class="fc" id="L39">        POSSIBLE_CLASSES.put(Type.ORGANIC_DECORATION, OrganicDecoration.class);</span>
+<span class="fc" id="L40">        POSSIBLE_CLASSES.put(Type.PIECE_DECORATION, PieceDecoration.class);</span>
+<span class="fc" id="L41">    }</span>
+
+    public List&lt;FieldDescription&gt; getFieldsOf(Type type) {
+        try {
+<span class="fc" id="L45">            Template tmp = (Template) POSSIBLE_CLASSES.get(type).getConstructor().newInstance();</span>
+<span class="fc" id="L46">            return tmp.getFields();</span>
+<span class="nc" id="L47">        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException</span>
+                | NoSuchMethodException | SecurityException e) {
+<span class="nc" id="L49">            e.printStackTrace();</span>
+        }
+<span class="nc" id="L51">        return null;</span>
+    }
+
+    public List&lt;FieldDescription&gt; getFieldsOf(int pos) {
+<span class="fc" id="L55">        return decorations.get(pos).getFields();</span>
+    }
+
+    public void addDecoration(Type type, List&lt;FieldDescription&gt; fields) {
+        try {
+<span class="fc" id="L60">            Template tmp = (Template) POSSIBLE_CLASSES.get(type).getConstructor().newInstance();</span>
+<span class="fc" id="L61">            tmp.setFields(fields);</span>
+<span class="fc" id="L62">            decorations.add(tmp);</span>
+<span class="nc" id="L63">        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException</span>
+                | NoSuchMethodException | SecurityException e) {
+<span class="nc" id="L65">            e.printStackTrace();</span>
+<span class="fc" id="L66">        }</span>
+<span class="fc" id="L67">    }</span>
+
+    public void setDecoration(int position, List&lt;FieldDescription&gt; fields) {
+<span class="fc" id="L70">        Template tmp = decorations.get(position);</span>
+<span class="fc" id="L71">        tmp.setFields(fields);</span>
+<span class="fc" id="L72">        decorations.set(position,tmp);</span>
+<span class="fc" id="L73">    }</span>
+
+    public List&lt;Template&gt; getDecorations() {
+<span class="fc" id="L76">        return decorations;</span>
+    }
+
+    public void addDecoration(Template decorations) {
+<span class="fc" id="L80">        this.decorations.add(decorations);</span>
+<span class="fc" id="L81">    }</span>
+
+    public void deleteDecoration(int pos) {
+<span class="fc" id="L84">        this.decorations.remove(pos);</span>
+<span class="fc" id="L85">    }</span>
+
+    public void deleteDecoration(Template delete) {
+<span class="fc" id="L88">        this.decorations.remove(delete);</span>
+<span class="fc" id="L89">    }</span>
+
+    public List&lt;Type&gt; getPossibleTypes() {
+<span class="fc" id="L92">        return Arrays.asList(Type.values());</span>
+    }
+
+    public List&lt;FieldDescription&gt; getFilters() {
+<span class="nc" id="L96">        return manipulator.getFilters();</span>
+    }
+
+    public void setFilters(List&lt;FieldDescription&gt; filters) {
+<span class="nc" id="L100">        manipulator.setFilters(filters);</span>
+<span class="nc" id="L101">    }</span>
+
+    public String[] getSortings() {
+<span class="nc" id="L104">        return Manipulator.getAVAILABLE_SORTING();</span>
+    }
+
+    public void setSorting(final String sorting, final boolean descending) {
+<span class="nc" id="L108">        manipulator.sort(sorting, descending);</span>
+<span class="nc" id="L109">    }</span>
+
+    public List&lt;Template&gt; filter() {
+<span class="nc" id="L112">        manipulator.setAllDecorations(decorations);</span>
+<span class="nc" id="L113">        manipulator.filter();</span>
+<span class="nc" id="L114">        return manipulator.getFilteredDecorations();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

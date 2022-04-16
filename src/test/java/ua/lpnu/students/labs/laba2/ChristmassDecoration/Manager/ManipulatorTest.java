@@ -82,7 +82,7 @@ public class ManipulatorTest {
 		var previousList = new ArrayList<>(manipulator.getAllDecorations());
 
 		manipulator.filter();
-		Assertions.assertEquals(manipulator.getFilteredDecorations(), previousList);
+		Assertions.assertEquals(manipulator.getFilteredDecorations().toString(), previousList.toString());
 
 		filters.get(0).setValue(new LinkedList<>());
 		filters.get(1).setValue(new LinkedList<>());
@@ -95,7 +95,7 @@ public class ManipulatorTest {
 		manipulator.setFilters(filters);
 		manipulator.filter();
 
-		Assertions.assertEquals(manipulator.getFilteredDecorations(), manipulator.getAllDecorations());
+		Assertions.assertEquals(manipulator.getFilteredDecorations().toString(), manipulator.getAllDecorations().toString());
 
 		var types = Arrays.asList(Type.ELECTRIC_DECORATION, Type.PIECE_DECORATION);
 		var names = new ArrayList<>();

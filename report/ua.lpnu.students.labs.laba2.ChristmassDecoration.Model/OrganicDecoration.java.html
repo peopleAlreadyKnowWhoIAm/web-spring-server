@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrganicDecoration.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">laba3</a> &gt; <a href="index.source.html" class="el_package">ua.lpnu.students.labs.laba2.ChristmassDecoration.Model</a> &gt; <span class="el_source">OrganicDecoration.java</span></div><h1>OrganicDecoration.java</h1><pre class="source lang-java linenums">package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model;
+
+import java.util.Date;
+import java.util.List;
+
+import lombok.Getter;
+import lombok.Setter;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager.utils.FieldDescription;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Size;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu.ConsoleComunicator;
+
+<span class="nc" id="L14">@Setter</span>
+@Getter
+public class OrganicDecoration extends PieceDecoration {
+<span class="fc" id="L17">    public static final Type CLASS_TYPE = Type.ORGANIC_DECORATION;</span>
+    // Variables
+<span class="fc" id="L19">    protected int numberOfDaysToExpiration;</span>
+
+<span class="pc" id="L21">    protected Date dateOfProduction = new Date();</span>
+
+    // Constructors
+    public OrganicDecoration(String name, Usage usage, int avalaibleAmount, String color, String style,
+            String material, Size size, float pricePerPiece, int numberOfDaysToExpiration, Date dateOfProduction) {
+<span class="fc" id="L26">        super(name, usage, avalaibleAmount, color, style, material, size, pricePerPiece);</span>
+<span class="fc" id="L27">        this.numberOfDaysToExpiration = numberOfDaysToExpiration;</span>
+<span class="fc" id="L28">        this.dateOfProduction = dateOfProduction;</span>
+<span class="fc" id="L29">    }</span>
+
+    public OrganicDecoration() {
+<span class="fc" id="L32">        super(CLASS_TYPE);</span>
+<span class="fc" id="L33">    }</span>
+
+    protected OrganicDecoration(Type type) {
+<span class="nc" id="L36">        super(type);</span>
+<span class="nc" id="L37">    }</span>
+
+    // Text menu functions
+    @Override
+    public void setFields(final List&lt;FieldDescription&gt; fields) {
+
+        // Number of days to expiration
+<span class="fc" id="L44">        this.numberOfDaysToExpiration = (Integer) fields.get(8).getValue();</span>
+
+        // Date of production
+<span class="fc" id="L47">        this.dateOfProduction = (Date) fields.get(9).getValue();</span>
+
+<span class="fc" id="L49">        super.setFields(fields);</span>
+<span class="fc" id="L50">    }</span>
+
+    @Override
+    public List&lt;FieldDescription&gt; getFields() {
+<span class="fc" id="L54">        List&lt;FieldDescription&gt; out = super.getFields();</span>
+
+        // Number of days to expiration
+<span class="fc" id="L57">        var tmpHowFarExp = TEMPLATE_FIELDS[0];</span>
+<span class="fc" id="L58">        tmpHowFarExp.setValue(this.numberOfDaysToExpiration);</span>
+<span class="fc" id="L59">        out.add(tmpHowFarExp);</span>
+
+        // Date of production
+<span class="fc" id="L62">        var tmpDate = TEMPLATE_FIELDS[1];</span>
+<span class="fc" id="L63">        tmpDate.setValue(this.dateOfProduction);</span>
+<span class="fc" id="L64">        out.add(tmpDate);</span>
+
+<span class="fc" id="L66">        return out;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L71">        return super.toString()</span>
+<span class="fc" id="L72">                + String.format(DSCRIPTION_STR, ConsoleComunicator.DATE_FORMATTER.format(this.dateOfProduction),</span>
+<span class="fc" id="L73">                        String.valueOf(this.numberOfDaysToExpiration));</span>
+    }
+
+    // String literals
+
+    private static final String DATE_STR = &quot;Date of production using patern &quot; + ConsoleComunicator.DATE_PATTERN_STR
+            + &quot; :&quot;;
+    private static final String EXPIRATION_TERM_STR = &quot;Number of days to expire: &quot;;
+
+    private static final String DSCRIPTION_STR = &quot;Date of production: %s\t&quot; + EXPIRATION_TERM_STR + &quot;%s\t&quot;;
+
+<span class="pc" id="L84">    private final FieldDescription[] TEMPLATE_FIELDS = {</span>
+            new FieldDescription(null, EXPIRATION_TERM_STR),
+            new FieldDescription(null, DATE_STR)
+    };
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

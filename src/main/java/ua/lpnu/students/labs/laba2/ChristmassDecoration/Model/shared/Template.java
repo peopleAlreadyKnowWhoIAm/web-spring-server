@@ -11,7 +11,7 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager.utils.FieldDescr
 @Getter
 @Setter
 @EqualsAndHashCode
-public abstract class Template {
+public abstract class Template implements Cloneable {
     // Variables
     protected String name = new String();
     protected String material = new String();
@@ -93,6 +93,15 @@ public abstract class Template {
     public String toString() {
         return String.format(DESCRIPTION_STR, this.name, this.type, this.usage.toString(),
                 String.valueOf(this.avalaibleAmount), this.material);
+    }
+
+    public Template copy(){
+        try {
+            return (Template)super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private final FieldDescription[] TEMPLATE_FIELDS = {

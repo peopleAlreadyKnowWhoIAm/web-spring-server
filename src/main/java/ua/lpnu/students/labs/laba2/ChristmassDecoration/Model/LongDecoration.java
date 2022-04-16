@@ -1,5 +1,6 @@
 package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class LongDecoration extends Template {
 
         // Colors
         var tmpColors = TEMPLATE_FIELDS[0];
-        tmpColors.setValue(this.color);
+        tmpColors.setValue(this.color.isEmpty() ? new LinkedList<>(Arrays.asList(new String())) : this.color);
         out.add(tmpColors);
 
         // Style

@@ -8,7 +8,7 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 
 public class TextMenu {
-    private Manager manager;
+    Manager manager;
 
     ConsoleComunicator console = new ConsoleComunicator();
 
@@ -53,13 +53,12 @@ public class TextMenu {
     }
 
     // Menu options
-    private void filterDecorations() {
+    void filterDecorations() {
         List<FieldDescription> filters = manager.getFilters();
         filters.forEach((field) -> {
             Object tmp = (Object) console.set(
-                field.getValue(),
-                field.getMessage()
-            );
+                    field.getValue(),
+                    field.getMessage());
             field.setValue(tmp);
         });
 
@@ -76,7 +75,7 @@ public class TextMenu {
         }
         console.print(out);
         int option = console.scanStrictlyInt(sorting.length - 1);
-        boolean descending = (Boolean)console.set( false,DESCENDING_STRING);
+        boolean descending = (Boolean) console.set(false, DESCENDING_STRING);
 
         manager.setSorting(sorting[option], descending);
 
@@ -99,7 +98,7 @@ public class TextMenu {
         manager.addDecoration(type, fields);
     }
 
-    private String listDecorationIndexed() {
+    String listDecorationIndexed() {
         String out = String.format(LIST_OPTION_STR, manager.getDecorations().size());
         out.formatted(manager.getDecorations().size());
         int count = 0;
@@ -115,7 +114,7 @@ public class TextMenu {
         console.print(EDITING_OPTION_STR);
         int position;
         do {
-            position = (Integer)console.set(4, CHOOSE_NUMBER_STR);
+            position = (Integer) console.set(4, CHOOSE_NUMBER_STR);
         } while (position >= manager.getDecorations().size());
 
         List<FieldDescription> fields = manager.getFieldsOf(position);
@@ -131,7 +130,7 @@ public class TextMenu {
         console.print(DELETING_OPTION_STR);
         int position;
         do {
-            position = (Integer)console.set(4,CHOOSE_NUMBER_STR);
+            position = (Integer) console.set(4, CHOOSE_NUMBER_STR);
         } while (position >= manager.getDecorations().size());
         manager.deleteDecoration(position);
     }

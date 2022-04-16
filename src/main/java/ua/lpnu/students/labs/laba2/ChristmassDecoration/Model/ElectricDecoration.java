@@ -1,5 +1,6 @@
 package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,7 +47,8 @@ public class ElectricDecoration extends Template {
 
         // Colors
         var tmpColors = TEMPLATE_FIELDS[0];
-        tmpColors.setValue(this.colorsOfLights);
+        tmpColors.setValue(
+                this.colorsOfLights.isEmpty() ? new LinkedList<>(Arrays.asList(new String())) : this.colorsOfLights);
         out.add(tmpColors);
 
         // Length
@@ -69,7 +71,7 @@ public class ElectricDecoration extends Template {
 
     @Override
     @SuppressWarnings("unchecked")
-    public void setFields(final List<FieldDescription> fields){
+    public void setFields(final List<FieldDescription> fields) {
         this.colorsOfLights = (List<String>) fields.get(5).getValue();
 
         this.length = (Integer) fields.get(6).getValue();
