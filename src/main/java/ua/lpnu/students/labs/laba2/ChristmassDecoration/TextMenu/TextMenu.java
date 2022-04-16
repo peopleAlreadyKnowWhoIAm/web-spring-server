@@ -10,6 +10,8 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 public class TextMenu {
     private Manager manager;
 
+    ConsoleComunicator console = new ConsoleComunicator();
+
     // Constructor
     public TextMenu() {
         manager = new Manager();
@@ -24,13 +26,13 @@ public class TextMenu {
     public void mainMenu() {
         boolean always = true;
         while (always) {
-            ConsoleComunicator.print(MAIN_MENU_STR);
-            switch (ConsoleComunicator.scanString()) {
+            console.print(MAIN_MENU_STR);
+            switch (console.scanString()) {
                 case "a":
                     addDecoration();
                     break;
                 case "l":
-                    ConsoleComunicator.print(listDecorationIndexed());
+                    console.print(listDecorationIndexed());
                     break;
                 case "d":
                     deleteDecoration();
@@ -45,7 +47,7 @@ public class TextMenu {
                     always = false;
                     break;
                 default:
-                    ConsoleComunicator.print(INVALID_STRING);
+                    console.print(INVALID_STRING);
             }
         }
     }
@@ -54,7 +56,7 @@ public class TextMenu {
     private void filterDecorations() {
         List<FieldDescription> filters = manager.getFilters();
         filters.forEach((field) -> {
-            Object tmp = (Object) ConsoleComunicator.set(
+            Object tmp = (Object) console.set(
                 field.getValue(),
                 field.getMessage()
             );
@@ -72,25 +74,25 @@ public class TextMenu {
         for (String i : sorting) {
             out += String.format("%d. %s \n", count++, i);
         }
-        ConsoleComunicator.print(out);
-        int option = ConsoleComunicator.scanStrictlyInt(sorting.length - 1);
-        boolean descending = ConsoleComunicator.setBool(DESCENDING_STRING);
+        console.print(out);
+        int option = console.scanStrictlyInt(sorting.length - 1);
+        boolean descending = (Boolean)console.set( false,DESCENDING_STRING);
 
         manager.setSorting(sorting[option], descending);
 
         filtered.forEach((decoration) -> {
-            ConsoleComunicator.print(String.format("%s\n", decoration.toString()));
+            console.print(String.format("%s\n", decoration.toString()));
         });
 
     }
 
     public void addDecoration() {
-        ConsoleComunicator.print(CHOOSE_TYPE_STR);
+        console.print(CHOOSE_TYPE_STR);
 
-        Type type = (Type) ConsoleComunicator.set(Type.ELECTRIC_DECORATION, "");
+        Type type = (Type) console.set(Type.ELECTRIC_DECORATION, "");
         List<FieldDescription> fields = manager.getFieldsOf(type);
         fields.forEach((field) -> {
-            Object a = (Object) ConsoleComunicator.set(field.getValue().getClass().cast(field.getValue()),
+            Object a = (Object) console.set(field.getValue().getClass().cast(field.getValue()),
                     field.getMessage());
             field.setValue(a);
         });
@@ -109,27 +111,27 @@ public class TextMenu {
     }
 
     public void editDecoration() {
-        ConsoleComunicator.print(listDecorationIndexed());
-        ConsoleComunicator.print(EDITING_OPTION_STR);
+        console.print(listDecorationIndexed());
+        console.print(EDITING_OPTION_STR);
         int position;
         do {
-            position = ConsoleComunicator.setInt(CHOOSE_NUMBER_STR);
+            position = (Integer)console.set(4, CHOOSE_NUMBER_STR);
         } while (position >= manager.getDecorations().size());
 
         List<FieldDescription> fields = manager.getFieldsOf(position);
         fields.forEach((field) -> {
-            Object a = ConsoleComunicator.edit(field.getValue(), field.getMessage());
+            Object a = console.edit(field.getValue(), field.getMessage());
             field.setValue(a);
         });
         manager.setDecoration(position, fields);
     }
 
     public void deleteDecoration() {
-        ConsoleComunicator.print(listDecorationIndexed());
-        ConsoleComunicator.print(DELETING_OPTION_STR);
+        console.print(listDecorationIndexed());
+        console.print(DELETING_OPTION_STR);
         int position;
         do {
-            position = ConsoleComunicator.setInt(CHOOSE_NUMBER_STR);
+            position = (Integer)console.set(4,CHOOSE_NUMBER_STR);
         } while (position >= manager.getDecorations().size());
         manager.deleteDecoration(position);
     }
