@@ -37,10 +37,6 @@ public class LongDecoration extends Template {
         super(CLASS_TYPE);
     }
 
-    protected LongDecoration(Type type) {
-        super(type);
-    }
-
     // Text menu functions
     @Override
     @SuppressWarnings("unchecked")

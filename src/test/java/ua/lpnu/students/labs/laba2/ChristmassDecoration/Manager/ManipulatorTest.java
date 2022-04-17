@@ -95,7 +95,8 @@ public class ManipulatorTest {
 		manipulator.setFilters(filters);
 		manipulator.filter();
 
-		Assertions.assertEquals(manipulator.getFilteredDecorations().toString(), manipulator.getAllDecorations().toString());
+		Assertions.assertEquals(manipulator.getFilteredDecorations().toString(),
+				manipulator.getAllDecorations().toString());
 
 		var types = Arrays.asList(Type.ELECTRIC_DECORATION, Type.PIECE_DECORATION);
 		var names = new ArrayList<>();
@@ -178,14 +179,14 @@ public class ManipulatorTest {
 		manipulator.sort(sortings[0], false);
 
 		for (var decor : manipulator.getFilteredDecorations()) {
-			Assertions.assertTrue(lastName.compareToIgnoreCase( decor.getName()) <= 0);
+			Assertions.assertTrue(lastName.compareToIgnoreCase(decor.getName()) <= 0);
 			lastName = decor.getName();
 		}
 
 		manipulator.sort(sortings[0], true);
 
 		for (var decor : manipulator.getFilteredDecorations()) {
-			Assertions.assertTrue(lastName.compareToIgnoreCase( decor.getName()) >= 0);
+			Assertions.assertTrue(lastName.compareToIgnoreCase(decor.getName()) >= 0);
 			lastName = decor.getName();
 		}
 

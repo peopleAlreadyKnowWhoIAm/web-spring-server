@@ -3,14 +3,12 @@ package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared;
 import java.util.LinkedList;
 import java.util.List;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager.utils.FieldDescription;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 public abstract class Template implements Cloneable {
     // Variables
     protected String name = new String();

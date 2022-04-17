@@ -32,10 +32,6 @@ public class OrganicDecoration extends PieceDecoration {
         super(CLASS_TYPE);
     }
 
-    protected OrganicDecoration(Type type) {
-        super(type);
-    }
-
     // Text menu functions
     @Override
     public void setFields(final List<FieldDescription> fields) {

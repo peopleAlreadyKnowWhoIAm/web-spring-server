@@ -37,10 +37,6 @@ public class ElectricDecoration extends Template {
         super(CLASS_TYPE);
     }
 
-    protected ElectricDecoration(Type type) {
-        super(type);
-    }
-
     @Override
     public List<FieldDescription> getFields() {
         List<FieldDescription> out = super.getFields();
