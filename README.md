@@ -2,6 +2,7 @@
 
 ## Task
 
-### 4 Tranfer to maven project
+### 5 Implement tests
 
-Use variant previous laba
+Implement test to the project
+Test coverage must be over 80 %
