@@ -1,11 +1,11 @@
 package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.DataStorage.TypedList;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.DataStorage.impl.TypedLinkedList;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager.utils.FieldDescription;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
@@ -16,7 +16,7 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 public class ElectricDecoration extends Template {
     public static final Type CLASS_TYPE = Type.ELECTRIC_DECORATION;
     // Variables
-    private List<String> colorsOfLights = new LinkedList<>();
+    private TypedList<String> colorsOfLights = new TypedLinkedList<>(new String());
 
     private int length;
     private int amountLampsPerMeter;
@@ -24,7 +24,7 @@ public class ElectricDecoration extends Template {
 
     // Constructors
     public ElectricDecoration(String name, Usage usage, String material, int avalaibleAmount,
-            List<String> colorsOfLights,
+            TypedList<String> colorsOfLights,
             int length, int amountLampsPerMeter, int powerInWatts, float pricePerPiece) {
         super(name, CLASS_TYPE, usage, material, avalaibleAmount, pricePerPiece);
         this.colorsOfLights = colorsOfLights;
@@ -43,8 +43,7 @@ public class ElectricDecoration extends Template {
 
         // Colors
         var tmpColors = TEMPLATE_FIELDS[0];
-        tmpColors.setValue(
-                this.colorsOfLights.isEmpty() ? new LinkedList<>(Arrays.asList(new String())) : this.colorsOfLights);
+        tmpColors.setValue( this.colorsOfLights);
         out.add(tmpColors);
 
         // Length
@@ -68,7 +67,7 @@ public class ElectricDecoration extends Template {
     @Override
     @SuppressWarnings("unchecked")
     public void setFields(final List<FieldDescription> fields) {
-        this.colorsOfLights = (List<String>) fields.get(5).getValue();
+        this.colorsOfLights = (TypedList<String>) fields.get(5).getValue();
 
         this.length = (Integer) fields.get(6).getValue();
 

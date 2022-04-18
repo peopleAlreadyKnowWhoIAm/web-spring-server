@@ -1,11 +1,11 @@
 package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.DataStorage.TypedList;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.DataStorage.impl.TypedLinkedList;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager.utils.FieldDescription;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
@@ -16,7 +16,7 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 public class LongDecoration extends Template {
     public static final Type CLASS_TYPE = Type.LONG_DECORATION;
     // Variables
-    protected List<String> color = new LinkedList<String>();
+    protected TypedList<String> color = new TypedLinkedList<String>(new String());
 
     protected String style = new String();
 
@@ -24,7 +24,7 @@ public class LongDecoration extends Template {
     protected int widthInCentimeters;
 
     // Constructors
-    public LongDecoration(String name, Usage usage, int avalaibleAmount, List<String> color, String style,
+    public LongDecoration(String name, Usage usage, int avalaibleAmount, TypedList<String> color, String style,
             String material, int minimalLength, int widthInCentimeters, float pricePerMeter) {
         super(name, CLASS_TYPE, usage, material, avalaibleAmount, pricePerMeter);
         this.color = color;
@@ -43,7 +43,7 @@ public class LongDecoration extends Template {
     public void setFields(final List<FieldDescription> fields) {
 
         // Colors
-        this.color = (List<String>) fields.get(5).getValue();
+        this.color = (TypedList<String>) fields.get(5).getValue();
 
         // Style
         this.style = (String) fields.get(6).getValue();
@@ -63,7 +63,7 @@ public class LongDecoration extends Template {
 
         // Colors
         var tmpColors = TEMPLATE_FIELDS[0];
-        tmpColors.setValue(this.color.isEmpty() ? new LinkedList<>(Arrays.asList(new String())) : this.color);
+        tmpColors.setValue(this.color);
         out.add(tmpColors);
 
         // Style

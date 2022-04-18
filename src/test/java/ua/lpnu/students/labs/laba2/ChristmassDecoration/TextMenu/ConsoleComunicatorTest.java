@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
@@ -13,6 +12,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.DataStorage.impl.TypedArrayList;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Size;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
@@ -59,9 +59,9 @@ public class ConsoleComunicatorTest {
 		String[] inputStringList = {
 				"bla\nbla\nbal\n\n", "\n", "test\n\n" };
 		List<List<String>> previousStringList = Arrays.asList(
-				new ArrayList<>(Arrays.asList(new String("bla"))),
-				new ArrayList<>(Arrays.asList("super", "puper", "test")),
-				new ArrayList<>(Arrays.asList("saj", "test")));
+				new TypedArrayList<>(new String(), Arrays.asList(new String("bla"))),
+				new TypedArrayList<>(new String(), Arrays.asList("super", "puper", "test")),
+				new TypedArrayList<>(new String(), Arrays.asList("saj", "test")));
 		List<List<String>> resultStringList = Arrays.asList(
 				Arrays.asList("bla", "bla", "bal"), Arrays.asList("super", "puper", "test"),
 				Arrays.asList("test"));
@@ -78,10 +78,11 @@ public class ConsoleComunicatorTest {
 		String[] inputTypeList = {
 				"0\n5\n4\n\n", "\n", "1\n\n", "0\n1\n2\n\n" };
 		List<List<Type>> previousTypeList = Arrays.asList(
-			new ArrayList<>(Arrays.asList(Type.ELECTRIC_DECORATION)),
-				new ArrayList<>(Arrays.asList(Type.PIECE_DECORATION, Type.ORGANIC_DECORATION, Type.LONG_DECORATION)),
-				new ArrayList<>(Arrays.asList(Type.LONG_DECORATION)),
-				new ArrayList<>(Arrays.asList(Type.ORGANIC_DECORATION)));
+				new TypedArrayList<>(Type.ELECTRIC_DECORATION, Arrays.asList(Type.ELECTRIC_DECORATION)),
+				new TypedArrayList<>(Type.ELECTRIC_DECORATION,
+						Arrays.asList(Type.PIECE_DECORATION, Type.ORGANIC_DECORATION, Type.LONG_DECORATION)),
+				new TypedArrayList<>(Type.ELECTRIC_DECORATION, Arrays.asList(Type.LONG_DECORATION)),
+				new TypedArrayList<>(Type.ELECTRIC_DECORATION, Arrays.asList(Type.ORGANIC_DECORATION)));
 		List<List<Type>> resultTypeList = Arrays.asList(
 				Arrays.asList(Type.PIECE_DECORATION),
 				Arrays.asList(Type.PIECE_DECORATION, Type.ORGANIC_DECORATION, Type.LONG_DECORATION),
@@ -100,10 +101,11 @@ public class ConsoleComunicatorTest {
 		String[] inputUsageList = {
 				"0\n5\n4\n\n", "\n", "1\n\n", "0\n1\n2\n\n" };
 		List<List<Usage>> previousUsageList = Arrays.asList(
-			new ArrayList<>(Arrays.asList(Usage.FOR_WINDOWS)),
-			new ArrayList<>(Arrays.asList(Usage.OUTSIDE_DECORATION, Usage.FOR_WINDOWS)),
-			new ArrayList<>(Arrays.asList(Usage.OUTSIDE_DECORATION, Usage.UNKNOWN)),
-			new ArrayList<>(Arrays.asList(Usage.OUTSIDE_DECORATION, Usage.FOR_CHRISTMASS)));
+				new TypedArrayList<>(Usage.FOR_CHRISTMASS, Arrays.asList(Usage.FOR_WINDOWS)),
+				new TypedArrayList<>(Usage.FOR_CHRISTMASS, Arrays.asList(Usage.OUTSIDE_DECORATION, Usage.FOR_WINDOWS)),
+				new TypedArrayList<>(Usage.FOR_CHRISTMASS, Arrays.asList(Usage.OUTSIDE_DECORATION, Usage.UNKNOWN)),
+				new TypedArrayList<>(Usage.FOR_CHRISTMASS,
+						Arrays.asList(Usage.OUTSIDE_DECORATION, Usage.FOR_CHRISTMASS)));
 		List<List<Usage>> resultUsageList = Arrays.asList(
 				Arrays.asList(Usage.UNKNOWN, Usage.FOR_WINDOWS),
 				Arrays.asList(Usage.OUTSIDE_DECORATION, Usage.FOR_WINDOWS),
@@ -233,7 +235,7 @@ public class ConsoleComunicatorTest {
 
 	@Test
 	void testPrint() {
-		String[] input = {"\n", "Test\n", "Alpha\n"};
+		String[] input = { "\n", "Test\n", "Alpha\n" };
 		for (String string : input) {
 			var out = new ByteArrayOutputStream();
 			System.setOut(new PrintStream(out));
@@ -324,7 +326,7 @@ public class ConsoleComunicatorTest {
 			System.setIn(buf);
 
 			var console = new ConsoleComunicator();
-			Assertions.assertEquals(console.set(new ArrayList<>(Arrays.asList(new String())), ""),
+			Assertions.assertEquals(console.set(new TypedArrayList<String>(new String()), ""),
 					resultStringList.get(i));
 		}
 
@@ -341,7 +343,7 @@ public class ConsoleComunicatorTest {
 
 			var console = new ConsoleComunicator();
 			Assertions.assertEquals(
-					console.set(new ArrayList<>(Arrays.asList(Type.ELECTRIC_DECORATION)), ""),
+					console.set(new TypedArrayList<>(Type.ELECTRIC_DECORATION), ""),
 					resultTypeList.get(i));
 		}
 
@@ -357,7 +359,7 @@ public class ConsoleComunicatorTest {
 			System.setIn(buf);
 
 			var console = new ConsoleComunicator();
-			Assertions.assertEquals(console.set(new ArrayList<>(Arrays.asList(Usage.FOR_WINDOWS)), ""),
+			Assertions.assertEquals(console.set(new TypedArrayList<>(Usage.UNKNOWN), ""),
 					resultUsageList.get(i));
 		}
 

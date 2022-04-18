@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.DataStorage.impl.TypedArrayList;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 
 
@@ -17,8 +18,8 @@ public class ElectricDecorationTest {
     @BeforeEach
     void init(){
         samples = Arrays.asList(
-            new ElectricDecoration("Cheap christmass lights", Usage.FOR_CHRISTMASS, "plastic", 120, Arrays.asList("blue", "green","red"), 150, 10, 25, 120.50f),
-            new ElectricDecoration("Interested house ilumination", Usage.OUTSIDE_DECORATION, "plastic", 40, Arrays.asList("yellow", "green","red", "blue", "white"), 2500, 15, 150, 1200.0f),
+            new ElectricDecoration("Cheap christmass lights", Usage.FOR_CHRISTMASS, "plastic", 120, new TypedArrayList<>(new String(),Arrays.asList("blue", "green","red")), 150, 10, 25, 120.50f),
+            new ElectricDecoration("Interested house ilumination", Usage.OUTSIDE_DECORATION, "plastic", 40, new TypedArrayList<>(new String(), Arrays.asList("yellow", "green","red", "blue", "white")), 2500, 15, 150, 1200.0f),
             new ElectricDecoration()
         );
     }
@@ -44,7 +45,7 @@ public class ElectricDecorationTest {
             fields.get(3).setValue(103);
             fields.get(4).setValue(104.0f);
 
-            fields.get(5).setValue(Arrays.asList("COLOR","COLOR"));
+            fields.get(5).setValue(new TypedArrayList<>(new String(),Arrays.asList("COLOR","COLOR")));
             fields.get(6).setValue(106);
             fields.get(7).setValue(107);
             fields.get(8).setValue(108);
@@ -59,7 +60,7 @@ public class ElectricDecorationTest {
             Assertions.assertEquals(fields.get(3).getValue(), 103);
             Assertions.assertEquals(fields.get(4).getValue(), 104.0f);
 
-            Assertions.assertEquals(fields.get(5).getValue(), Arrays.asList("COLOR","COLOR"));
+            Assertions.assertEquals(fields.get(5).getValue(), new TypedArrayList<>(new String(), Arrays.asList("COLOR","COLOR")));
             Assertions.assertEquals(fields.get(6).getValue(), 106);
             Assertions.assertEquals(fields.get(7).getValue(), 107);
             Assertions.assertEquals(fields.get(8).getValue(), 108);

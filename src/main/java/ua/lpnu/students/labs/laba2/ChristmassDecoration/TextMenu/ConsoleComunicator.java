@@ -2,12 +2,13 @@ package ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.DataStorage.TypedList;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.DataStorage.impl.TypedLinkedList;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Size;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
@@ -94,7 +95,7 @@ public class ConsoleComunicator {
 
     public  List<String> stringListScanner(final String message) {
         print(message);
-        List<String> out = new LinkedList<>();
+        List<String> out = new TypedLinkedList<>(new String());
         String tmp = new String();
         do {
             tmp = scanString();
@@ -180,7 +181,7 @@ public class ConsoleComunicator {
 
     List<Type> typeListScanner(String message) {
         print(message);
-        List<Type> out = new LinkedList<>();
+        List<Type> out = new TypedLinkedList<>(Type.ELECTRIC_DECORATION);
         Type tmp = null;
         do {
             tmp = typeScanner("");
@@ -197,7 +198,7 @@ public class ConsoleComunicator {
 
     List<Usage> usageListScanner(final String message) {
         print(message);
-        List<Usage> out = new LinkedList<>();
+        List<Usage> out = new TypedLinkedList<>(Usage.UNIVERSAL);
         Usage tmp = null;
         do {
             tmp = usageScanner("");
@@ -224,58 +225,57 @@ public class ConsoleComunicator {
 
 
     public  Object edit(final Object previous, final String message) {
-        String className = previous.getClass().getName();
         //System.out.println(className);
-        if (className == String.class.getName()) {
+        if (previous instanceof String) {
             String tmp = stringScanner(String.format(LAST_VALUE_STR,message,previous));
             return tmp == null? previous: tmp;
             
         }
-        if (className == Integer.class.getName()) {
+        if (previous instanceof Integer) {
             Integer tmp = integerScanner(String.format(LAST_VALUE_STR,message,previous.toString()));
             return tmp == null? previous: tmp;
         }
-        if (className == LinkedList.class.getName() || className == ArrayList.class.getName()) {
-            var list = (List<?>) previous;
-            var listItemClass = list.get(0).getClass();
+        if (previous instanceof TypedList) {
+            var list = (TypedList<?>) previous;
+            var listItemClass = list.getType();
 
-            if (listItemClass == String.class) {
+            if (listItemClass instanceof String) {
                 List<String> tmp = stringListScanner(String.format(LAST_VALUE_STR,message,previous.toString()));
                 return tmp == null? previous: tmp;
             }
 
-            if (listItemClass == Usage.class) {
+            if (listItemClass instanceof Usage) {
                 List<Usage> tmp = usageListScanner(String.format(LAST_VALUE_STR,message,previous.toString()));
                 return tmp == null? previous: tmp;
             }
 
-            if (listItemClass == Type.class) {
+            if (listItemClass instanceof Type) {
                 List<Type> tmp = typeListScanner(String.format(LAST_VALUE_STR,message,previous.toString()));
                 return tmp == null? previous: tmp;
             }
             return null;
         }
-        if (className == Date.class.getName()) {
+        if (previous instanceof Date) {
             Date tmp = dateScanner(String.format(LAST_VALUE_STR,message,DATE_FORMATTER.format(previous)));
             return tmp == null? previous: tmp;
         }
-        if (className == Usage.class.getName()) {
+        if (previous instanceof Usage) {
             Usage tmp = usageScanner(String.format(LAST_VALUE_STR,message,previous.toString()));
             return tmp == null? previous: tmp;
         }
-        if (className == Type.class.getName()) {
+        if (previous instanceof Type) {
             Type tmp = typeScanner(String.format(LAST_VALUE_STR,message,previous.toString()));
             return tmp == null? previous: tmp;
         }
-        if (className == Size.class.getName()) {
+        if (previous instanceof Size) {
             Size tmp = sizeScanner(String.format(LAST_VALUE_STR,message,previous.toString()));
             return tmp == null? previous: tmp;
         }
-        if (className == Float.class.getName()) {
+        if (previous instanceof Float) {
             Float tmp = floatScanner(String.format(LAST_VALUE_STR,message,previous.toString()));
             return tmp == null? previous: tmp;
         }
-        if (className == Boolean.class.getName()) {
+        if (previous instanceof Boolean) {
             Boolean tmp = booleanScanner(String.format(LAST_VALUE_STR,message,previous.toString()));
             return tmp == null? previous: tmp;
         }
@@ -284,61 +284,59 @@ public class ConsoleComunicator {
     }
 
 
-    @SuppressWarnings("unchecked")
     public  Object set(final Object pointOnType, final String message) {
-        String className = pointOnType.getClass().getName();
-        if (className == String.class.getName()) {
+        if (pointOnType instanceof String) {
             String tmp = stringScanner(message);
             return tmp == null? new String(): tmp;
         }
-        if (className == Integer.class.getName()) {
+        if (pointOnType instanceof Integer) {
             Integer tmp = integerScanner(message);
             return tmp == null? 0: tmp;
         }
-        if (className == LinkedList.class.getName() || className == ArrayList.class.getName()) {
-            var list = (List<Object>) pointOnType;
-            String listItemClass = list.get(0).getClass().getName();
+        if (pointOnType instanceof TypedList) {
+            var list = (TypedList<?>) pointOnType;
+            Object listItemClass = list.getType();
 
 
-            if (listItemClass == String.class.getName()) {
+            if (listItemClass instanceof String) {
                 var tmp = stringListScanner(message);
                 return tmp == null? new LinkedList<>(): tmp;
             }
 
-            if (listItemClass == Type.class.getName()) {
+            if (listItemClass instanceof Type) {
                 var tmp = typeListScanner(message);
                 return tmp == null? new LinkedList<>(): tmp;
             }
 
-            if (listItemClass == Usage.class.getName()) {
+            if (listItemClass instanceof Usage) {
                 var tmp = usageListScanner(message);
                 return tmp == null? new LinkedList<>(): tmp;
             }
             
             return null;
         }
-        if (className == Date.class.getName()) {
+        if (pointOnType instanceof Date) {
             var tmp = dateScanner(message);
             return tmp;
         }
-        if (className == Usage.class.getName()) {
+        if (pointOnType instanceof Usage) {
             var tmp = usageScanner(message);
             return tmp;
         }
-        if (className == Size.class.getName()) {
+        if (pointOnType instanceof Size) {
             var tmp = sizeScanner(message);
             return tmp == null? new Size(): tmp;
         }
-        if (className == Type.class.getName()) {
+        if (pointOnType instanceof Type) {
             var tmp = typeScanner(message);
             return tmp;
         }
-        if (className == Float.class.getName()) {
+        if (pointOnType instanceof Float) {
             var tmp = floatScanner(message);
             return tmp == null? 0.0f: tmp;
         }
 
-        if (className == Boolean.class.getName()) {
+        if (pointOnType instanceof Boolean) {
             Boolean tmp = booleanScanner(message);
             return tmp == null? false: tmp;
         }

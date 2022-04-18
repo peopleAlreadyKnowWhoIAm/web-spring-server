@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.DataStorage.impl.TypedArrayList;
+import ua.lpnu.students.labs.laba2.ChristmassDecoration.DataStorage.impl.TypedLinkedList;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 
 public class LongDecorationTest {
@@ -16,9 +18,9 @@ public class LongDecorationTest {
     @BeforeEach
     void init(){
         samples = Arrays.asList(
-            new LongDecoration("Colorful rain", Usage.FOR_CHRISTMASS, 400, Arrays.asList("green","silver","gold","blue"), "colorful narrow strips", "plastic", 50, 3, 20.0f),
-            new LongDecoration("Beautiful dawn", Usage.FOR_CHRISTMASS, 350, Arrays.asList("yellow", "orange", "white"), "long wide rope", "plactic", 100, 8, 35.0f),
-            new LongDecoration("Strange world", Usage.UNIVERSAL, 500, Arrays.asList("blue", "green", "red"), "long very wide strip with ornament", "paper", 200, 40, 50.0f),
+            new LongDecoration("Colorful rain", Usage.FOR_CHRISTMASS, 400, new TypedLinkedList<>(new String(), Arrays.asList("green","silver","gold","blue")), "colorful narrow strips", "plastic", 50, 3, 20.0f),
+            new LongDecoration("Beautiful dawn", Usage.FOR_CHRISTMASS, 350, new TypedLinkedList<>(new String(),Arrays.asList("yellow", "orange", "white")), "long wide rope", "plactic", 100, 8, 35.0f),
+            new LongDecoration("Strange world", Usage.UNIVERSAL, 500, new TypedLinkedList<>(new String(),Arrays.asList("blue", "green", "red")), "long very wide strip with ornament", "paper", 200, 40, 50.0f),
             new LongDecoration()
         );
     }
@@ -44,7 +46,7 @@ public class LongDecorationTest {
             fields.get(3).setValue(103);
             fields.get(4).setValue(104.0f);
 
-            fields.get(5).setValue(Arrays.asList("COLOR","COLOR"));
+            fields.get(5).setValue(new TypedArrayList<>(new String(),Arrays.asList("COLOR","COLOR")));
             fields.get(6).setValue("STYLE");
             fields.get(7).setValue(107);
             fields.get(8).setValue(108);
@@ -59,7 +61,7 @@ public class LongDecorationTest {
             Assertions.assertEquals(fields.get(3).getValue(), 103);
             Assertions.assertEquals(fields.get(4).getValue(), 104.0f);
 
-            Assertions.assertEquals(fields.get(5).getValue(), Arrays.asList("COLOR","COLOR"));
+            Assertions.assertEquals(fields.get(5).getValue(), new TypedArrayList<>(new String(), Arrays.asList("COLOR","COLOR")));
             Assertions.assertEquals(fields.get(6).getValue(), "STYLE");
             Assertions.assertEquals(fields.get(7).getValue(), 107);
             Assertions.assertEquals(fields.get(8).getValue(), 108);
