@@ -48,7 +48,7 @@ public class DataFileOperatorTest {
 	}
 
 	@Test
-	void testConverts(){
+	void testConverts() throws Exception{
 		Object[] buf = {
 			new String("Help"),
 			Usage.FOR_CHRISTMASS,
