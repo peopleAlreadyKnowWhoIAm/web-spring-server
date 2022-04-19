@@ -1,5 +1,6 @@
 package ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu;
 
+import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,16 +16,16 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 
 public class ConsoleComunicator {
     private static final String INVALID_DATE_STR = "Invalid entered date\nTry again!\n";
-    private static final String LAST_VALUE_STR = "%s\nPrevious: %s\n";
+    private static final String LAST_VALUE_STR = "%s%nPrevious: %s%n";
     private static final String INVALID_NUMBER_STR = "Incorrect number\n try again\n";
 
     private static final String BOOLEAN_OPTIONS = "0. - false\n1. - true\n";
 
     public static final String DATE_PATTERN_STR = "dd/mm/yyyy";
 
-    public static final DateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_PATTERN_STR);
+	public DateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN_STR);
 
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in, Charset.defaultCharset());
     public  void print(String str) {
         System.out.print(str);
     }
@@ -95,8 +96,8 @@ public class ConsoleComunicator {
 
     public  List<String> stringListScanner(final String message) {
         print(message);
-        List<String> out = new TypedLinkedList<>(new String());
-        String tmp = new String();
+        List<String> out = new TypedLinkedList<>("");
+        String tmp;
         do {
             tmp = scanString();
             if (!tmp.isEmpty()) {
@@ -118,7 +119,7 @@ public class ConsoleComunicator {
                 return null;
             }
             try {
-                out = DATE_FORMATTER.parse(buf);
+                out = dateFormat.parse(buf);
                 break;
             } catch (Exception e) {
                 System.out.println(INVALID_DATE_STR);
@@ -213,7 +214,7 @@ public class ConsoleComunicator {
         return out;
     }
 
-    Boolean booleanScanner(final String message) {
+    private Boolean booleanScanner(final String message) {
         print(message);
         print(BOOLEAN_OPTIONS);
         Integer option = scanInt(1);
@@ -256,7 +257,7 @@ public class ConsoleComunicator {
             return null;
         }
         if (previous instanceof Date) {
-            Date tmp = dateScanner(String.format(LAST_VALUE_STR,message,DATE_FORMATTER.format(previous)));
+            Date tmp = dateScanner(String.format(LAST_VALUE_STR,message,dateFormat.format(previous)));
             return tmp == null? previous: tmp;
         }
         if (previous instanceof Usage) {
@@ -287,11 +288,15 @@ public class ConsoleComunicator {
     public  Object set(final Object pointOnType, final String message) {
         if (pointOnType instanceof String) {
             String tmp = stringScanner(message);
-            return tmp == null? new String(): tmp;
+            return tmp == null? "": tmp;
         }
         if (pointOnType instanceof Integer) {
             Integer tmp = integerScanner(message);
-            return tmp == null? 0: tmp;
+            if (tmp == null) {
+				return 0;
+			} else {
+				return tmp;
+			}
         }
         if (pointOnType instanceof TypedList) {
             var list = (TypedList<?>) pointOnType;
@@ -325,7 +330,11 @@ public class ConsoleComunicator {
         }
         if (pointOnType instanceof Size) {
             var tmp = sizeScanner(message);
-            return tmp == null? new Size(): tmp;
+            if (tmp == null) {
+				return new Size();
+			} else {
+				return tmp;
+			}
         }
         if (pointOnType instanceof Type) {
             var tmp = typeScanner(message);
@@ -333,12 +342,20 @@ public class ConsoleComunicator {
         }
         if (pointOnType instanceof Float) {
             var tmp = floatScanner(message);
-            return tmp == null? 0.0f: tmp;
+			if(tmp == null){
+				return 0.0f;
+			}else{
+				return tmp;
+			}
         }
 
         if (pointOnType instanceof Boolean) {
             Boolean tmp = booleanScanner(message);
-            return tmp == null? false: tmp;
+            if (tmp == null) {
+				return false;
+			} else {
+				return tmp;
+			}
         }
         
         return null;

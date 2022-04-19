@@ -3,7 +3,9 @@ package ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
@@ -18,6 +20,8 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 
 public class ConsoleComunicatorTest {
+	DateFormat dateFormat = new SimpleDateFormat(ConsoleComunicator.DATE_PATTERN_STR);
+
 	@Test
 	void testEdit() throws ParseException {
 
@@ -70,8 +74,9 @@ public class ConsoleComunicatorTest {
 			System.setIn(buf);
 
 			var console = new ConsoleComunicator();
-			Assertions.assertEquals(console.edit(previousStringList.get(i), ""),
-					resultStringList.get(i));
+			Assertions.assertEquals(console.edit(previousStringList.get(i), "")
+					.toString(),
+					resultStringList.get(i).toString());
 		}
 
 		// For type list
@@ -93,8 +98,9 @@ public class ConsoleComunicatorTest {
 			System.setIn(buf);
 
 			var console = new ConsoleComunicator();
-			Assertions.assertEquals(console.edit(previousTypeList.get(i), ""),
-					resultTypeList.get(i));
+			Assertions.assertEquals(console.edit(previousTypeList.get(i), "")
+					.toString(),
+					resultTypeList.get(i).toString());
 		}
 
 		// For usage list
@@ -116,22 +122,24 @@ public class ConsoleComunicatorTest {
 			System.setIn(buf);
 
 			var console = new ConsoleComunicator();
-			Assertions.assertEquals(console.edit(previousUsageList.get(i), ""),
-					resultUsageList.get(i));
+			Assertions.assertEquals(console.edit(previousUsageList.get(i), "")
+					.toString(),
+					resultUsageList.get(i).toString());
 		}
 
 		// For date
 		String[] inputDate = {
 				"bla\n22/01/2012\n", "\n", "06/02/2004\n" };
+	
 
 		Date[] previousDate = {
-				ConsoleComunicator.DATE_FORMATTER.parse("11/2/2002"),
-				ConsoleComunicator.DATE_FORMATTER.parse("22/01/2012"),
-				ConsoleComunicator.DATE_FORMATTER.parse("11/07/2001") };
+				dateFormat.parse("11/2/2002"),
+				dateFormat.parse("22/01/2012"),
+				dateFormat.parse("11/07/2001") };
 		Date[] resultDate = {
-				ConsoleComunicator.DATE_FORMATTER.parse("22/01/2012"),
-				ConsoleComunicator.DATE_FORMATTER.parse("22/01/2012"),
-				ConsoleComunicator.DATE_FORMATTER.parse("06/02/2004") };
+				dateFormat.parse("22/01/2012"),
+				dateFormat.parse("22/01/2012"),
+				dateFormat.parse("06/02/2004") };
 		for (int i = 0; i < inputDate.length; i++) {
 			ByteArrayInputStream buf = new ByteArrayInputStream(inputDate[i].getBytes());
 			System.setIn(buf);
@@ -366,10 +374,12 @@ public class ConsoleComunicatorTest {
 		// For date
 		String[] inputDate = {
 				"bla\n22/01/2012\n", "22/01/2012\n", "06/02/2004\n" };
+
+
 		Date[] resultDate = {
-				ConsoleComunicator.DATE_FORMATTER.parse("22/01/2012"),
-				ConsoleComunicator.DATE_FORMATTER.parse("22/01/2012"),
-				ConsoleComunicator.DATE_FORMATTER.parse("06/02/2004") };
+				dateFormat.parse("22/01/2012"),
+				dateFormat.parse("22/01/2012"),
+				dateFormat.parse("06/02/2004") };
 		for (int i = 0; i < inputDate.length; i++) {
 			ByteArrayInputStream buf = new ByteArrayInputStream(inputDate[i].getBytes());
 			System.setIn(buf);

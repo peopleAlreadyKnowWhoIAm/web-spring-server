@@ -83,7 +83,7 @@ public class ManipulatorTest {
 					&& a.getPrice() <= maxPrice);
 		});
 
-		manipulator.setFilteredDecorations(manipulator.getAllDecorations());
+		manipulator.setAllDecorations(manipulator.getAllDecorations());
 
 		var newNames = new TypedArrayList<>(new String(), Arrays.asList("Patriotical ilumiation", "On window net", "Interested house ilumination",
 				"Cheap christmass lights", "Colorful ball", "Glass cone", "Black cube"));
@@ -116,7 +116,7 @@ public class ManipulatorTest {
 
 	@Test
 	void testSort() {
-		var sortings = Manipulator.getAVAILABLE_SORTING();
+		var sortings = manipulator.AVAILABLE_SORTING;
 
 		Assertions.assertEquals(sortings.length, 3);
 

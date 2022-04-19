@@ -2,7 +2,6 @@
 
 ## Task
 
-### 5 Implement tests
+### 6 File operations
 
-Implement test to the project
-Test coverage must be over 80 %
+Made operations with files and implemented tests for it

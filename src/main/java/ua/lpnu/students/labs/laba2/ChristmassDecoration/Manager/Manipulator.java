@@ -6,9 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.DataStorage.TypedList;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.DataStorage.impl.TypedLinkedList;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager.utils.FieldDescription;
@@ -16,17 +14,16 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 
-@Getter
-@Setter
 @NoArgsConstructor
 public class Manipulator {
+
 	List<Template> allDecorations;
 	List<Template> filteredDecorations;
 
 	TypedList<Type> types = new TypedLinkedList<>(Type.ELECTRIC_DECORATION);
 
-	TypedList<String> names = new TypedLinkedList<>(new String());
-	TypedList<String> materials = new TypedLinkedList<>(new String());
+	TypedList<String> names = new TypedLinkedList<>("");
+	TypedList<String> materials = new TypedLinkedList<>("");
 
 	TypedList<Usage> usages = new TypedLinkedList<>(Usage.FOR_CHRISTMASS);
 
@@ -61,8 +58,7 @@ public class Manipulator {
 		this.allDecorations = new ArrayList<>(allDecorations);
 	}
 
-	@Getter
-	private static final String[] AVAILABLE_SORTING = {
+	public final String[] AVAILABLE_SORTING = {
 			BY_NAME, BY_PRICE, BY_AMOUNT
 	};
 
@@ -142,7 +138,7 @@ public class Manipulator {
 
 	// Filter and get
 	public List<Template> getFilteredDecorations() {
-		return filteredDecorations;
+		return new ArrayList<>(this.filteredDecorations);
 	}
 
 	// If empty send trash in it
@@ -168,7 +164,6 @@ public class Manipulator {
 		// Usages
 		var tmpUsages = FILTER_TYPES[3];
 		tmpUsages.setValue(this.usages);
-		;
 		filters.add(tmpUsages);
 
 		// Minimal amount
@@ -225,6 +220,10 @@ public class Manipulator {
 	public void setAllDecorations(final List<Template> decorations) {
 		this.allDecorations = new ArrayList<>(decorations);
 		this.filteredDecorations = new ArrayList<>(decorations);
+	}
+
+	public List<Template> getAllDecorations(){
+		return new ArrayList<>(this.allDecorations);
 	}
 
 }

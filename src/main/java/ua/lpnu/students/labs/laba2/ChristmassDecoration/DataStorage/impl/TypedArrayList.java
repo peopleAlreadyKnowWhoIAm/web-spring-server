@@ -3,8 +3,10 @@ package ua.lpnu.students.labs.laba2.ChristmassDecoration.DataStorage.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import lombok.EqualsAndHashCode;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.DataStorage.TypedList;
 
+@EqualsAndHashCode(callSuper = false)
 public class TypedArrayList<T> extends ArrayList<T> implements TypedList<T> {
 
 	T type;

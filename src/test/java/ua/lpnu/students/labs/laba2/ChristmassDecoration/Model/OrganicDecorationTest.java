@@ -1,5 +1,6 @@
 package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -88,7 +89,7 @@ public class OrganicDecorationTest {
             Assertions.assertTrue(tmp.contains(a.getSize().toString()), String.format("Error in power %d dec", samples.indexOf(a)));
 
             Assertions.assertTrue(tmp.contains(String.valueOf(a.getNumberOfDaysToExpiration())), String.format("Error in amount per meter %d dec", samples.indexOf(a)));
-            Assertions.assertTrue(tmp.contains(ConsoleComunicator.DATE_FORMATTER.format(a.getDateOfProduction())), String.format("Error in price %d dec", samples.indexOf(a)));
+            Assertions.assertTrue(tmp.contains(new SimpleDateFormat(ConsoleComunicator.DATE_PATTERN_STR).format(a.getDateOfProduction())), String.format("Error in price %d dec", samples.indexOf(a)));
             
         });
     }

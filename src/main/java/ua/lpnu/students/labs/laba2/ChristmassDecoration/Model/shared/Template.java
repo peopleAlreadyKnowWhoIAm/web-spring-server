@@ -7,19 +7,32 @@ import lombok.Getter;
 import lombok.Setter;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Manager.utils.FieldDescription;
 
-@Getter
-@Setter
+
 public abstract class Template implements Cloneable {
     // Variables
-    protected String name = new String();
-    protected String material = new String();
 
+	@Getter
+	@Setter
+    protected String name = "";
+
+	@Getter
+	@Setter
+    protected String material = "";
+
+	@Getter
+	@Setter
     protected Type type;
 
+	@Getter
+	@Setter
     protected Usage usage = Usage.UNKNOWN;
 
+	@Getter
+	@Setter
     protected int avalaibleAmount;
 
+	@Getter
+	@Setter
     protected float price;
 
     // Constructors

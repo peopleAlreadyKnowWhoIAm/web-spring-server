@@ -14,7 +14,7 @@ public class Size {
     public int depth;
 
 	public static Size parseSize(String csv) {
-		csv.trim();
+		csv = csv.trim();
 		csv = csv.substring(1, csv.length()-1);
 		var dimentionsString = csv.split(",");
 		int[] dimentions = new int[3];

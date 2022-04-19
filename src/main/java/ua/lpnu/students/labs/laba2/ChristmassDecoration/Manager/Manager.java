@@ -31,14 +31,12 @@ public class Manager {
 
     protected Manipulator manipulator = new Manipulator();
     // Initing Map of classes
-    public static final Map<Type, Class<?>> POSSIBLE_CLASSES;
-    static {
-        POSSIBLE_CLASSES = new HashMap<>();
-        POSSIBLE_CLASSES.put(Type.ELECTRIC_DECORATION, ElectricDecoration.class);
-        POSSIBLE_CLASSES.put(Type.LONG_DECORATION, LongDecoration.class);
-        POSSIBLE_CLASSES.put(Type.ORGANIC_DECORATION, OrganicDecoration.class);
-        POSSIBLE_CLASSES.put(Type.PIECE_DECORATION, PieceDecoration.class);
-    }
+    static final Map<Type, Class<?>> POSSIBLE_CLASSES = new HashMap<>(){{
+			put(Type.ELECTRIC_DECORATION, ElectricDecoration.class);
+			put(Type.LONG_DECORATION, LongDecoration.class);
+			put(Type.ORGANIC_DECORATION, OrganicDecoration.class);
+			put(Type.PIECE_DECORATION, PieceDecoration.class);
+	}};
 
     public List<FieldDescription> getFieldsOf(Type type) {
         try {
@@ -73,7 +71,7 @@ public class Manager {
     }
 
     public List<Template> getDecorations() {
-        return decorations;
+        return new ArrayList<>(decorations);
     }
 
     public void addDecoration(Template decorations) {
@@ -101,7 +99,7 @@ public class Manager {
     }
 
     public String[] getSortings() {
-        return Manipulator.getAVAILABLE_SORTING();
+        return manipulator.AVAILABLE_SORTING;
     }
 
     public void setSorting(final String sorting, final boolean descending) {

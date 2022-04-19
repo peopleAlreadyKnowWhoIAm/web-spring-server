@@ -10,14 +10,21 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 
-@Getter
-@Setter
+
 public class PieceDecoration extends Template {
     public static final Type CLASS_TYPE = Type.PIECE_DECORATION;
     // Variables
-    protected String color = new String();
-    protected String style = new String();
 
+	@Getter
+	@Setter
+    protected String color = "";
+
+	@Getter
+	@Setter
+    protected String style = "";
+
+	@Getter
+	@Setter
     protected Size size = new Size(); // 3 value of width ,heihgt and depth
 
     // Constructors
@@ -36,6 +43,15 @@ public class PieceDecoration extends Template {
     protected PieceDecoration(Type type) {
         super(type);
     }
+
+	// Constructors
+	protected PieceDecoration(String name, Type type, Usage usage, int avalaibleAmount, String color, String style,
+			String material, Size size, float pricePerPiece) {
+		super(name, type, usage, material, avalaibleAmount, pricePerPiece);
+		this.color = color;
+		this.style = style;
+		this.size = size;
+	}
 
     // Text menu functions
     @Override

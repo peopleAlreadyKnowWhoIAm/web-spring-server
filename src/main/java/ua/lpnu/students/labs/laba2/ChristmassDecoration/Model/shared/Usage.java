@@ -4,12 +4,10 @@ public enum Usage {
     UNKNOWN, OUTSIDE_DECORATION, FOR_CHRISTMASS, UNIVERSAL, FOR_WINDOWS;
 
     public static String allToString() {
-        int count = 0;
-        String out = new String();
-        for (Usage i : Usage.values()) {
-            out += count + ". " + i.toString() + "\n";
-            count++;
+        StringBuffer out = new StringBuffer();
+        for (Usage usage : Usage.values()) {
+            out.append(String.format("%d - %s%n", usage.ordinal(), usage.toString()));
         }
-        return out;
+        return out.toString();
     }
 }

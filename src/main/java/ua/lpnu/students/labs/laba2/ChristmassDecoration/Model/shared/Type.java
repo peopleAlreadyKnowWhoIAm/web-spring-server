@@ -5,12 +5,12 @@ public enum Type {
     PIECE_DECORATION, ORGANIC_DECORATION, LONG_DECORATION, ELECTRIC_DECORATION;
 
     public static String allToString() {
-        String out = new String();
+        StringBuffer out = new StringBuffer();
         Type[] types = Type.values();
         for (Type type : types) {
-            out += String.format("%d - %s\n", type.ordinal(), type.toString());
+            out.append(String.format("%d - %s%n", type.ordinal(), type.toString()));
         }
-        return out;
+        return out.toString();
     }
 
 }

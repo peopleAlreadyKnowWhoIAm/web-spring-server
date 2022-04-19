@@ -68,19 +68,19 @@ public class TextMenu {
 
         String[] sorting = manager.getSortings();
 
-        String out = new String();
+        StringBuffer out = new StringBuffer();
         int count = 0;
         for (String i : sorting) {
-            out += String.format("%d. %s \n", count++, i);
+            out.append(String.format("%d. %s %n", count++, i));
         }
-        console.print(out);
+        console.print(out.toString());
         int option = console.scanStrictlyInt(sorting.length - 1);
         boolean descending = (Boolean) console.set(false, DESCENDING_STRING);
 
         manager.setSorting(sorting[option], descending);
 
         filtered.forEach((decoration) -> {
-            console.print(String.format("%s\n", decoration.toString()));
+            console.print(String.format("%s%n", decoration.toString()));
         });
 
     }
@@ -99,14 +99,14 @@ public class TextMenu {
     }
 
     String listDecorationIndexed() {
-        String out = String.format(LIST_OPTION_STR, manager.getDecorations().size());
-        out.formatted(manager.getDecorations().size());
+        StringBuffer out = new StringBuffer();
+		out.append(String.format(LIST_OPTION_STR, manager.getDecorations().size()));
         int count = 0;
         for (Template i : manager.getDecorations()) {
-            out += count + LINE_NUMBER_DIVADER_STR + i.toString() + "\n";
+            out.append(String.format(LINE_LIST_INDEXED_STR,count,i.toString()));
             count++;
         }
-        return out;
+        return out.toString();
     }
 
     public void editDecoration() {
@@ -138,8 +138,8 @@ public class TextMenu {
 
     // String literals
     private static final String DELETING_OPTION_STR = "Delete decoration:";
-    private static final String LIST_OPTION_STR = "There are %d decoration(s):\n";
-    private static final String LINE_NUMBER_DIVADER_STR = ". ";
+    private static final String LIST_OPTION_STR = "There are %d decoration(s):%n";
+    private static final String LINE_LIST_INDEXED_STR = "%d. %s%n";
     private static final String CHOOSE_NUMBER_STR = "Enter number of the decoration: ";
     private static final String EDITING_OPTION_STR = "Edit decoration\n";
     private static final String CHOOSE_TYPE_STR = "Adding new decoration\nChoose the type of the decoration:\n";

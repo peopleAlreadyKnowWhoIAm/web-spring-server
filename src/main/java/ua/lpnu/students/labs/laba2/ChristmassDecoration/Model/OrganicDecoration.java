@@ -1,5 +1,6 @@
 package ua.lpnu.students.labs.laba2.ChristmassDecoration.Model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -11,11 +12,12 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.TextMenu.ConsoleComunicator;
 
-@Setter
-@Getter
+
 public class OrganicDecoration extends PieceDecoration {
     public static final Type CLASS_TYPE = Type.ORGANIC_DECORATION;
     // Variables
+	@Setter
+	@Getter
     protected int numberOfDaysToExpiration;
 
     protected Date dateOfProduction = new Date();
@@ -23,9 +25,9 @@ public class OrganicDecoration extends PieceDecoration {
     // Constructors
     public OrganicDecoration(String name, Usage usage, int avalaibleAmount, String color, String style,
             String material, Size size, float pricePerPiece, int numberOfDaysToExpiration, Date dateOfProduction) {
-        super(name, usage, avalaibleAmount, color, style, material, size, pricePerPiece);
+        super(name, CLASS_TYPE, usage, avalaibleAmount, color, style, material, size, pricePerPiece);
         this.numberOfDaysToExpiration = numberOfDaysToExpiration;
-        this.dateOfProduction = dateOfProduction;
+        this.dateOfProduction = new Date(dateOfProduction.getTime());
     }
 
     public OrganicDecoration() {
@@ -65,7 +67,7 @@ public class OrganicDecoration extends PieceDecoration {
     @Override
     public String toString() {
         return super.toString()
-                + String.format(DSCRIPTION_STR, ConsoleComunicator.DATE_FORMATTER.format(this.dateOfProduction),
+                + String.format(DSCRIPTION_STR, new SimpleDateFormat(ConsoleComunicator.DATE_PATTERN_STR).format(this.dateOfProduction),
                         String.valueOf(this.numberOfDaysToExpiration));
     }
 
@@ -81,4 +83,13 @@ public class OrganicDecoration extends PieceDecoration {
             new FieldDescription(null, EXPIRATION_TERM_STR),
             new FieldDescription(null, DATE_STR)
     };
+
+	public Date getDateOfProduction() {
+		return new Date(dateOfProduction.getTime());
+	}
+
+	public void setDateOfProduction(Date dateOfProduction) {
+		this.dateOfProduction = new Date(dateOfProduction.getTime());
+	}
+
 }

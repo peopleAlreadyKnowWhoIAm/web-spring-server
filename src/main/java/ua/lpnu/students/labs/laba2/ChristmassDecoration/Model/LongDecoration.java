@@ -11,103 +11,110 @@ import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Template;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Type;
 import ua.lpnu.students.labs.laba2.ChristmassDecoration.Model.shared.Usage;
 
-@Setter
-@Getter
 public class LongDecoration extends Template {
-    public static final Type CLASS_TYPE = Type.LONG_DECORATION;
-    // Variables
-    protected TypedList<String> color = new TypedLinkedList<String>(new String());
+	public static final Type CLASS_TYPE = Type.LONG_DECORATION;
+	// Variables
+	@Getter
+	@Setter
+	protected TypedList<String> color = new TypedLinkedList<String>("");
 
-    protected String style = new String();
+	@Getter
+	@Setter
+	protected String style = "";
 
-    protected int minimalLength;
-    protected int widthInCentimeters;
+	@Getter
+	@Setter
+	protected int minimalLength;
 
-    // Constructors
-    public LongDecoration(String name, Usage usage, int avalaibleAmount, TypedList<String> color, String style,
-            String material, int minimalLength, int widthInCentimeters, float pricePerMeter) {
-        super(name, CLASS_TYPE, usage, material, avalaibleAmount, pricePerMeter);
-        this.color = color;
-        this.style = style;
-        this.minimalLength = minimalLength;
-        this.widthInCentimeters = widthInCentimeters;
-    }
+	@Getter
+	@Setter
+	protected int widthInCentimeters;
 
-    public LongDecoration() {
-        super(CLASS_TYPE);
-    }
+	// Constructors
+	public LongDecoration(String name, Usage usage, int avalaibleAmount, TypedList<String> color, String style,
+			String material, int minimalLength, int widthInCentimeters, float pricePerMeter) {
+		super(name, CLASS_TYPE, usage, material, avalaibleAmount, pricePerMeter);
+		this.color = color;
+		this.style = style;
+		this.minimalLength = minimalLength;
+		this.widthInCentimeters = widthInCentimeters;
+	}
 
-    // Text menu functions
-    @Override
-    @SuppressWarnings("unchecked")
-    public void setFields(final List<FieldDescription> fields) {
+	public LongDecoration() {
+		super(CLASS_TYPE);
+	}
 
-        // Colors
-        this.color = (TypedList<String>) fields.get(5).getValue();
+	// Text menu functions
+	@Override
+	@SuppressWarnings("unchecked")
+	public void setFields(final List<FieldDescription> fields) {
 
-        // Style
-        this.style = (String) fields.get(6).getValue();
+		// Colors
+		this.color = (TypedList<String>) fields.get(5).getValue();
 
-        // Minimal length
-        this.minimalLength = (Integer) fields.get(7).getValue();
+		// Style
+		this.style = (String) fields.get(6).getValue();
 
-        // Width
-        this.widthInCentimeters = (Integer) fields.get(8).getValue();
+		// Minimal length
+		this.minimalLength = (Integer) fields.get(7).getValue();
 
-        super.setFields(fields);
-    }
+		// Width
+		this.widthInCentimeters = (Integer) fields.get(8).getValue();
 
-    @Override
-    public List<FieldDescription> getFields() {
-        List<FieldDescription> out = super.getFields();
+		super.setFields(fields);
+	}
 
-        // Colors
-        var tmpColors = TEMPLATE_FIELDS[0];
-        tmpColors.setValue(this.color);
-        out.add(tmpColors);
+	@Override
+	public List<FieldDescription> getFields() {
+		List<FieldDescription> out = super.getFields();
 
-        // Style
-        var tmpStyle = TEMPLATE_FIELDS[1];
-        tmpStyle.setValue(this.style);
-        out.add(tmpStyle);
+		// Colors
+		var tmpColors = TEMPLATE_FIELDS[0];
+		tmpColors.setValue(this.color);
+		out.add(tmpColors);
 
-        // Minimal length
-        var tmpMinLen = TEMPLATE_FIELDS[2];
-        tmpMinLen.setValue(this.minimalLength);
-        out.add(tmpMinLen);
+		// Style
+		var tmpStyle = TEMPLATE_FIELDS[1];
+		tmpStyle.setValue(this.style);
+		out.add(tmpStyle);
 
-        // Width
-        var tmpWidth = TEMPLATE_FIELDS[3];
-        tmpWidth.setValue(this.widthInCentimeters);
-        out.add(tmpWidth);
+		// Minimal length
+		var tmpMinLen = TEMPLATE_FIELDS[2];
+		tmpMinLen.setValue(this.minimalLength);
+		out.add(tmpMinLen);
 
-        return out;
-    }
+		// Width
+		var tmpWidth = TEMPLATE_FIELDS[3];
+		tmpWidth.setValue(this.widthInCentimeters);
+		out.add(tmpWidth);
 
-    @Override
-    public String toString() {
-        return super.toString() + String.format(DESCRIPTION_STR,
-                this.color.toString(),
-                this.style,
-                String.valueOf(this.minimalLength),
-                String.valueOf(this.widthInCentimeters),
-                String.valueOf(this.price));
-    }
+		return out;
+	}
 
-    // String literals
+	@Override
+	public String toString() {
+		return super.toString() + String.format(DESCRIPTION_STR,
+				this.color.toString(),
+				this.style,
+				String.valueOf(this.minimalLength),
+				String.valueOf(this.widthInCentimeters),
+				String.valueOf(this.price));
+	}
 
-    private static final String COLORS_STR = "Colors of the decoration\nSend empty to confirm\n";
-    private static final String STYLE_STR = "Style: ";
-    private static final String MINIMAL_LENGTH_STR = "Minimal length selling: ";
-    private static final String WIDTH_STR = "Width: ";
+	// String literals
 
-    private static final String DESCRIPTION_STR = "Colors: %s\t" + STYLE_STR + "%s\t" + MINIMAL_LENGTH_STR + "%s\t"
-            + WIDTH_STR + "%s\tPrice per meter: %s\t";
+	private static final String COLORS_STR = "Colors of the decoration\nSend empty to confirm\n";
+	private static final String STYLE_STR = "Style: ";
+	private static final String MINIMAL_LENGTH_STR = "Minimal length selling: ";
+	private static final String WIDTH_STR = "Width: ";
 
-    private final FieldDescription[] TEMPLATE_FIELDS = {
-            new FieldDescription(null, COLORS_STR),
-            new FieldDescription(null, STYLE_STR),
-            new FieldDescription(null, MINIMAL_LENGTH_STR),
-            new FieldDescription(null, WIDTH_STR)
-    };
+	private static final String DESCRIPTION_STR = "Colors: %s\t" + STYLE_STR + "%s\t" + MINIMAL_LENGTH_STR + "%s\t"
+			+ WIDTH_STR + "%s\tPrice per meter: %s\t";
+
+	private final FieldDescription[] TEMPLATE_FIELDS = {
+			new FieldDescription(null, COLORS_STR),
+			new FieldDescription(null, STYLE_STR),
+			new FieldDescription(null, MINIMAL_LENGTH_STR),
+			new FieldDescription(null, WIDTH_STR)
+	};
 }
