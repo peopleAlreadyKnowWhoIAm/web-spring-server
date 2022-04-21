@@ -58,21 +58,11 @@ public final class DataFileOperator {
     for (final Template template : list) {
       toWrite.append(String.format("%s%n", toCsv(template)));
     }
-    FileWriter writer = null;
 
-    try {
-      writer = new FileWriter(file, Charset.defaultCharset());
+    try (FileWriter writer = new FileWriter(file, Charset.defaultCharset())) {
       writer.write(toWrite.toString());
-      writer.close();
     } catch (final IOException e) {
       e.printStackTrace();
-      if (writer != null) {
-        try {
-          writer.close();
-        } catch (final IOException a) {
-          a.printStackTrace();
-        }
-      }
     }
 
     return out;
@@ -92,20 +82,17 @@ public final class DataFileOperator {
       throw new IOException("File don't exist");
     }
 
-    Scanner scanner = null;
     final var fileData = new LinkedList<String>();
-    try {
-      scanner = new Scanner(
+    try (Scanner scanner = new Scanner(
           file,
-          Charset.defaultCharset()).useDelimiter("\n");
+          Charset.defaultCharset()).useDelimiter("\n")) {
+      
       while (scanner.hasNext()) {
         fileData.add(scanner.next());
       }
       
     } catch (IOException e) {
       System.out.println(e.getMessage());
-    } finally {
-      scanner.close();
     }
     
     final var list = new ArrayList<Template>(fileData.size());

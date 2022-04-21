@@ -3,6 +3,10 @@ package ua.lpnu.students.labs.laba2.decoration.model.shared;
 public enum Type {
   PIECE_DECORATION, ORGANIC_DECORATION, LONG_DECORATION, ELECTRIC_DECORATION;
 
+  /**
+   * Convert all possible value to string with their values.
+   * @return the string
+   */
   public static String allToString() {
     StringBuffer out = new StringBuffer();
     Type[] types = Type.values();

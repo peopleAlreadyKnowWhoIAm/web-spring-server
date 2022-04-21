@@ -12,10 +12,17 @@ public class Size {
   public int height;
   public int depth;
 
-  public static Size parseSize(String csv) {
-    csv = csv.trim();
-    csv = csv.substring(1, csv.length() - 1);
-    var dimentionsString = csv.split(",");
+  /**
+   * Parse string to `Size`.
+   * Using "[%d,%d,%d]" pattern
+   *
+   * @param string given string
+   * @return result Size
+   */
+  public static Size parseSize(String string) {
+    string = string.trim();
+    string = string.substring(1, string.length() - 1);
+    var dimentionsString = string.split(",");
     int[] dimentions = new int[3];
     for (int i = 0; i < 3; i++) {
       dimentions[i] = Integer.parseInt(dimentionsString[i]);

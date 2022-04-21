@@ -34,8 +34,13 @@ public abstract class Template implements Cloneable {
   @Setter
   protected float price;
 
-  // Constructors
-  protected Template(String name, Type type, Usage usage, String material, int avalaibleAmount, float price) {
+  protected Template(
+      String name, 
+      Type type, 
+      Usage usage, 
+      String material, 
+      int avalaibleAmount, 
+      float price) {
     this.name = name;
     this.usage = usage;
     this.avalaibleAmount = avalaibleAmount;
@@ -48,7 +53,10 @@ public abstract class Template implements Cloneable {
     this.type = type;
   }
 
-  // Text menu functions
+  /**
+   * Set fields to the Template object.
+   * @param fields list contains FieldDescription with all fields
+   */
   public void setFields(final List<FieldDescription> fields) {
 
     // Name
@@ -67,6 +75,10 @@ public abstract class Template implements Cloneable {
     this.price = (Float) fields.get(4).getValue();
   }
 
+  /**
+   * Get fields with Template values or grabage when not set.
+   * @return the list of the field
+   */
   public List<FieldDescription> getFields() {
     List<FieldDescription> out = new LinkedList<>();
 
@@ -105,6 +117,10 @@ public abstract class Template implements Cloneable {
         String.valueOf(this.avalaibleAmount), this.material);
   }
 
+  /**
+   * Make a full copy for the object.
+   * @return the copy
+   */
   public Template copy() {
     try {
       return (Template) super.clone();
@@ -114,13 +130,6 @@ public abstract class Template implements Cloneable {
     return null;
   }
 
-  private final FieldDescription[] TEMPLATE_FIELDS = {
-      new FieldDescription(null, NAME_STR),
-      new FieldDescription(null, USAGE_STR),
-      new FieldDescription(null, MATERIAL_STR),
-      new FieldDescription(null, AVAILABLE_AMOUNT_STR),
-      new FieldDescription(null, PRICE_STR)
-  };
 
   // String literals
   private static final String NAME_STR = "Name: ";
@@ -130,9 +139,18 @@ public abstract class Template implements Cloneable {
   private static final String MATERIAL_STR = "Material: ";
   private static final String PRICE_STR = "Price: ";
 
-  private static final String DESCRIPTION_STR = NAME_STR + "%s\t" + TYPE_STR + "%s\t" + USAGE_STR + "%s\t"
-      + AVAILABLE_AMOUNT_STR
-      + "%s\t"
+  private static final String DESCRIPTION_STR = 
+      NAME_STR + "%s\t" 
+      + TYPE_STR + "%s\t" 
+      + USAGE_STR + "%s\t"
+      + AVAILABLE_AMOUNT_STR + "%s\t"
       + MATERIAL_STR + "%s\t";
 
+  private static final FieldDescription[] TEMPLATE_FIELDS = {
+      new FieldDescription(null, NAME_STR),
+      new FieldDescription(null, USAGE_STR),
+      new FieldDescription(null, MATERIAL_STR),
+      new FieldDescription(null, AVAILABLE_AMOUNT_STR),
+      new FieldDescription(null, PRICE_STR)
+  };
 }
