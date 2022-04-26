@@ -19,6 +19,17 @@ import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.T
 @NoArgsConstructor
 public class Manipulator {
 
+  private static final String BY_TYPE = "By type";
+  private static final String BY_NAME = "By name";
+  private static final String BY_MATERIALS = "By material";
+  private static final String BY_USAGE = "By usage";
+  private static final String AMOUNT_MORE = "More than";
+  private static final String PRICE_FROM = "Price from";
+  private static final String PRICE_TO = "Price to";
+  private static final String BY_PRICE = "By price";
+  private static final String BY_AMOUNT = "By amount";
+  private static final String DIVIDER = ": ";
+
   List<Template> allDecorations;
   List<Template> filteredDecorations;
 
@@ -33,16 +44,6 @@ public class Manipulator {
 
   float priceFrom = 0.0f;
   float priceTo = 0.0f;
-  private static final String BY_TYPE = "By type";
-  private static final String BY_NAME = "By name";
-  private static final String BY_MATERIALS = "By material";
-  private static final String BY_USAGE = "By usage";
-  private static final String AMOUNT_MORE = "More than";
-  private static final String PRICE_FROM = "Price from";
-  private static final String PRICE_TO = "Price to";
-  private static final String BY_PRICE = "By price";
-  private static final String BY_AMOUNT = "By amount";
-  private static final String DIVIDER = ": ";
 
   private static final FieldDescription[] FILTER_TYPES = {
       new FieldDescription(null, BY_TYPE + DIVIDER),
@@ -60,12 +61,9 @@ public class Manipulator {
     this.allDecorations = new ArrayList<>(allDecorations);
   }
 
-  public static final String[] AVAILABLE_SORTING = {
-      BY_NAME, BY_PRICE, BY_AMOUNT
-  };
+  public static final List<String> AVAILABLE_SORTING = Collections.unmodifiableList(
+      List.of(BY_NAME, BY_PRICE, BY_AMOUNT));
 
-  
-  
   /**
    * Sort filtered decoration by name.
    *
@@ -78,7 +76,6 @@ public class Manipulator {
     }
   }
 
-  
   /**
    * Sort filtered decoration by price.
    *
@@ -91,7 +88,6 @@ public class Manipulator {
     }
   }
 
-  
   /**
    * Sort filtered decoration by amount.
    *
@@ -104,12 +100,11 @@ public class Manipulator {
     }
   }
 
-  
-  /** 
+  /**
    * Sort filtered decoration.
    *
    * @param sortingType from list of `POSSIBLE_SORTING`
-   * @param descending whether descending or ascending
+   * @param descending  whether descending or ascending
    */
   public void sort(final String sortingType, final boolean descending) {
     switch (sortingType) {
@@ -165,7 +160,6 @@ public class Manipulator {
     }
   }
 
-  
   private void filterPart(Predicate<Template> filter) {
     if (!this.filteredDecorations.isEmpty()) {
       filteredDecorations.removeIf(filter);
@@ -173,8 +167,7 @@ public class Manipulator {
     }
   }
 
-  
-  /** 
+  /**
    * Return filtered decoration(only if `filter()` called earlier).
    *
    * @return List of filtered decoration
@@ -184,8 +177,7 @@ public class Manipulator {
     return new ArrayList<>(this.filteredDecorations);
   }
 
-  
-  /** 
+  /**
    * Return all possible filters and their values.
    *
    * @return List of filters
@@ -233,8 +225,7 @@ public class Manipulator {
     return filters;
   }
 
-  
-  /** 
+  /**
    * Method which set filters to fiter later.
    *
    * @param filters to set
@@ -276,7 +267,6 @@ public class Manipulator {
     this.allDecorations = new ArrayList<>(decorations);
     this.filteredDecorations = new ArrayList<>(decorations);
   }
-
 
   public List<Template> getAllDecorations() {
     return new ArrayList<>(this.allDecorations);

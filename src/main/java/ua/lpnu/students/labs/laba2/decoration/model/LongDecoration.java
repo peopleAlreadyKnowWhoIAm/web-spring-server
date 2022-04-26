@@ -16,6 +16,15 @@ import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.T
 public class LongDecoration extends Template {
   public static final Type CLASS_TYPE = Type.LONG_DECORATION;
   // Variables
+
+  // String literals
+  private static final String COLORS_STR = "Colors of the decoration";
+  private static final String STYLE_STR = "Style";
+  private static final String MINIMAL_LENGTH_STR = "Minimal length selling";
+  private static final String WIDTH_STR = "Width";
+
+  protected static final String PRICE_PER_METER = "Price per meter";
+
   @Getter
   @Setter
   protected TypedList<String> color = new TypedLinkedList<String>("");
@@ -114,18 +123,12 @@ public class LongDecoration extends Template {
         String.valueOf(this.price));
   }
 
-  // String literals
-
-  private static final String COLORS_STR = "Colors of the decoration";
-  private static final String STYLE_STR = "Style";
-  private static final String MINIMAL_LENGTH_STR = "Minimal length selling";
-  private static final String WIDTH_STR = "Width";
-
   private static final String DESCRIPTION_STR = 
-      COLORS_STR + " %s\t" 
-      + STYLE_STR + " %s\t" 
-      + MINIMAL_LENGTH_STR + " %s\t"
-      + WIDTH_STR + " %s\tPrice per meter: %s\t";
+      COLORS_STR + DIVIDER 
+      + STYLE_STR + DIVIDER 
+      + MINIMAL_LENGTH_STR + DIVIDER
+      + WIDTH_STR + DIVIDER 
+      + PRICE_PER_METER + DIVIDER;
 
   private static final FieldDescription[] TEMPLATE_FIELDS = {
       new FieldDescription(null, COLORS_STR),

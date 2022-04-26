@@ -123,18 +123,18 @@ public class ManipulatorTest {
   void testSort() {
     var sortings = Manipulator.AVAILABLE_SORTING;
 
-    Assertions.assertEquals(sortings.length, 3);
+    Assertions.assertEquals(sortings.size(), 3);
 
     String lastName = new String();
 
-    manipulator.sort(sortings[0], false);
+    manipulator.sort(sortings.get(0), false);
 
     for (var decor : manipulator.getFilteredDecorations()) {
       Assertions.assertTrue(lastName.compareToIgnoreCase(decor.getName()) <= 0);
       lastName = decor.getName();
     }
 
-    manipulator.sort(sortings[0], true);
+    manipulator.sort(sortings.get(0), true);
 
     for (var decor : manipulator.getFilteredDecorations()) {
       Assertions.assertTrue(lastName.compareToIgnoreCase(decor.getName()) >= 0);
@@ -143,14 +143,14 @@ public class ManipulatorTest {
 
     var lastPrice = 0.0f;
 
-    manipulator.sort(sortings[1], false);
+    manipulator.sort(sortings.get(1), false);
 
     for (var decor : manipulator.getFilteredDecorations()) {
       Assertions.assertTrue(decor.getPrice() >= lastPrice);
       lastPrice = decor.getPrice();
     }
 
-    manipulator.sort(sortings[1], true);
+    manipulator.sort(sortings.get(1), true);
 
     for (var decor : manipulator.getFilteredDecorations()) {
       Assertions.assertTrue(decor.getPrice() <= lastPrice);
@@ -159,14 +159,14 @@ public class ManipulatorTest {
 
     var lastAmount = 0;
 
-    manipulator.sort(sortings[2], false);
+    manipulator.sort(sortings.get(2), false);
 
     for (var decor : manipulator.getFilteredDecorations()) {
       Assertions.assertTrue(decor.getAvalaibleAmount() >= lastAmount);
       lastAmount = decor.getAvalaibleAmount();
     }
 
-    manipulator.sort(sortings[2], true);
+    manipulator.sort(sortings.get(2), true);
 
     for (var decor : manipulator.getFilteredDecorations()) {
       Assertions.assertTrue(decor.getAvalaibleAmount() <= lastAmount);

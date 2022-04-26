@@ -16,6 +16,13 @@ import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.T
 public class ElectricDecoration extends Template {
   public static final Type CLASS_TYPE = Type.ELECTRIC_DECORATION;
   // Variables
+
+  // String literals
+  private static final String COLORS_STR = "Colors of the lights";
+  private static final String LENGTH_STR = "Length";
+  private static final String AMOUNT_LAMPS_STR = "Amount of lamps per meter";
+  private static final String POWER_STR = "Power in watts";
+
   @Getter
   @Setter
   TypedList<String> colorsOfLights = new TypedLinkedList<>("");
@@ -99,18 +106,12 @@ public class ElectricDecoration extends Template {
         String.valueOf(this.price));
   }
 
-  // String literals
-
-  private static final String COLORS_STR = "Colors of the lights";
-  private static final String LENGTH_STR = "Length";
-  private static final String AMOUNT_LAMPS_STR = "Amount of lamps per meter";
-  private static final String POWER_STR = "Power in watts";
-
   private static final String DESCRIPTION_STR = 
-      COLORS_STR + " %s\t"
-      + LENGTH_STR + " %s\t"
-      + AMOUNT_LAMPS_STR + " %s\t"
-      + POWER_STR + "%s\tPrice: %s\t";
+      COLORS_STR + DIVIDER
+      + LENGTH_STR + DIVIDER
+      + AMOUNT_LAMPS_STR + DIVIDER
+      + POWER_STR + DIVIDER
+      + PRICE_STR + DIVIDER;
   // ---------------
 
   private static final FieldDescription[] TEMPLATE_FIELDS = {

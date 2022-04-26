@@ -114,8 +114,8 @@ public class PieceDecoration extends Template {
   private static final String COLOR_STR = "Color";
   private static final String STYLE_STR = "Style";
   private static final String DEMESNSIONS_STR = "Demensions";
-  private static final String DESCRIPTION_STR = COLOR_STR + " %s\t" + STYLE_STR
-      + " %s\t" + DEMESNSIONS_STR + " %s\t Price: %s";
+  private static final String DESCRIPTION_STR = COLOR_STR + DIVIDER + STYLE_STR
+      + DIVIDER + DEMESNSIONS_STR + DIVIDER + PRICE_STR + DIVIDER;
   private static final FieldDescription[] TEMPLATE_FIELDS = {
       new FieldDescription(null, COLOR_STR),
       new FieldDescription(null, STYLE_STR),

@@ -1,15 +1,9 @@
 package ua.lpnu.students.labs.laba2.decoration.manager;
 
-import java.lang.reflect.InvocationTargetException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import ua.lpnu.students.labs.laba2.decoration.model.ElectricDecoration;
-import ua.lpnu.students.labs.laba2.decoration.model.LongDecoration;
-import ua.lpnu.students.labs.laba2.decoration.model.OrganicDecoration;
-import ua.lpnu.students.labs.laba2.decoration.model.PieceDecoration;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Template;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Type;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.FieldDescription;
@@ -32,15 +26,6 @@ public class Manager {
 
   protected Manipulator manipulator = new Manipulator();
 
-  static final Map<Type, Class<?>> POSSIBLE_CLASSES = new HashMap<>() {
-    {
-      put(Type.ELECTRIC_DECORATION, ElectricDecoration.class);
-      put(Type.LONG_DECORATION, LongDecoration.class);
-      put(Type.ORGANIC_DECORATION, OrganicDecoration.class);
-      put(Type.PIECE_DECORATION, PieceDecoration.class);
-    }
-  };
-
   /**
    * Return fields of the certain type decoration.
    *
@@ -48,15 +33,8 @@ public class Manager {
    * @return List of fields from type of the decoration
    */
   public List<FieldDescription> getFieldsOf(Type type) {
-    try {
-      Template tmp = (Template) POSSIBLE_CLASSES.get(type).getConstructor().newInstance();
-      return tmp.getFields();
-    } catch (InstantiationException | IllegalAccessException
-        | IllegalArgumentException | InvocationTargetException
-        | NoSuchMethodException | SecurityException e) {
-      e.printStackTrace();
-    }
-    return null;
+    Template tmp = type.createDecoration();
+    return tmp.getFields();
   }
 
   /**
@@ -76,15 +54,9 @@ public class Manager {
    * @param fields fields of the decoration
    */
   public void addDecoration(Type type, List<FieldDescription> fields) {
-    try {
-      Template tmp = (Template) POSSIBLE_CLASSES.get(type).getConstructor().newInstance();
-      tmp.setFields(fields);
-      decorations.add(tmp);
-    } catch (InstantiationException | IllegalAccessException
-        | IllegalArgumentException | InvocationTargetException
-        | NoSuchMethodException | SecurityException e) {
-      e.printStackTrace();
-    }
+    Template tmp = type.createDecoration();
+    tmp.setFields(fields);
+    decorations.add(tmp);
   }
 
   /**
@@ -175,5 +147,15 @@ public class Manager {
     manipulator.setAllDecorations(decorations);
     manipulator.filter();
     return manipulator.getFilteredDecorations();
+  }
+
+  public void importFromFile(String path) throws IOException {
+    var dataFileOperator = new DataFileOperator();
+    this.decorations = dataFileOperator.readFromFile(path);
+  }
+
+  public void saveToFile(String path) throws IOException {
+    var dataFileOperator = new DataFileOperator();
+    dataFileOperator.writeToFile(path, this.decorations);
   }
 }

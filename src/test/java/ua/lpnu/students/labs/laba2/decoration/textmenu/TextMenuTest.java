@@ -90,10 +90,11 @@ public class TextMenuTest {
     }
   }
 
+  //TODO write tests for it(update)
   @Test
   void testMainMenu() {
     String[] inputAdd = {
-        "s\na\n3\nNNAME\n2\nplastic\n321\n221.5\nred\nble\n\n200\n22\n50\nx\n"
+        "]\na\n3\nNNAME\n2\nplastic\n321\n221.5\nred\nble\n\n200\n22\n50\nx\n"
     };
     Template[] resultAdd = {
         new ElectricDecoration("NNAME", Usage.FOR_CHRISTMASS, "plastic", 321,

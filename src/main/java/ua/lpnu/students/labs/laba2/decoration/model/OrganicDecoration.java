@@ -17,6 +17,11 @@ import ua.lpnu.students.labs.laba2.decoration.textmenu.TextParser;
 public class OrganicDecoration extends PieceDecoration {
   public static final Type CLASS_TYPE = Type.ORGANIC_DECORATION;
   // Variables
+
+  // String literals
+  private static final String DATE_STR = "Date of production";
+  private static final String EXPIRATION_TERM_STR = "Number of days to expire";
+
   @Setter
   @Getter
   protected int numberOfDaysToExpiration;
@@ -84,12 +89,7 @@ public class OrganicDecoration extends PieceDecoration {
             String.valueOf(this.numberOfDaysToExpiration));
   }
 
-  // String literals
-
-  private static final String DATE_STR = "Date of production";
-  private static final String EXPIRATION_TERM_STR = "Number of days to expire";
-
-  private static final String DSCRIPTION_STR = DATE_STR + " %s\t" + EXPIRATION_TERM_STR + " %s\t";
+  private static final String DSCRIPTION_STR = DATE_STR + DIVIDER + EXPIRATION_TERM_STR + DIVIDER;
 
   private static final FieldDescription[] TEMPLATE_FIELDS = {
       new FieldDescription(null, EXPIRATION_TERM_STR),

@@ -1,6 +1,8 @@
 package ua.lpnu.students.labs.laba2.decoration.textmenu;
 
+import java.io.IOException;
 import java.util.List;
+import lombok.val;
 import ua.lpnu.students.labs.laba2.decoration.manager.Manager;
 import ua.lpnu.students.labs.laba2.decoration.manager.Manipulator;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Template;
@@ -47,6 +49,12 @@ public class TextMenu {
         case "f":
           filterDecorations();
           break;
+        case "s":
+          saveToFile();
+          break;
+        case "o":
+          openFile();
+          break;
         case "x":
           always = false;
           break;
@@ -57,6 +65,28 @@ public class TextMenu {
   }
 
   // Menu options
+  private void openFile() {
+    console.print(ENTER_PATH_STR);
+    val path = console.scanString();
+    try {
+      manager.importFromFile(path);
+    } catch (IOException e) {
+      e.printStackTrace();
+      console.print("Something really bad just happened");
+    }
+  }
+
+  private void saveToFile() {
+    console.print(ENTER_PATH_STR);
+    val path = console.scanString();
+    try {
+      manager.saveToFile(path);
+    } catch (IOException e) {
+      e.printStackTrace();
+      console.print("Something really bad just happened");
+    }
+  }
+
   void filterDecorations() {
     List<FieldDescription> filters = manager.getFilters();
     filters.forEach((field) -> {
@@ -70,7 +100,7 @@ public class TextMenu {
 
     final List<Template> filtered = manager.filter();
 
-    String[] sorting = Manipulator.AVAILABLE_SORTING;
+    List<String> sorting = Manipulator.AVAILABLE_SORTING;
 
     StringBuffer out = new StringBuffer();
     int count = 0;
@@ -78,10 +108,10 @@ public class TextMenu {
       out.append(String.format("%d. %s %n", count++, i));
     }
     console.print(out.toString());
-    int option = console.scanStrictlyInt(sorting.length - 1);
+    int option = console.scanStrictlyInt(sorting.size() - 1);
     boolean descending = (Boolean) console.set(false, DESCENDING_STRING);
 
-    manager.setSorting(sorting[option], descending);
+    manager.setSorting(sorting.get(option), descending);
 
     filtered.forEach((decoration) -> {
       console.print(String.format("%s%n", decoration.toString()));
@@ -163,10 +193,13 @@ public class TextMenu {
       d - delete decoration
       e - edit decoration
       f - filter decorations
+      s - save
+      o - open
       x - exit
       >>>""";
 
   private static final String INVALID_STRING = "Invalid input\nTry again!!\n";
   private static final String DESCENDING_STRING = "Descending?\n";
+  private static final String ENTER_PATH_STR = "Enter path to the csv-file\n";
   // String literals
 }

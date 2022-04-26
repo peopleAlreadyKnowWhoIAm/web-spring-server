@@ -158,11 +158,4 @@ public final class DataFileOperator {
     str += '\n';
     return str;
   }
-
-  public static final String COMMA = ",";
-  public static final String QUOTE = "\"";
-  public static final String SEMICOLON = ":";
-  public static final String LIST_TEMPLATE = "\"%s?%s:%s\"";
-  public static final String OBJECT_TEMPLATE = "\"%s:%s\"";
-  public static final String STRING_TEMPLATE = "\"%s\"";
 }

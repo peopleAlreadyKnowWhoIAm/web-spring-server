@@ -12,6 +12,16 @@ import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.FieldDescriptio
 public abstract class Template implements Cloneable {
   // Variables
 
+  // String literals
+  private static final String NAME_STR = "Name";
+  private static final String USAGE_STR = "Usage";
+  private static final String TYPE_STR = "Type";
+  private static final String AVAILABLE_AMOUNT_STR = "Available";
+  private static final String MATERIAL_STR = "Material";
+
+  protected static final String PRICE_STR = "Price";
+  protected static final String DIVIDER = ": %s\t";
+
   @Getter
   @Setter
   protected String name = "";
@@ -135,21 +145,12 @@ public abstract class Template implements Cloneable {
     return null;
   }
 
-
-  // String literals
-  private static final String NAME_STR = "Name";
-  private static final String USAGE_STR = "Usage";
-  private static final String TYPE_STR = "Type";
-  private static final String AVAILABLE_AMOUNT_STR = "Available";
-  private static final String MATERIAL_STR = "Material";
-  private static final String PRICE_STR = "Price";
-
   private static final String DESCRIPTION_STR = 
-      NAME_STR + " %s\t" 
-      + TYPE_STR + " %s\t" 
-      + USAGE_STR + " %s\t"
-      + AVAILABLE_AMOUNT_STR + " %s\t"
-      + MATERIAL_STR + " %s\t";
+      NAME_STR + DIVIDER 
+      + TYPE_STR + DIVIDER 
+      + USAGE_STR + DIVIDER
+      + AVAILABLE_AMOUNT_STR + DIVIDER
+      + MATERIAL_STR + DIVIDER;
 
   private static final FieldDescription[] TEMPLATE_FIELDS = {
       new FieldDescription(null, NAME_STR),

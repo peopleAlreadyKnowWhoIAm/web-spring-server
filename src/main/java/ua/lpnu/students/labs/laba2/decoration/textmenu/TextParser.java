@@ -17,13 +17,14 @@ import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.T
  * Class which convert text(from standart input or an String) to an object.
  */
 public class TextParser {
-  private static final String INVALID_DATE_STR = "Invalid entered date\nTry again!\n";
-  private static final String LAST_VALUE_STR = "%s%nPrevious: %s%n";
-  private static final String INVALID_NUMBER_STR = "Incorrect number\n try again\n";
+  private static final String INVALID_DATE_STR = "Invalid entered date\nTry again!";
+  private static final String LAST_VALUE_STR = "%s%nPrevious: %s";
+  private static final String INVALID_NUMBER_STR = "Incorrect number\nTry again!";
 
   private static final String BOOLEAN_OPTIONS = "0. - false\n1. - true\n";
 
   public static final String DATE_PATTERN_STR = "dd/mm/yyyy";
+  public static final String INPUT_PREFIX_STR = "\n>>> ";
 
   public final DateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN_STR);
 
@@ -49,6 +50,11 @@ public class TextParser {
     if (!fromText) {
       System.out.print(str);
     }
+  }
+
+  public String scanString() {
+    print(INPUT_PREFIX_STR);
+    return scanner.nextLine();
   }
 
   /**
@@ -107,10 +113,6 @@ public class TextParser {
       print(INVALID_NUMBER_STR);
     }
     return out;
-  }
-
-  public String scanString() {
-    return scanner.nextLine();
   }
 
   private Integer integerScanner(final String message) {
