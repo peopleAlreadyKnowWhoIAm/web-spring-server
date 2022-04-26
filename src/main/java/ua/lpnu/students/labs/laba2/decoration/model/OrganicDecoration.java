@@ -3,15 +3,17 @@ package ua.lpnu.students.labs.laba2.decoration.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
-import ua.lpnu.students.labs.laba2.decoration.manager.utils.FieldDescription;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Size;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Type;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Usage;
-import ua.lpnu.students.labs.laba2.decoration.textmenu.ConsoleComunicator;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.FieldDescription;
+import ua.lpnu.students.labs.laba2.decoration.textmenu.TextParser;
 
+/**
+ * Organic decoration type class.
+ */
 public class OrganicDecoration extends PieceDecoration {
   public static final Type CLASS_TYPE = Type.ORGANIC_DECORATION;
   // Variables
@@ -25,17 +27,16 @@ public class OrganicDecoration extends PieceDecoration {
    * Constructor of all parameters.
    */
   public OrganicDecoration(
-      String name, 
-      Usage usage, 
-      int avalaibleAmount, 
-      String color, 
+      String name,
+      Usage usage,
+      int avalaibleAmount,
+      String color,
       String style,
-      String material, 
-      Size size, 
-      float pricePerPiece, 
-      int numberOfDaysToExpiration, 
-      Date dateOfProduction
-  ) {
+      String material,
+      Size size,
+      float pricePerPiece,
+      int numberOfDaysToExpiration,
+      Date dateOfProduction) {
     super(name, CLASS_TYPE, usage, avalaibleAmount, color, style, material, size, pricePerPiece);
     this.numberOfDaysToExpiration = numberOfDaysToExpiration;
     this.dateOfProduction = new Date(dateOfProduction.getTime());
@@ -79,18 +80,16 @@ public class OrganicDecoration extends PieceDecoration {
   public String toString() {
     return super.toString()
         + String.format(DSCRIPTION_STR,
-            new SimpleDateFormat(ConsoleComunicator.DATE_PATTERN_STR).format(this.dateOfProduction),
+            new SimpleDateFormat(TextParser.DATE_PATTERN_STR).format(this.dateOfProduction),
             String.valueOf(this.numberOfDaysToExpiration));
   }
 
   // String literals
 
-  private static final String DATE_STR = 
-      "Date of production using patern " + ConsoleComunicator.DATE_PATTERN_STR + " :";
-  private static final String EXPIRATION_TERM_STR = "Number of days to expire: ";
+  private static final String DATE_STR = "Date of production";
+  private static final String EXPIRATION_TERM_STR = "Number of days to expire";
 
-  private static final String DSCRIPTION_STR = 
-      "Date of production: %s\t" + EXPIRATION_TERM_STR + "%s\t";
+  private static final String DSCRIPTION_STR = DATE_STR + " %s\t" + EXPIRATION_TERM_STR + " %s\t";
 
   private static final FieldDescription[] TEMPLATE_FIELDS = {
       new FieldDescription(null, EXPIRATION_TERM_STR),

@@ -1,9 +1,8 @@
-package ua.lpnu.students.labs.laba2.decoration.storages.impl;
+package ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl;
 
 import java.util.Collection;
 import java.util.LinkedList;
-
-import ua.lpnu.students.labs.laba2.decoration.storages.TypedList;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.TypedList;
 
 /**
  * Linked list with explicit type.
@@ -21,6 +20,7 @@ public class TypedLinkedList<T extends Object>
 
   /**
    * Copy constructor.
+   *
    * @param type type of the list
    * @param collection collection to copy
    */
@@ -33,6 +33,7 @@ public class TypedLinkedList<T extends Object>
 
   /**
    * Init constructor.
+   *
    * @param type type of the list
    */
   public TypedLinkedList(final T type) {

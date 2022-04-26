@@ -8,8 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Usage;
-import ua.lpnu.students.labs.laba2.decoration.storages.impl.TypedArrayList;
-import ua.lpnu.students.labs.laba2.decoration.storages.impl.TypedLinkedList;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.TypedArrayList;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.TypedLinkedList;
 
 public class LongDecorationTest {
 

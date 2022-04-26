@@ -2,11 +2,13 @@ package ua.lpnu.students.labs.laba2.decoration.model.shared;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
-import ua.lpnu.students.labs.laba2.decoration.manager.utils.FieldDescription;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.FieldDescription;
 
+/**
+ * Abstract decoration template to inherit.
+ */
 public abstract class Template implements Cloneable {
   // Variables
 
@@ -55,6 +57,7 @@ public abstract class Template implements Cloneable {
 
   /**
    * Set fields to the Template object.
+   *
    * @param fields list contains FieldDescription with all fields
    */
   public void setFields(final List<FieldDescription> fields) {
@@ -77,6 +80,7 @@ public abstract class Template implements Cloneable {
 
   /**
    * Get fields with Template values or grabage when not set.
+   *
    * @return the list of the field
    */
   public List<FieldDescription> getFields() {
@@ -119,6 +123,7 @@ public abstract class Template implements Cloneable {
 
   /**
    * Make a full copy for the object.
+   *
    * @return the copy
    */
   public Template copy() {
@@ -132,19 +137,19 @@ public abstract class Template implements Cloneable {
 
 
   // String literals
-  private static final String NAME_STR = "Name: ";
-  private static final String USAGE_STR = "Usage: ";
-  private static final String TYPE_STR = "Type: ";
-  private static final String AVAILABLE_AMOUNT_STR = "Available: ";
-  private static final String MATERIAL_STR = "Material: ";
-  private static final String PRICE_STR = "Price: ";
+  private static final String NAME_STR = "Name";
+  private static final String USAGE_STR = "Usage";
+  private static final String TYPE_STR = "Type";
+  private static final String AVAILABLE_AMOUNT_STR = "Available";
+  private static final String MATERIAL_STR = "Material";
+  private static final String PRICE_STR = "Price";
 
   private static final String DESCRIPTION_STR = 
-      NAME_STR + "%s\t" 
-      + TYPE_STR + "%s\t" 
-      + USAGE_STR + "%s\t"
-      + AVAILABLE_AMOUNT_STR + "%s\t"
-      + MATERIAL_STR + "%s\t";
+      NAME_STR + " %s\t" 
+      + TYPE_STR + " %s\t" 
+      + USAGE_STR + " %s\t"
+      + AVAILABLE_AMOUNT_STR + " %s\t"
+      + MATERIAL_STR + " %s\t";
 
   private static final FieldDescription[] TEMPLATE_FIELDS = {
       new FieldDescription(null, NAME_STR),

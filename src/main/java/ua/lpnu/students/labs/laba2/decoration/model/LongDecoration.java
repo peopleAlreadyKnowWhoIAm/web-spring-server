@@ -1,16 +1,18 @@
 package ua.lpnu.students.labs.laba2.decoration.model;
 
 import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
-import ua.lpnu.students.labs.laba2.decoration.manager.utils.FieldDescription;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Template;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Type;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Usage;
-import ua.lpnu.students.labs.laba2.decoration.storages.TypedList;
-import ua.lpnu.students.labs.laba2.decoration.storages.impl.TypedLinkedList;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.FieldDescription;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.TypedList;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.TypedLinkedList;
 
+/**
+ * Long decoration class.
+ */
 public class LongDecoration extends Template {
   public static final Type CLASS_TYPE = Type.LONG_DECORATION;
   // Variables
@@ -114,16 +116,16 @@ public class LongDecoration extends Template {
 
   // String literals
 
-  private static final String COLORS_STR = "Colors of the decoration\nSend empty to confirm\n";
-  private static final String STYLE_STR = "Style: ";
-  private static final String MINIMAL_LENGTH_STR = "Minimal length selling: ";
-  private static final String WIDTH_STR = "Width: ";
+  private static final String COLORS_STR = "Colors of the decoration";
+  private static final String STYLE_STR = "Style";
+  private static final String MINIMAL_LENGTH_STR = "Minimal length selling";
+  private static final String WIDTH_STR = "Width";
 
   private static final String DESCRIPTION_STR = 
-      "Colors: %s\t" 
-      + STYLE_STR + "%s\t" 
-      + MINIMAL_LENGTH_STR + "%s\t"
-      + WIDTH_STR + "%s\tPrice per meter: %s\t";
+      COLORS_STR + " %s\t" 
+      + STYLE_STR + " %s\t" 
+      + MINIMAL_LENGTH_STR + " %s\t"
+      + WIDTH_STR + " %s\tPrice per meter: %s\t";
 
   private static final FieldDescription[] TEMPLATE_FIELDS = {
       new FieldDescription(null, COLORS_STR),

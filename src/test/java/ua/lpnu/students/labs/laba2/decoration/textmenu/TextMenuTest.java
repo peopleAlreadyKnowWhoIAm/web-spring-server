@@ -16,8 +16,8 @@ import ua.lpnu.students.labs.laba2.decoration.model.LongDecoration;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Template;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Type;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Usage;
-import ua.lpnu.students.labs.laba2.decoration.storages.impl.TypedArrayList;
-import ua.lpnu.students.labs.laba2.decoration.storages.impl.TypedLinkedList;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.TypedArrayList;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.TypedLinkedList;
 
 public class TextMenuTest {
   private List<Template> decorations;

@@ -1,15 +1,17 @@
 package ua.lpnu.students.labs.laba2.decoration.model;
 
 import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
-import ua.lpnu.students.labs.laba2.decoration.manager.utils.FieldDescription;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Size;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Template;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Type;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Usage;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.FieldDescription;
 
+/**
+ * Piece decoration type class.
+ */
 public class PieceDecoration extends Template {
   public static final Type CLASS_TYPE = Type.PIECE_DECORATION;
   // Variables
@@ -109,13 +111,14 @@ public class PieceDecoration extends Template {
   }
 
   // String literals
-  private static final String COLOR_STR = "Color: ";
-  private static final String STYLE_STR = "Style: ";
-  private static final String DESCRIPTION_STR = COLOR_STR + "%s\t" + STYLE_STR
-      + "%s\tDemesions: %s\t Price: %s";
+  private static final String COLOR_STR = "Color";
+  private static final String STYLE_STR = "Style";
+  private static final String DEMESNSIONS_STR = "Demensions";
+  private static final String DESCRIPTION_STR = COLOR_STR + " %s\t" + STYLE_STR
+      + " %s\t" + DEMESNSIONS_STR + " %s\t Price: %s";
   private static final FieldDescription[] TEMPLATE_FIELDS = {
       new FieldDescription(null, COLOR_STR),
       new FieldDescription(null, STYLE_STR),
-      new FieldDescription(null, "Demensions: width, height, depth: \n")
+      new FieldDescription(null, DEMESNSIONS_STR)
   };
 }

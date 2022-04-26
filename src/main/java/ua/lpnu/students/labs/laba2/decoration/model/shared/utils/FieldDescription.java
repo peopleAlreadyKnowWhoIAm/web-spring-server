@@ -1,9 +1,12 @@
-package ua.lpnu.students.labs.laba2.decoration.manager.utils;
+package ua.lpnu.students.labs.laba2.decoration.model.shared.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Class which save value with message to it.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

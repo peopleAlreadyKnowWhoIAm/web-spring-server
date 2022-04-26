@@ -12,7 +12,7 @@ import ua.lpnu.students.labs.laba2.decoration.model.PieceDecoration;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Size;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Template;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Usage;
-import ua.lpnu.students.labs.laba2.decoration.storages.impl.TypedArrayList;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.TypedArrayList;
 
 public class DataStorage {
   public final List<Template> decorations = new ArrayList<>(Arrays.asList(

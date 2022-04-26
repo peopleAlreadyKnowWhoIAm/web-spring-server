@@ -7,14 +7,16 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Size;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Type;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Usage;
-import ua.lpnu.students.labs.laba2.decoration.storages.TypedList;
-import ua.lpnu.students.labs.laba2.decoration.storages.impl.TypedLinkedList;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.TypedList;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.TypedLinkedList;
 
-public class ConsoleComunicator {
+/**
+ * Class which convert text(from standart input or an String) to an object.
+ */
+public class TextParser {
   private static final String INVALID_DATE_STR = "Invalid entered date\nTry again!\n";
   private static final String LAST_VALUE_STR = "%s%nPrevious: %s%n";
   private static final String INVALID_NUMBER_STR = "Incorrect number\n try again\n";
@@ -23,16 +25,35 @@ public class ConsoleComunicator {
 
   public static final String DATE_PATTERN_STR = "dd/mm/yyyy";
 
-  public DateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN_STR);
+  public final DateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN_STR);
 
-  private Scanner scanner = new Scanner(System.in, Charset.defaultCharset());
+  private Scanner scanner;
 
+  private boolean fromText = false;
+
+  public TextParser() {
+    scanner = new Scanner(System.in, Charset.defaultCharset());
+  }
+
+  public TextParser(String text) {
+    scanner = new Scanner(text);
+    fromText = true;
+  }
+
+  /**
+   * Print string when scanning from standart input (not text).
+   *
+   * @param str to print
+   */
   public void print(String str) {
-    System.out.print(str);
+    if (!fromText) {
+      System.out.print(str);
+    }
   }
 
   /**
    * Scan int from the standart input.
+   *
    * @param max maximum scanned integer
    * @return the integer or `null` when empty
    */
@@ -54,7 +75,25 @@ public class ConsoleComunicator {
   }
 
   /**
+   * Scan long from the standart input.
+   *
+   * @return the long
+   */
+  public long scanLong() {
+    while (true) {
+      try {
+        String tmp = scanString();
+        long out = Long.parseLong(tmp);
+        return out;
+      } catch (NumberFormatException e) {
+        print(INVALID_NUMBER_STR);
+      }
+    }
+  }
+
+  /**
    * Scan only int.
+   *
    * @param max max possible integer
    * @return the integer
    */
@@ -98,7 +137,8 @@ public class ConsoleComunicator {
 
   /**
    * Scan string from the standart input.
-   * @param message to show 
+   *
+   * @param message to show
    * @return entered string or `null` when empty
    */
   public String stringScanner(final String message) {
@@ -112,6 +152,7 @@ public class ConsoleComunicator {
 
   /**
    * Scan string list from the standart input.
+   *
    * @param message to show
    * @return entered string list or null when empty
    */
@@ -132,73 +173,90 @@ public class ConsoleComunicator {
   }
 
   Date dateScanner(final String message) {
-    print(message);
-    Date out;
-    while (true) {
-      String buf = scanString();
-      if (buf.isEmpty()) {
-        return null;
+    if (fromText) {
+      return new Date(scanLong());
+    } else {
+      print(message);
+      Date out;
+      while (true) {
+        String buf = scanString();
+        if (buf.isEmpty()) {
+          return null;
+        }
+        try {
+          out = dateFormat.parse(buf);
+          break;
+        } catch (Exception e) {
+          System.out.println(INVALID_DATE_STR);
+          continue;
+        }
       }
-      try {
-        out = dateFormat.parse(buf);
-        break;
-      } catch (Exception e) {
-        System.out.println(INVALID_DATE_STR);
-        continue;
-      }
+      return out;
     }
-    return out;
   }
 
   Usage usageScanner(final String message) {
-    print(message);
+    if (fromText) {
+      return Usage.valueOf(scanString());
+    } else {
+      print(message);
 
-    print(Usage.allToString());
+      print(Usage.allToString());
 
-    var tmp = scanInt(Usage.values().length - 1);
-    if (tmp == null) {
-      return null;
+      var tmp = scanInt(Usage.values().length - 1);
+      if (tmp == null) {
+        return null;
+      }
+      return Usage.values()[tmp];
     }
-    return Usage.values()[tmp];
   }
 
   Size sizeScanner(final String message) {
-    print(message);
+    if (fromText) {
+      return Size.parseSize(scanString());
+    } else {
+      print(message);
 
-    Size tmp = new Size();
-    print("width: ");
-    var tmpInt = scanInt(null);
-    if (tmpInt == null) {
-      return null;
+      Size tmp = new Size();
+      print("width: ");
+      var tmpInt = scanInt(null);
+      if (tmpInt == null) {
+        return null;
+      }
+      tmp.width = tmpInt;
+
+      print("height: ");
+      tmpInt = scanInt(null);
+      if (tmpInt == null) {
+        return null;
+      }
+      tmp.height = tmpInt;
+
+      print("depth: ");
+      tmpInt = scanInt(null);
+      if (tmpInt == null) {
+        return null;
+      }
+      tmp.depth = tmpInt;
+
+      return tmp;
     }
-    tmp.width = tmpInt;
-
-    print("height: ");
-    tmpInt = scanInt(null);
-    if (tmpInt == null) {
-      return null;
-    }
-    tmp.height = tmpInt;
-
-    print("depth: ");
-    tmpInt = scanInt(null);
-    if (tmpInt == null) {
-      return null;
-    }
-    tmp.depth = tmpInt;
-
-    return tmp;
   }
 
   Type typeScanner(final String message) {
-    print(message);
-    print(Type.allToString());
-    var tmp = scanInt(Type.values().length - 1);
+    if (fromText) {
+      return Type.valueOf(scanString());
+    } else {
+      print(message);
+      print(Type.allToString());
+      var tmp = scanInt(Type.values().length - 1);
 
-    if (tmp == null) {
-      return null;
+      if (tmp == null) {
+        return null;
+      }
+      return Type.values()[tmp];
     }
-    return Type.values()[tmp];
+
   }
 
   List<Type> typeListScanner(String message) {
@@ -240,15 +298,16 @@ public class ConsoleComunicator {
     print(BOOLEAN_OPTIONS);
     Integer option = scanInt(1);
     if (option == null) {
-      return null;
+      return false;
     }
     return option == 1;
   }
 
   /**
    * Edit the object or return previous when empty.
+   *
    * @param previous object to change
-   * @param message to show
+   * @param message  to show
    * @return edited object
    */
   public Object edit(final Object previous, final String message) {
@@ -268,22 +327,19 @@ public class ConsoleComunicator {
 
       if (listItemClass instanceof String) {
         List<String> tmp = stringListScanner(
-            String.format(LAST_VALUE_STR, message, previous.toString())
-          );
+            String.format(LAST_VALUE_STR, message, previous.toString()));
         return tmp == null ? previous : tmp;
       }
 
       if (listItemClass instanceof Usage) {
         List<Usage> tmp = usageListScanner(
-            String.format(LAST_VALUE_STR, message, previous.toString())
-          );
+            String.format(LAST_VALUE_STR, message, previous.toString()));
         return tmp == null ? previous : tmp;
       }
 
       if (listItemClass instanceof Type) {
         List<Type> tmp = typeListScanner(
-            String.format(LAST_VALUE_STR, message, previous.toString())
-          );
+            String.format(LAST_VALUE_STR, message, previous.toString()));
         return tmp == null ? previous : tmp;
       }
       return null;
@@ -318,8 +374,9 @@ public class ConsoleComunicator {
 
   /**
    * Scan given object from the standart input.
+   *
    * @param pointOnType type to scan
-   * @param message to show
+   * @param message     to show
    * @return the object
    */
   public Object set(final Object pointOnType, final String message) {

@@ -1,16 +1,18 @@
 package ua.lpnu.students.labs.laba2.decoration.model;
 
 import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
-import ua.lpnu.students.labs.laba2.decoration.manager.utils.FieldDescription;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Template;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Type;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Usage;
-import ua.lpnu.students.labs.laba2.decoration.storages.TypedList;
-import ua.lpnu.students.labs.laba2.decoration.storages.impl.TypedLinkedList;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.FieldDescription;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.TypedList;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.TypedLinkedList;
 
+/**
+ * Electric decoration class.
+ */
 public class ElectricDecoration extends Template {
   public static final Type CLASS_TYPE = Type.ELECTRIC_DECORATION;
   // Variables
@@ -99,18 +101,16 @@ public class ElectricDecoration extends Template {
 
   // String literals
 
-  private static final String COLORS_STR = "Colors of the lights\n";
-  private static final String LENGTH_STR = "Length: ";
-  private static final String AMOUNT_LAMPS_STR = "Amount of lamps per meter: ";
-  private static final String POWER_STR = "Power in watts: ";
+  private static final String COLORS_STR = "Colors of the lights";
+  private static final String LENGTH_STR = "Length";
+  private static final String AMOUNT_LAMPS_STR = "Amount of lamps per meter";
+  private static final String POWER_STR = "Power in watts";
 
-  private static final String DESCRIPTION_STR = "Color of lights: %s\t"
-      + LENGTH_STR
-      + "%s\t"
-      + AMOUNT_LAMPS_STR
-      + "%s\t"
-      + POWER_STR
-      + "%s\tPrice: %s\t";
+  private static final String DESCRIPTION_STR = 
+      COLORS_STR + " %s\t"
+      + LENGTH_STR + " %s\t"
+      + AMOUNT_LAMPS_STR + " %s\t"
+      + POWER_STR + "%s\tPrice: %s\t";
   // ---------------
 
   private static final FieldDescription[] TEMPLATE_FIELDS = {

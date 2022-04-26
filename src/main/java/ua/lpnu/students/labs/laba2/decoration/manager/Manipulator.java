@@ -5,15 +5,17 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
-
 import lombok.NoArgsConstructor;
-import ua.lpnu.students.labs.laba2.decoration.manager.utils.FieldDescription;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Template;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Type;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Usage;
-import ua.lpnu.students.labs.laba2.decoration.storages.TypedList;
-import ua.lpnu.students.labs.laba2.decoration.storages.impl.TypedLinkedList;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.FieldDescription;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.TypedList;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.TypedLinkedList;
 
+/**
+ * Class which filter and sort given list of the decoration.
+ */
 @NoArgsConstructor
 public class Manipulator {
 
@@ -66,7 +68,7 @@ public class Manipulator {
   
   /**
    * Sort filtered decoration by name.
-   * 
+   *
    * @param descending whether descending or ascending
    */
   public void sortByName(boolean descending) {
@@ -79,7 +81,7 @@ public class Manipulator {
   
   /**
    * Sort filtered decoration by price.
-   * 
+   *
    * @param descending whether descending or ascending
    */
   public void sortByPrice(boolean descending) {
@@ -92,6 +94,7 @@ public class Manipulator {
   
   /**
    * Sort filtered decoration by amount.
+   *
    * @param descending whether descending or ascending
    */
   public void sortByAmount(boolean descending) {
@@ -104,6 +107,7 @@ public class Manipulator {
   
   /** 
    * Sort filtered decoration.
+   *
    * @param sortingType from list of `POSSIBLE_SORTING`
    * @param descending whether descending or ascending
    */
@@ -172,6 +176,7 @@ public class Manipulator {
   
   /** 
    * Return filtered decoration(only if `filter()` called earlier).
+   *
    * @return List of filtered decoration
    */
   // Filter and get
@@ -182,6 +187,7 @@ public class Manipulator {
   
   /** 
    * Return all possible filters and their values.
+   *
    * @return List of filters
    */
   // If empty send trash in it
@@ -230,6 +236,7 @@ public class Manipulator {
   
   /** 
    * Method which set filters to fiter later.
+   *
    * @param filters to set
    */
   @SuppressWarnings("unchecked")

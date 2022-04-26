@@ -17,10 +17,10 @@ import org.junit.jupiter.api.Test;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Size;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Type;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Usage;
-import ua.lpnu.students.labs.laba2.decoration.storages.impl.TypedArrayList;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.TypedArrayList;
 
 public class ConsoleComunicatorTest {
-  DateFormat dateFormat = new SimpleDateFormat(ConsoleComunicator.DATE_PATTERN_STR);
+  DateFormat dateFormat = new SimpleDateFormat(TextParser.DATE_PATTERN_STR);
 
   @Test
   void testEdit() throws ParseException {
@@ -38,7 +38,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputString[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.edit(previousString[i], ""), resultString[i]);
     }
 
@@ -55,7 +55,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputInt[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.edit(previousInt[i], ""), resultInt[i]);
     }
 
@@ -73,7 +73,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputStringList[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.edit(previousStringList.get(i), "")
           .toString(),
           resultStringList.get(i).toString());
@@ -97,7 +97,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputTypeList[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.edit(previousTypeList.get(i), "")
           .toString(),
           resultTypeList.get(i).toString());
@@ -124,7 +124,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputUsageList[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.edit(previousUsageList.get(i), "")
           .toString(),
           resultUsageList.get(i).toString());
@@ -146,7 +146,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputDate[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.edit(previousDate[i], ""), resultDate[i]);
     }
 
@@ -163,7 +163,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputUsage[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.edit(previousUsage[i], ""),
           resultUsage[i]);
     }
@@ -181,7 +181,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputSize[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.edit(previousSize[i], ""),
           resultSize[i]);
     }
@@ -200,7 +200,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputType[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.edit(previousType[i], ""),
           resultType[i]);
     }
@@ -219,7 +219,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputFloat[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.edit(previousFloat[i], ""),
           resultFloat[i]);
     }
@@ -231,13 +231,13 @@ public class ConsoleComunicatorTest {
         false, true, false, false
     };
     boolean[] resultBoolean = {
-        true, true, false, false
+        true, false, false, false
     };
     for (int i = 0; i < inputBoolean.length; i++) {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputBoolean[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.edit(previousBoolean[i], ""),
           resultBoolean[i]);
     }
@@ -249,7 +249,7 @@ public class ConsoleComunicatorTest {
     for (String string : input) {
       var out = new ByteArrayOutputStream();
       System.setOut(new PrintStream(out));
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       console.print(string);
 
       Assertions.assertEquals(string, out.toString());
@@ -271,7 +271,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(input[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.scanInt(arguments[i]), result[i]);
     }
   }
@@ -291,7 +291,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(input[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.scanStrictlyInt(arguments[i]), result[i]);
     }
   }
@@ -308,7 +308,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputString[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.set(new String(), ""), resultString[i]);
     }
 
@@ -322,7 +322,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputInt[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.set(0, ""), resultInt[i]);
     }
 
@@ -335,7 +335,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputStringList[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.set(new TypedArrayList<String>(new String()), ""),
           resultStringList.get(i));
     }
@@ -351,7 +351,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputTypeList[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(
           console.set(new TypedArrayList<>(Type.ELECTRIC_DECORATION), ""),
           resultTypeList.get(i));
@@ -368,7 +368,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputUsageList[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.set(new TypedArrayList<>(Usage.UNKNOWN), ""),
           resultUsageList.get(i));
     }
@@ -385,7 +385,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputDate[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.set(new Date(), ""), resultDate[i]);
     }
 
@@ -399,7 +399,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputUsage[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.set(Usage.FOR_CHRISTMASS, ""),
           resultUsage[i]);
     }
@@ -414,7 +414,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputSize[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.set(new Size(), ""),
           resultSize[i]);
     }
@@ -429,7 +429,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputType[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.set(Type.ELECTRIC_DECORATION, ""),
           resultType[i]);
     }
@@ -445,7 +445,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputFloat[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.set(0.0f, ""),
           resultFloat[i]);
     }
@@ -460,7 +460,7 @@ public class ConsoleComunicatorTest {
       ByteArrayInputStream buf = new ByteArrayInputStream(inputBoolean[i].getBytes());
       System.setIn(buf);
 
-      var console = new ConsoleComunicator();
+      var console = new TextParser();
       Assertions.assertEquals(console.set(false, ""),
           resultBoolean[i]);
     }

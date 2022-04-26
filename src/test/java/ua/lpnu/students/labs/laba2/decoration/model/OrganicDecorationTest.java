@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Size;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Usage;
-import ua.lpnu.students.labs.laba2.decoration.textmenu.ConsoleComunicator;
+import ua.lpnu.students.labs.laba2.decoration.textmenu.TextParser;
 
 public class OrganicDecorationTest {
   private List<OrganicDecoration> samples;
@@ -103,7 +103,7 @@ public class OrganicDecorationTest {
       Assertions.assertTrue(tmp.contains(String.valueOf(a.getNumberOfDaysToExpiration())),
           String.format("Error in amount per meter %d dec", samples.indexOf(a)));
       Assertions.assertTrue(
-          tmp.contains(new SimpleDateFormat(ConsoleComunicator.DATE_PATTERN_STR)
+          tmp.contains(new SimpleDateFormat(TextParser.DATE_PATTERN_STR)
                                         .format(a.getDateOfProduction())),
           String.format("Error in price %d dec", samples.indexOf(a)));
 

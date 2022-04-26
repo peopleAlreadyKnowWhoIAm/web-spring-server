@@ -1,17 +1,19 @@
 package ua.lpnu.students.labs.laba2.decoration.textmenu;
 
 import java.util.List;
-
 import ua.lpnu.students.labs.laba2.decoration.manager.Manager;
 import ua.lpnu.students.labs.laba2.decoration.manager.Manipulator;
-import ua.lpnu.students.labs.laba2.decoration.manager.utils.FieldDescription;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Template;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Type;
+import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.FieldDescription;
 
+/**
+ * Class to comunicate via text-terminal.
+ */
 public class TextMenu {
   Manager manager;
 
-  ConsoleComunicator console = new ConsoleComunicator();
+  TextParser console = new TextParser();
 
   // Constructor
   public TextMenu() {
@@ -22,8 +24,9 @@ public class TextMenu {
     manager = new Manager(decorations);
   }
 
-  // Functions
-  // Provide menu
+  /**
+   * Start main menu loop for comunication.
+   */
   public void mainMenu() {
     boolean always = true;
     while (always) {
@@ -65,7 +68,7 @@ public class TextMenu {
 
     manager.setFilters(filters);
 
-    List<Template> filtered = manager.filter();
+    final List<Template> filtered = manager.filter();
 
     String[] sorting = Manipulator.AVAILABLE_SORTING;
 
@@ -83,9 +86,11 @@ public class TextMenu {
     filtered.forEach((decoration) -> {
       console.print(String.format("%s%n", decoration.toString()));
     });
-
   }
 
+  /**
+   * Add decoration to database with text terminal.
+   */
   public void addDecoration() {
     console.print(CHOOSE_TYPE_STR);
 
@@ -110,6 +115,9 @@ public class TextMenu {
     return out.toString();
   }
 
+  /**
+   * Edit an decoration from the database.
+   */
   public void editDecoration() {
     console.print(listDecorationIndexed());
     console.print(EDITING_OPTION_STR);
@@ -126,6 +134,9 @@ public class TextMenu {
     manager.setDecoration(position, fields);
   }
 
+  /**
+   * Delete an decoration from database.
+   */
   public void deleteDecoration() {
     console.print(listDecorationIndexed());
     console.print(DELETING_OPTION_STR);
@@ -143,7 +154,8 @@ public class TextMenu {
   private static final String LINE_LIST_INDEXED_STR = "%d. %s%n";
   private static final String CHOOSE_NUMBER_STR = "Enter number of the decoration: ";
   private static final String EDITING_OPTION_STR = "Edit decoration\n";
-  private static final String CHOOSE_TYPE_STR = "Adding new decoration\nChoose the type of the decoration:\n";
+  private static final String CHOOSE_TYPE_STR = 
+      "Adding new decoration\nChoose the type of the decoration:\n";
   private static final String MAIN_MENU_STR = """
       Choose option:
       a - add decoration
