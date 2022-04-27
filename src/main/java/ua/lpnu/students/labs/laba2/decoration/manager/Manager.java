@@ -1,6 +1,7 @@
 package ua.lpnu.students.labs.laba2.decoration.manager;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -149,12 +150,12 @@ public class Manager {
     return manipulator.getFilteredDecorations();
   }
 
-  public void importFromFile(String path) throws IOException {
+  public void importFromFile(final Path path) throws IOException {
     var dataFileOperator = new DataFileOperator();
     this.decorations = dataFileOperator.readFromFile(path);
   }
 
-  public void saveToFile(String path) throws IOException {
+  public void saveToFile(final Path path) throws IOException {
     var dataFileOperator = new DataFileOperator();
     dataFileOperator.writeToFile(path, this.decorations);
   }

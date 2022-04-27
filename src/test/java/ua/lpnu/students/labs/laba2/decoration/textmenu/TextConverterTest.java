@@ -19,7 +19,7 @@ import ua.lpnu.students.labs.laba2.decoration.model.shared.Type;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Usage;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.TypedArrayList;
 
-public class ConsoleComunicatorTest {
+public class TextConverterTest {
   DateFormat dateFormat = new SimpleDateFormat(TextParser.DATE_PATTERN_STR);
 
   @Test
@@ -107,11 +107,11 @@ public class ConsoleComunicatorTest {
     String[] inputUsageList = {
         "0\n5\n4\n\n", "\n", "1\n\n", "0\n1\n2\n\n" };
     List<List<Usage>> previousUsageList = Arrays.asList(
-        new TypedArrayList<>(Usage.FOR_CHRISTMASS, 
+        new TypedArrayList<>(Usage.FOR_CHRISTMASS,
             Arrays.asList(Usage.FOR_WINDOWS)),
-        new TypedArrayList<>(Usage.FOR_CHRISTMASS, 
+        new TypedArrayList<>(Usage.FOR_CHRISTMASS,
             Arrays.asList(Usage.OUTSIDE_DECORATION, Usage.FOR_WINDOWS)),
-        new TypedArrayList<>(Usage.FOR_CHRISTMASS, 
+        new TypedArrayList<>(Usage.FOR_CHRISTMASS,
             Arrays.asList(Usage.OUTSIDE_DECORATION, Usage.UNKNOWN)),
         new TypedArrayList<>(Usage.FOR_CHRISTMASS,
             Arrays.asList(Usage.OUTSIDE_DECORATION, Usage.FOR_CHRISTMASS)));

@@ -1,15 +1,19 @@
 package ua.lpnu.students.labs.laba2.decoration.textmenu;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.List;
-
+import lombok.val;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import ua.lpnu.students.labs.laba2.decoration.data.DataStorage;
 import ua.lpnu.students.labs.laba2.decoration.model.ElectricDecoration;
 import ua.lpnu.students.labs.laba2.decoration.model.LongDecoration;
@@ -20,32 +24,34 @@ import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.T
 import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.TypedLinkedList;
 
 public class TextMenuTest {
-  private List<Template> decorations;
+  private DataStorage data;
 
   @BeforeEach
   void init() {
-    decorations = new DataStorage().decorations;
+    data = new DataStorage();
   }
 
   @Test
   void testAddDecoration() {
-    String[] input = {
-        "2\nNAME\n1\nwood\n123\n12.50\nblue\nred\n\nclossic\n12\n10\n",
-        "3\nNNAME\n2\nplastic\n321\n221.5\nred\nble\n\n200\n22\n50\n"
-    };
+    String input = "a\n2\nNAME\n1\nwood\n123\n12.50\nblue\nred\n\nclossic\n12\n10\n"
+        + "a\n3\nNNAME\n2\nplastic\n321\n221.5\nred\nble\n\n200\n22\n50\n"
+        + "x\n";
+
     Template[] result = {
         new LongDecoration("NAME", Usage.OUTSIDE_DECORATION, 123,
             new TypedLinkedList<>(new String(), Arrays.asList("blue", "red")),
             "clossic", "wood", 12, 10, 12.5f),
         new ElectricDecoration("NNAME", Usage.FOR_CHRISTMASS, "plastic", 321,
-            new TypedLinkedList<>(new String(), Arrays.asList("red", "ble")), 200, 22, 50, 221.5f)
+            new TypedLinkedList<>(new String(), Arrays.asList("red", "ble")), 200, 22,
+            50, 221.5f)
     };
-    for (int i = 0; i < input.length; i++) {
-      System.setIn(new ByteArrayInputStream(input[i].getBytes()));
-      var menu = new TextMenu(decorations);
-      menu.addDecoration();
+    System.setIn(new ByteArrayInputStream(input.getBytes()));
+    var menu = new TextMenu(data.decorations);
+    menu.mainMenu();
+
+    for (int i = result.length - 1; i >= 0; i--) {
       Assertions.assertEquals(menu.manager.getDecorations()
-          .get(menu.manager.getDecorations().size() - 1).toString(),
+          .get(menu.manager.getDecorations().size() - result.length + i).toString(),
           result[i].toString());
     }
   }
@@ -53,25 +59,23 @@ public class TextMenuTest {
   @Test
   void testDeleteDecoration() {
     final Template[] toDelete = {
-        decorations.get(0), decorations.get(decorations.size() - 1)
+        data.decorations.get(0), data.decorations.get(data.decorations.size() - 1)
     };
-    String input = "0\n" + String.valueOf(decorations.size() - 2) + "\n";
+    String input = "d\n0\nd\n" + String.valueOf(data.decorations.size() - 2) + "\nx\n";
     System.setIn(new ByteArrayInputStream(input.getBytes()));
-    var menu = new TextMenu(decorations);
-    menu.deleteDecoration();
-    menu.deleteDecoration();
+    var menu = new TextMenu(data.decorations);
+    menu.mainMenu();
     Assertions.assertFalse(menu.listDecorationIndexed().contains(toDelete[0].toString()));
     Assertions.assertFalse(menu.listDecorationIndexed().contains(toDelete[1].toString()));
   }
 
   @Test
   void testEditDecoration() {
-    String[] input = {
-        "5\nNAME\n1\nwood\n123\n12.50\nblue\nred\n\nclossic\n12\n10\n",
-        "1\nNNAME\n2\nplastic\n321\n221.5\nred\nble\n\n200\n22\n50\n"
-    };
+    String input = "e\n5\nNAME\n1\nwood\n123\n12.50\nblue\nred\n\nclossic\n12\n10\n"
+        + "e\n1\nNNAME\n2\nplastic\n321\n221.5\nred\nble\n\n200\n22\n50\n"
+        + "x\n";
     Template[] absent = {
-        decorations.get(5).copy(), decorations.get(1).copy()
+        data.decorations.get(5).copy(), data.decorations.get(1).copy()
     };
     Template[] result = {
         new LongDecoration("NAME", Usage.OUTSIDE_DECORATION, 123,
@@ -81,53 +85,32 @@ public class TextMenuTest {
             new TypedArrayList<>(new String(), Arrays.asList("red", "ble")), 200, 22, 50, 221.5f)
     };
 
-    for (int i = 0; i < input.length; i++) {
-      System.setIn(new ByteArrayInputStream(input[i].getBytes()));
-      var menu = new TextMenu(decorations);
-      menu.editDecoration();
+    System.setIn(new ByteArrayInputStream(input.getBytes()));
+    var menu = new TextMenu(data.decorations);
+    menu.mainMenu();
+
+    for (int i = 0; i < result.length; i++) {
+
       Assertions.assertTrue(menu.listDecorationIndexed().contains(result[i].toString()));
       Assertions.assertFalse(menu.listDecorationIndexed().contains(absent[i].toString()));
     }
   }
 
-  //TODO write tests for it(update)
   @Test
-  void testMainMenu() {
-    String[] inputAdd = {
-        "]\na\n3\nNNAME\n2\nplastic\n321\n221.5\nred\nble\n\n200\n22\n50\nx\n"
-    };
-    Template[] resultAdd = {
-        new ElectricDecoration("NNAME", Usage.FOR_CHRISTMASS, "plastic", 321,
-            new TypedArrayList<>(new String(), Arrays.asList("red", "ble")), 200, 22, 50, 221.5f)
-    };
-    for (int i = 0; i < inputAdd.length; i++) {
-      System.setIn(new ByteArrayInputStream(inputAdd[i].getBytes()));
-      var menu = new TextMenu(decorations);
-      menu.mainMenu();
-      Assertions.assertEquals(menu.manager.getDecorations()
-          .get(menu.manager.getDecorations().size() - 1).toString(),
-          resultAdd[i].toString());
+  void testFilter() {
+    String inputFilter = "f\n3\n\n\n\n\n20\n0\n0\n1\n1\nx\n";
+    System.setIn(new ByteArrayInputStream(inputFilter.getBytes()));
+    var menu = new TextMenu(data.decorations);
+    menu.mainMenu();
+    var filtered = menu.manager.filter();
+    for (Template template : filtered) {
+      Assertions.assertTrue(template.getType() == Type.ELECTRIC_DECORATION);
+
     }
+  }
 
-    String[] inputEdit = {
-        "e\n1\nNNAME\n2\nplastic\n321\n221.5\nred\nble\n\n200\n22\n50\nx\n"
-    };
-    Template[] absentEdit = {
-        decorations.get(1).copy()
-    };
-    Template[] resultEdit = {
-        new ElectricDecoration("NNAME", Usage.FOR_CHRISTMASS, "plastic", 321,
-            new TypedArrayList<>(new String(), Arrays.asList("red", "ble")), 200, 22, 50, 221.5f)
-    };
-
-    for (int i = 0; i < inputEdit.length; i++) {
-      System.setIn(new ByteArrayInputStream(inputEdit[i].getBytes()));
-      var menu = new TextMenu(decorations);
-      menu.mainMenu();
-      Assertions.assertTrue(menu.listDecorationIndexed().contains(resultEdit[i].toString()));
-      Assertions.assertFalse(menu.listDecorationIndexed().contains(absentEdit[i].toString()));
-    }
-
+  @Test
+  void testList() {
     String[] inputList = {
         "l\nx\n"
     };
@@ -136,38 +119,36 @@ public class TextMenuTest {
       System.setIn(new ByteArrayInputStream(inputList[i].getBytes()));
       var outStream = new ByteArrayOutputStream();
       System.setOut(new PrintStream(outStream));
-      var menu = new TextMenu(decorations);
+      var menu = new TextMenu(data.decorations);
       menu.mainMenu();
       var out = outStream.toString();
-      decorations.forEach((a) -> {
+      data.decorations.forEach((a) -> {
         Assertions.assertTrue(out.contains(a.toString()));
       });
     }
     System.setOut(systemOut);
+  }
 
-    String[] inputDelete = {
-        "d\n3\nx\n"
-    };
-    Template[] resultDelete = {
-        decorations.get(3)
-    };
-    for (int i = 0; i < inputDelete.length; i++) {
-      System.setIn(new ByteArrayInputStream(inputDelete[i].getBytes()));
-      var menu = new TextMenu(decorations);
-      menu.mainMenu();
-      Assertions.assertFalse(menu.listDecorationIndexed().contains(resultDelete[i].toString()));
-      ;
-    }
-
-    String inputFilter = "f\n3\n\n\n\n\n20\n0\n0\n1\n1\nx\n";
-    System.setIn(new ByteArrayInputStream(inputFilter.getBytes()));
-    var menu = new TextMenu(decorations);
+  @Test
+  void saveDecorationTest() throws IOException {
+    String input = "s\ntest.csv\nx\n";
+    System.setIn(new ByteArrayInputStream(input.getBytes()));
+    var menu = new TextMenu(data.decorations);
     menu.mainMenu();
-    var filtered = menu.manager.filter();
-    for (Template template : filtered) {
-      Assertions.assertTrue(template.getType() == Type.ELECTRIC_DECORATION);
 
-    }
-    ;
+    val file = new File("test.csv");
+    assertTrue(file.exists());
+    assertTrue(Files.mismatch(Path.of("test.csv"), data.testCsv) == -1);
+  }
+
+  @Test
+  void openDecorationFile() {
+    String input = "o\nsrc/test/resources/csv/testList.csv\nx\n";
+    System.setIn(new ByteArrayInputStream(input.getBytes()));
+    var menu = new TextMenu();
+    menu.mainMenu();
+
+    val listString = menu.listDecorationIndexed();
+    data.decorations.stream().forEachOrdered((a) -> assertTrue(listString.contains(a.toString())));
   }
 }

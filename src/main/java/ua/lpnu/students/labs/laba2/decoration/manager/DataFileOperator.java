@@ -1,9 +1,9 @@
 package ua.lpnu.students.labs.laba2.decoration.manager;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -27,11 +27,11 @@ public final class DataFileOperator {
   /**
    * Writes given list to file.
    *
-   * @param fileName name of the file
+   * @param filePath path to the file
    * @param list     list with templates
    */
   public void writeToFile(
-      final String fileName,
+      final Path filePath,
       final List<Template> list) throws IOException {
     ArrayList<StringBuffer> buffers = new ArrayList<>(Type.values().length);
     for (int i = 0; i < Type.values().length; i++) {
@@ -53,7 +53,7 @@ public final class DataFileOperator {
       buffers.get(index).append(toCsv(decoration));
     }
     final var out = String.join("\n", buffers);
-    var file = new File(fileName);
+    var file = filePath.toFile();
     if (!file.exists()) {
       if (!file.createNewFile()) {
         throw new IOException("File not created");
@@ -74,13 +74,13 @@ public final class DataFileOperator {
   /**
    * Read list from file.
    *
-   * @param fileName name of the file
+   * @param filePath path to the file
    * @return list from the file
    * @throws IOException occurs when problems in reading file
    */
   public List<Template> readFromFile(
-      final String fileName) throws IOException {
-    final var file = new File(fileName);
+      final Path filePath) throws IOException {
+    final var file = filePath.toFile();
     if (!file.exists()) {
       throw new IOException("File don't exist");
     }
@@ -97,11 +97,13 @@ public final class DataFileOperator {
     }
     LinkedList<Template> out = new LinkedList<>();
     for (String string : fileData) {
-      int firstLineEnd = string.indexOf('\n');
-      Type type = Type.valueOf(string.substring(0, firstLineEnd));
-      int headersLineEnd = string.indexOf('\n', firstLineEnd + 1);
-      var stream = string.substring(headersLineEnd + 1).lines();
-      stream.forEach((csvLine) -> out.add(fromCsv(csvLine, type)));
+      var iterator = string.lines().iterator();
+      final Type type = Type.valueOf(iterator.next());
+      iterator.next();
+      if (!iterator.hasNext()) {
+        continue;
+      }
+      iterator.forEachRemaining((str) -> out.add(fromCsv(str, type)));
     }
 
     return new ArrayList<>(out);

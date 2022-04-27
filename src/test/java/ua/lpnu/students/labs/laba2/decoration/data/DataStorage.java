@@ -1,10 +1,12 @@
 package ua.lpnu.students.labs.laba2.decoration.data;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import lombok.Data;
 import ua.lpnu.students.labs.laba2.decoration.model.ElectricDecoration;
 import ua.lpnu.students.labs.laba2.decoration.model.LongDecoration;
 import ua.lpnu.students.labs.laba2.decoration.model.OrganicDecoration;
@@ -14,15 +16,18 @@ import ua.lpnu.students.labs.laba2.decoration.model.shared.Template;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.Usage;
 import ua.lpnu.students.labs.laba2.decoration.model.shared.utils.storages.impl.TypedArrayList;
 
+@Data
 public class DataStorage {
   public final List<Template> decorations = new ArrayList<>(Arrays.asList(
       new ElectricDecoration("Cheap christmass lights", Usage.FOR_CHRISTMASS, "plastic", 120,
           new TypedArrayList<>(
-            new String(), Arrays.asList("blue", "green", "red")), 150, 10, 25, 120.50f),
+              new String(), Arrays.asList("blue", "green", "red")),
+          150, 10, 25, 120.50f),
       new ElectricDecoration("Interested house ilumination", Usage.OUTSIDE_DECORATION,
           "plastic", 40,
           new TypedArrayList<>(
-            new String(), Arrays.asList("yellow", "green", "red", "blue", "white")), 2500, 15, 150,
+              new String(), Arrays.asList("yellow", "green", "red", "blue", "white")),
+          2500, 15, 150,
           1200.0f),
       new ElectricDecoration("On window net", Usage.FOR_WINDOWS, "plastic", 99,
           new TypedArrayList<>(new String(), Arrays.asList("yellow")), 120,
@@ -36,7 +41,8 @@ public class DataStorage {
           20.0f),
       new LongDecoration("Beautiful dawn", Usage.FOR_CHRISTMASS, 350,
           new TypedArrayList<>(
-            new String(), Arrays.asList("yellow", "orange", "white")), "long wide rope", "plactic",
+              new String(), Arrays.asList("yellow", "orange", "white")),
+          "long wide rope", "plactic",
           100, 8, 35.0f),
       new LongDecoration("Strange world", Usage.UNIVERSAL, 500,
           new TypedArrayList<>(new String(), Arrays.asList("blue", "green", "red")),
@@ -66,4 +72,8 @@ public class DataStorage {
       new PieceDecoration("Detailed landscape", Usage.FOR_CHRISTMASS, 90, "differnt",
           "hi-tech",
           "glass and plactic", new Size(20, 18, 12), 129.0f)));
+
+  public final Path emptyCsv = Path.of("src", "test", "resources", "csv", "empty.csv");
+  public final Path fromEmptyCsv = Path.of("src", "test", "resources", "csv", "fromEmptyList.csv");
+  public final Path testCsv = Path.of("src", "test", "resources", "csv", "testList.csv");
 }

@@ -1,6 +1,8 @@
 package ua.lpnu.students.labs.laba2.decoration.textmenu;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import lombok.val;
 import ua.lpnu.students.labs.laba2.decoration.manager.Manager;
@@ -67,8 +69,9 @@ public class TextMenu {
   // Menu options
   private void openFile() {
     console.print(ENTER_PATH_STR);
-    val path = console.scanString();
+    val pathStr = console.scanString();
     try {
+      Path path = Paths.get(pathStr);
       manager.importFromFile(path);
     } catch (IOException e) {
       e.printStackTrace();
@@ -78,8 +81,9 @@ public class TextMenu {
 
   private void saveToFile() {
     console.print(ENTER_PATH_STR);
-    val path = console.scanString();
+    val pathStr = console.scanString();
     try {
+      Path path = Paths.get(pathStr);
       manager.saveToFile(path);
     } catch (IOException e) {
       e.printStackTrace();
