@@ -139,6 +139,8 @@ public class TextMenuTest {
     val file = new File("test.csv");
     assertTrue(file.exists());
     assertTrue(Files.mismatch(Path.of("test.csv"), data.testCsv) == -1);
+
+    file.delete();
   }
 
   @Test
