@@ -12,7 +12,7 @@ public enum Usage {
    * @return the string
    */
   public static String allToString() {
-    StringBuffer out = new StringBuffer();
+    StringBuilder out = new StringBuilder();
     for (Usage usage : Usage.values()) {
       out.append(String.format("%d - %s%n", usage.ordinal(), usage.toString()));
     }

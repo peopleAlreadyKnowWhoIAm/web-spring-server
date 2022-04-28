@@ -33,9 +33,9 @@ public final class DataFileOperator {
   public void writeToFile(
       final Path filePath,
       final List<Template> list) throws IOException {
-    ArrayList<StringBuffer> buffers = new ArrayList<>(Type.values().length);
+    ArrayList<StringBuilder> buffers = new ArrayList<>(Type.values().length);
     for (int i = 0; i < Type.values().length; i++) {
-      var buf = new StringBuffer();
+      var buf = new StringBuilder();
       buf.append(Type.values()[i].toString() + "\n");
       buf.append(
           Type.values()[i]
@@ -120,7 +120,7 @@ public final class DataFileOperator {
     final var fields = object.getFields();
     var out = fields.parallelStream().map((field) -> {
       if (field.getValue() instanceof List) {
-        var buf = new StringBuffer();
+        var buf = new StringBuilder();
         buf.append('"');
         var list = (List<?>) field.getValue();
         buf.append(list.stream().map((a) -> a.toString()).collect(Collectors.joining(",")));

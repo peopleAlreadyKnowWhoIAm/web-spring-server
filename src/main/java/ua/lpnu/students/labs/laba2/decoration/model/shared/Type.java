@@ -17,7 +17,7 @@ public enum Type {
    * @return the string
    */
   public static String allToString() {
-    StringBuffer out = new StringBuffer();
+    StringBuilder out = new StringBuilder();
     Type[] types = Type.values();
     for (Type type : types) {
       out.append(String.format("%d - %s%n", type.ordinal(), type.toString()));

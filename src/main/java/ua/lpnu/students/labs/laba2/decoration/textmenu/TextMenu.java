@@ -106,7 +106,7 @@ public class TextMenu {
 
     List<String> sorting = Manipulator.AVAILABLE_SORTING;
 
-    StringBuffer out = new StringBuffer();
+    StringBuilder out = new StringBuilder();
     int count = 0;
     for (String i : sorting) {
       out.append(String.format("%d. %s %n", count++, i));
@@ -139,7 +139,7 @@ public class TextMenu {
   }
 
   String listDecorationIndexed() {
-    StringBuffer out = new StringBuffer();
+    StringBuilder out = new StringBuilder();
     out.append(String.format(LIST_OPTION_STR, manager.getDecorations().size()));
     int count = 0;
     for (Template i : manager.getDecorations()) {
