@@ -18,6 +18,10 @@
 
 Use variant same as in previous laba
 
-### 4 Tranfer to maven project
+### 6 File operations
 
-Use variant previous laba
+Made operations with files and implemented tests for it
+
+### 7 Working with regex exprisions
+
+Make the exercise: ![the excersise](images/laba7.png)
