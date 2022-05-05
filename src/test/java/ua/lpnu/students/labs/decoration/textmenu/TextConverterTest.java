@@ -245,6 +245,8 @@ public class TextConverterTest {
 
   @Test
   void testPrint() {
+    var systemOut = System.out;
+
     String[] input = { "\n", "Test\n", "Alpha\n" };
     for (String string : input) {
       var out = new ByteArrayOutputStream();
@@ -254,6 +256,8 @@ public class TextConverterTest {
 
       Assertions.assertEquals(string, out.toString());
     }
+
+    System.setOut(systemOut);
   }
 
   @Test
