@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import ua.lpnu.students.labs.decoration.model.shared.Template;
+import ua.lpnu.students.labs.decoration.model.shared.Decoration;
 import ua.lpnu.students.labs.decoration.model.shared.Type;
 import ua.lpnu.students.labs.decoration.model.shared.utils.FieldDescription;
 
@@ -14,16 +14,16 @@ import ua.lpnu.students.labs.decoration.model.shared.utils.FieldDescription;
  */
 public class Manager {
 
-  public Manager(List<Template> decorations) {
+  public Manager(List<Decoration> decorations) {
     this.decorations = new ArrayList<>();
     this.decorations.addAll(decorations);
   }
 
   public Manager() {
-    decorations = new ArrayList<Template>();
+    decorations = new ArrayList<Decoration>();
   }
 
-  protected List<Template> decorations;
+  protected List<Decoration> decorations;
 
   protected Manipulator manipulator = new Manipulator();
 
@@ -34,7 +34,7 @@ public class Manager {
    * @return List of fields from type of the decoration
    */
   public List<FieldDescription> getFieldsOf(Type type) {
-    Template tmp = type.createDecoration();
+    Decoration tmp = type.createDecoration();
     return tmp.getFields();
   }
 
@@ -55,7 +55,7 @@ public class Manager {
    * @param fields fields of the decoration
    */
   public void addDecoration(Type type, List<FieldDescription> fields) {
-    Template tmp = type.createDecoration();
+    Decoration tmp = type.createDecoration();
     tmp.setFields(fields);
     decorations.add(tmp);
   }
@@ -65,7 +65,7 @@ public class Manager {
    *
    * @param decorations add complete decoration
    */
-  public void addDecoration(Template decorations) {
+  public void addDecoration(Decoration decorations) {
     this.decorations.add(decorations);
   }
 
@@ -76,7 +76,7 @@ public class Manager {
    * @param fields   fields of the decoration
    */
   public void setDecoration(int position, List<FieldDescription> fields) {
-    Template tmp = decorations.get(position);
+    Decoration tmp = decorations.get(position);
     tmp.setFields(fields);
     decorations.set(position, tmp);
   }
@@ -86,7 +86,7 @@ public class Manager {
    *
    * @return List
    */
-  public List<Template> getDecorations() {
+  public List<Decoration> getDecorations() {
     return new ArrayList<>(decorations);
   }
 
@@ -104,7 +104,7 @@ public class Manager {
    *
    * @param delete instance of the decoration to delete
    */
-  public void deleteDecoration(Template delete) {
+  public void deleteDecoration(Decoration delete) {
     this.decorations.remove(delete);
   }
 
@@ -144,7 +144,7 @@ public class Manager {
    *
    * @return List of filtered
    */
-  public List<Template> filter() {
+  public List<Decoration> filter() {
     manipulator.setAllDecorations(decorations);
     manipulator.filter();
     return manipulator.getFilteredDecorations();

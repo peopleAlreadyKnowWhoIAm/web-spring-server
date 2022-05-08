@@ -7,7 +7,7 @@ import java.util.List;
 import lombok.val;
 import ua.lpnu.students.labs.decoration.manager.Manager;
 import ua.lpnu.students.labs.decoration.manager.Manipulator;
-import ua.lpnu.students.labs.decoration.model.shared.Template;
+import ua.lpnu.students.labs.decoration.model.shared.Decoration;
 import ua.lpnu.students.labs.decoration.model.shared.Type;
 import ua.lpnu.students.labs.decoration.model.shared.utils.FieldDescription;
 
@@ -24,7 +24,7 @@ public class TextMenu {
     manager = new Manager();
   }
 
-  public TextMenu(List<Template> decorations) {
+  public TextMenu(List<Decoration> decorations) {
     manager = new Manager(decorations);
   }
 
@@ -102,7 +102,7 @@ public class TextMenu {
 
     manager.setFilters(filters);
 
-    final List<Template> filtered = manager.filter();
+    final List<Decoration> filtered = manager.filter();
 
     List<String> sorting = Manipulator.AVAILABLE_SORTING;
 
@@ -142,7 +142,7 @@ public class TextMenu {
     StringBuilder out = new StringBuilder();
     out.append(String.format(LIST_OPTION_STR, manager.getDecorations().size()));
     int count = 0;
-    for (Template i : manager.getDecorations()) {
+    for (Decoration i : manager.getDecorations()) {
       out.append(String.format(LINE_LIST_INDEXED_STR, count, i.toString()));
       count++;
     }

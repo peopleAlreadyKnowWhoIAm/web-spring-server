@@ -14,10 +14,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ua.lpnu.students.labs.decoration.data.DataStorage;
-import ua.lpnu.students.labs.decoration.model.shared.Template;
+import ua.lpnu.students.labs.decoration.model.shared.Decoration;
 
 public class DataFileOperatorTest {
-  List<Template> decorations;
+  List<Decoration> decorations;
 
   Path folder;
 
@@ -57,7 +57,7 @@ public class DataFileOperatorTest {
 
   @Test
   void testWriteEmptyList() throws IOException {
-    List<Template> list = Collections.emptyList();
+    List<Decoration> list = Collections.emptyList();
 
     Path tmp = Files.createTempFile(null, null);
     operator.writeToFile(tmp, list);
@@ -67,7 +67,7 @@ public class DataFileOperatorTest {
 
   @Test
   void testReadEmptyFile() throws IOException {
-    List<Template> list = operator.readFromFile(Path.of(folder.toString(), "fromEmptyList.csv"));
+    List<Decoration> list = operator.readFromFile(Path.of(folder.toString(), "fromEmptyList.csv"));
 
     assertTrue(list.isEmpty());
   }

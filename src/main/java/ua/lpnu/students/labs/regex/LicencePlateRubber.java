@@ -45,7 +45,7 @@ public class LicencePlateRubber {
 
   /**
    * Find all car licence plate numbers and replace it with [replacement] String
-   * locally.
+   * locally, and write all ocurences into terminal.
    *
    * @throws NullPointerException when [replacement] or [text] is null
    */
@@ -55,6 +55,13 @@ public class LicencePlateRubber {
     }
 
     val matcher = pattern.matcher(this.text);
-    this.text = matcher.replaceAll(replacement);
+
+    System.out.println("Position in the text: text");
+    
+    this.text = matcher.replaceAll(((t) -> {
+      String string = t.group();
+      System.out.println(this.text.indexOf(string) + ": " + string);
+      return this.replacement;
+    }));
   }
 }

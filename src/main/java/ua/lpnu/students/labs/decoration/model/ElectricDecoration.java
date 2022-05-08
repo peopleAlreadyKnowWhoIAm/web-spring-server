@@ -3,7 +3,7 @@ package ua.lpnu.students.labs.decoration.model;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import ua.lpnu.students.labs.decoration.model.shared.Template;
+import ua.lpnu.students.labs.decoration.model.shared.Decoration;
 import ua.lpnu.students.labs.decoration.model.shared.Type;
 import ua.lpnu.students.labs.decoration.model.shared.Usage;
 import ua.lpnu.students.labs.decoration.model.shared.utils.FieldDescription;
@@ -13,7 +13,7 @@ import ua.lpnu.students.labs.decoration.model.shared.utils.storages.impl.TypedLi
 /**
  * Electric decoration class.
  */
-public class ElectricDecoration extends Template {
+public class ElectricDecoration extends Decoration {
   public static final Type CLASS_TYPE = Type.ELECTRIC_DECORATION;
   // Variables
 

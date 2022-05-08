@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import ua.lpnu.students.labs.decoration.data.DataStorage;
 import ua.lpnu.students.labs.decoration.model.ElectricDecoration;
 import ua.lpnu.students.labs.decoration.model.LongDecoration;
-import ua.lpnu.students.labs.decoration.model.shared.Template;
+import ua.lpnu.students.labs.decoration.model.shared.Decoration;
 import ua.lpnu.students.labs.decoration.model.shared.Type;
 import ua.lpnu.students.labs.decoration.model.shared.Usage;
 import ua.lpnu.students.labs.decoration.model.shared.utils.storages.impl.TypedArrayList;
@@ -38,7 +38,7 @@ public class TextMenuTest {
         + "a\n3\nNNAME\n2\nplastic\n321\n221.5\nred\nble\n\n200\n22\n50\n"
         + "x\n";
 
-    Template[] result = {
+    Decoration[] result = {
         new LongDecoration("NAME", Usage.OUTSIDE_DECORATION, 123,
             new TypedLinkedList<>(new String(), Arrays.asList("blue", "red")),
             "clossic", "wood", 12, 10, 12.5f),
@@ -59,7 +59,7 @@ public class TextMenuTest {
 
   @Test
   void testDeleteDecoration() {
-    final Template[] toDelete = {
+    final Decoration[] toDelete = {
         data.decorations.get(0), data.decorations.get(data.decorations.size() - 1)
     };
     String input = "d\n0\nd\n" + String.valueOf(data.decorations.size() - 2) + "\nx\n";
@@ -75,10 +75,10 @@ public class TextMenuTest {
     String input = "e\n5\nNAME\n1\nwood\n123\n12.50\nblue\nred\n\nclossic\n12\n10\n"
         + "e\n1\nNNAME\n2\nplastic\n321\n221.5\nred\nble\n\n200\n22\n50\n"
         + "x\n";
-    Template[] absent = {
+    Decoration[] absent = {
         data.decorations.get(5).copy(), data.decorations.get(1).copy()
     };
-    Template[] result = {
+    Decoration[] result = {
         new LongDecoration("NAME", Usage.OUTSIDE_DECORATION, 123,
             new TypedArrayList<>(new String(), Arrays.asList("blue", "red")),
             "clossic", "wood", 12, 10, 12.5f),
@@ -104,7 +104,7 @@ public class TextMenuTest {
     var menu = new TextMenu(data.decorations);
     menu.mainMenu();
     var filtered = menu.manager.filter();
-    for (Template template : filtered) {
+    for (Decoration template : filtered) {
       Assertions.assertTrue(template.getType() == Type.ELECTRIC_DECORATION);
 
     }

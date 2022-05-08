@@ -1,10 +1,11 @@
 package ua.lpnu.students.labs.decoration.model;
 
 import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
+import ua.lpnu.students.labs.decoration.model.shared.Decoration;
 import ua.lpnu.students.labs.decoration.model.shared.Size;
-import ua.lpnu.students.labs.decoration.model.shared.Template;
 import ua.lpnu.students.labs.decoration.model.shared.Type;
 import ua.lpnu.students.labs.decoration.model.shared.Usage;
 import ua.lpnu.students.labs.decoration.model.shared.utils.FieldDescription;
@@ -12,7 +13,7 @@ import ua.lpnu.students.labs.decoration.model.shared.utils.FieldDescription;
 /**
  * Piece decoration type class.
  */
-public class PieceDecoration extends Template {
+public class PieceDecoration extends Decoration {
   public static final Type CLASS_TYPE = Type.PIECE_DECORATION;
   // Variables
 

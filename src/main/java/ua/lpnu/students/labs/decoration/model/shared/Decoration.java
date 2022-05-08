@@ -9,7 +9,7 @@ import ua.lpnu.students.labs.decoration.model.shared.utils.FieldDescription;
 /**
  * Abstract decoration template to inherit.
  */
-public abstract class Template implements Cloneable {
+public abstract class Decoration implements Cloneable {
   // Variables
 
   // String literals
@@ -46,7 +46,7 @@ public abstract class Template implements Cloneable {
   @Setter
   protected float price;
 
-  protected Template(
+  protected Decoration(
       String name, 
       Type type, 
       Usage usage, 
@@ -61,7 +61,7 @@ public abstract class Template implements Cloneable {
     this.price = price;
   }
 
-  protected Template(Type type) {
+  protected Decoration(Type type) {
     this.type = type;
   }
 
@@ -136,9 +136,9 @@ public abstract class Template implements Cloneable {
    *
    * @return the copy
    */
-  public Template copy() {
+  public Decoration copy() {
     try {
-      return (Template) super.clone();
+      return (Decoration) super.clone();
     } catch (CloneNotSupportedException e) {
       e.printStackTrace();
     }
