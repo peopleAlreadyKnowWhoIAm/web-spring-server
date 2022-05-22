@@ -11,13 +11,13 @@ import org.junit.jupiter.api.Test;
 import ua.lpnu.students.labs.decoration.data.DataStorage;
 import ua.lpnu.students.labs.decoration.model.OrganicDecoration;
 import ua.lpnu.students.labs.decoration.model.PieceDecoration;
+import ua.lpnu.students.labs.decoration.model.shared.Decoration;
 import ua.lpnu.students.labs.decoration.model.shared.Size;
-import ua.lpnu.students.labs.decoration.model.shared.Template;
 import ua.lpnu.students.labs.decoration.model.shared.Type;
 import ua.lpnu.students.labs.decoration.model.shared.Usage;
 
 public class ManagerTest {
-  private List<Template> decorations;
+  private List<Decoration> decorations;
 
   @BeforeEach
   void init() {

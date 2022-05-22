@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import lombok.NoArgsConstructor;
-import ua.lpnu.students.labs.decoration.model.shared.Template;
+import ua.lpnu.students.labs.decoration.model.shared.Decoration;
 import ua.lpnu.students.labs.decoration.model.shared.Type;
 import ua.lpnu.students.labs.decoration.model.shared.Usage;
 import ua.lpnu.students.labs.decoration.model.shared.utils.FieldDescription;
@@ -30,8 +30,8 @@ public class Manipulator {
   private static final String BY_AMOUNT = "By amount";
   private static final String DIVIDER = ": ";
 
-  List<Template> allDecorations;
-  List<Template> filteredDecorations;
+  List<Decoration> allDecorations;
+  List<Decoration> filteredDecorations;
 
   TypedList<Type> types = new TypedLinkedList<>(Type.ELECTRIC_DECORATION);
 
@@ -56,7 +56,7 @@ public class Manipulator {
   };
 
   // Constructor
-  public Manipulator(List<Template> allDecorations) {
+  public Manipulator(List<Decoration> allDecorations) {
     this.filteredDecorations = new ArrayList<>(allDecorations);
     this.allDecorations = new ArrayList<>(allDecorations);
   }
@@ -70,7 +70,7 @@ public class Manipulator {
    * @param descending whether descending or ascending
    */
   public void sortByName(boolean descending) {
-    filteredDecorations.sort(Comparator.comparing(Template::getName));
+    filteredDecorations.sort(Comparator.comparing(Decoration::getName));
     if (descending) {
       Collections.reverse(filteredDecorations);
     }
@@ -82,7 +82,7 @@ public class Manipulator {
    * @param descending whether descending or ascending
    */
   public void sortByPrice(boolean descending) {
-    filteredDecorations.sort(Comparator.comparing(Template::getPrice));
+    filteredDecorations.sort(Comparator.comparing(Decoration::getPrice));
     if (descending) {
       Collections.reverse(filteredDecorations);
     }
@@ -94,7 +94,7 @@ public class Manipulator {
    * @param descending whether descending or ascending
    */
   public void sortByAmount(boolean descending) {
-    filteredDecorations.sort(Comparator.comparing(Template::getAvalaibleAmount));
+    filteredDecorations.sort(Comparator.comparing(Decoration::getAvalaibleAmount));
     if (descending) {
       Collections.reverse(filteredDecorations);
     }
@@ -160,7 +160,7 @@ public class Manipulator {
     }
   }
 
-  private void filterPart(Predicate<Template> filter) {
+  private void filterPart(Predicate<Decoration> filter) {
     if (!this.filteredDecorations.isEmpty()) {
       filteredDecorations.removeIf(filter);
 
@@ -173,7 +173,7 @@ public class Manipulator {
    * @return List of filtered decoration
    */
   // Filter and get
-  public List<Template> getFilteredDecorations() {
+  public List<Decoration> getFilteredDecorations() {
     return new ArrayList<>(this.filteredDecorations);
   }
 
@@ -263,12 +263,12 @@ public class Manipulator {
     this.priceTo = (Float) filters.get(6).getValue();
   }
 
-  public void setAllDecorations(final List<Template> decorations) {
+  public void setAllDecorations(final List<Decoration> decorations) {
     this.allDecorations = new ArrayList<>(decorations);
     this.filteredDecorations = new ArrayList<>(decorations);
   }
 
-  public List<Template> getAllDecorations() {
+  public List<Decoration> getAllDecorations() {
     return new ArrayList<>(this.allDecorations);
   }
 

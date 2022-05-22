@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import lombok.NoArgsConstructor;
-import ua.lpnu.students.labs.decoration.model.shared.Template;
+import ua.lpnu.students.labs.decoration.model.shared.Decoration;
 import ua.lpnu.students.labs.decoration.model.shared.Type;
 import ua.lpnu.students.labs.decoration.model.shared.utils.FieldDescription;
 import ua.lpnu.students.labs.decoration.textmenu.TextParser;
@@ -32,7 +32,7 @@ public final class DataFileOperator {
    */
   public void writeToFile(
       final Path filePath,
-      final List<Template> list) throws IOException {
+      final List<Decoration> list) throws IOException {
     ArrayList<StringBuilder> buffers = new ArrayList<>(Type.values().length);
     for (int i = 0; i < Type.values().length; i++) {
       var buf = new StringBuilder();
@@ -48,7 +48,7 @@ public final class DataFileOperator {
       );
       buffers.add(buf);
     }
-    for (Template decoration : list) {
+    for (Decoration decoration : list) {
       int index = decoration.getType().ordinal();
       buffers.get(index).append(toCsv(decoration));
     }
@@ -78,7 +78,7 @@ public final class DataFileOperator {
    * @return list from the file
    * @throws IOException occurs when problems in reading file
    */
-  public List<Template> readFromFile(
+  public List<Decoration> readFromFile(
       final Path filePath) throws IOException {
     final var file = filePath.toFile();
     if (!file.exists()) {
@@ -95,7 +95,7 @@ public final class DataFileOperator {
     } catch (IOException e) {
       System.out.println(e.getMessage());
     }
-    LinkedList<Template> out = new LinkedList<>();
+    LinkedList<Decoration> out = new LinkedList<>();
     for (String string : fileData) {
       var iterator = string.lines().iterator();
       final Type type = Type.valueOf(iterator.next());
@@ -116,7 +116,7 @@ public final class DataFileOperator {
    * @return csv-string
    * @throws Exception when list in structure is empty or not typed
    */
-  String toCsv(final Template object) {
+  String toCsv(final Decoration object) {
     final var fields = object.getFields();
     var out = fields.parallelStream().map((field) -> {
       if (field.getValue() instanceof List) {
@@ -143,7 +143,7 @@ public final class DataFileOperator {
    * @param csv converted string
    * @return from csv-string
    */
-  Template fromCsv(final String csvLine, final Type type) {
+  Decoration fromCsv(final String csvLine, final Type type) {
     var decoration = type.createDecoration();
     var fields = decoration.getFields();
     var parser = new TextParser(csvToStandartIn(csvLine));

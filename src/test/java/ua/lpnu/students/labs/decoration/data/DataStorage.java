@@ -11,15 +11,15 @@ import ua.lpnu.students.labs.decoration.model.ElectricDecoration;
 import ua.lpnu.students.labs.decoration.model.LongDecoration;
 import ua.lpnu.students.labs.decoration.model.OrganicDecoration;
 import ua.lpnu.students.labs.decoration.model.PieceDecoration;
+import ua.lpnu.students.labs.decoration.model.shared.Decoration;
 import ua.lpnu.students.labs.decoration.model.shared.Size;
-import ua.lpnu.students.labs.decoration.model.shared.Template;
 import ua.lpnu.students.labs.decoration.model.shared.Usage;
 import ua.lpnu.students.labs.decoration.model.shared.utils.storages.impl.TypedArrayList;
 
 
 @Data
 public class DataStorage {
-  public final List<Template> decorations = new ArrayList<>(Arrays.asList(
+  public final List<Decoration> decorations = new ArrayList<>(Arrays.asList(
       new ElectricDecoration("Cheap christmass lights", Usage.FOR_CHRISTMASS, "plastic", 120,
           new TypedArrayList<>(
               new String(), Arrays.asList("blue", "green", "red")),

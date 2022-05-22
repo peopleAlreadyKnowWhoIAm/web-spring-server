@@ -25,7 +25,7 @@ public enum Type {
     return out.toString();
   }
 
-  public Template createDecoration() {
+  public Decoration createDecoration() {
     return decorationsCreaters[this.ordinal()].createDecoration();
   }
 
@@ -38,6 +38,6 @@ public enum Type {
 
   @FunctionalInterface
   interface CreateDecoration {
-    Template createDecoration();
+    Decoration createDecoration();
   }
 }

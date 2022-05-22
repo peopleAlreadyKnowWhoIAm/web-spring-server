@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import ua.lpnu.students.labs.decoration.data.DataStorage;
 
-public class TemplateTest {
-  private List<Template> samples;
+public class DecorationTest {
+  private List<Decoration> samples;
 
   @BeforeEach
   void init() {
