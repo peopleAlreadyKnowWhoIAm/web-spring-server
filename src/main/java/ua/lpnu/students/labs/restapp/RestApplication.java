@@ -7,9 +7,7 @@ import ua.lpnu.students.labs.restapp.logic.DecorationService;
 import ua.lpnu.students.labs.restapp.configuration.JerseyConfig;
 
 @SpringBootApplication(scanBasePackageClasses = { 
-    // DecorationRepository.class,
     JerseyConfig.class, 
-    // JdbcConfig.class, 
     DecorationService.class,
 }) 
 public class RestApplication {
