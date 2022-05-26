@@ -25,3 +25,7 @@ Made operations with files and implemented tests for it
 ### 7 Working with regex exprisions
 
 Make the exercise: ![the excersise](images/laba7.png)
+
+### 8 Make a REST application
+
+Use JAX-RS, realize 4 main Rest methods with database reletions
