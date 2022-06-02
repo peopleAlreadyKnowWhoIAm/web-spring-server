@@ -14,126 +14,124 @@ import ua.lpnu.students.labs.decoration.model.shared.utils.storages.impl.TypedLi
  * Long decoration class.
  */
 public class LongDecoration extends Decoration {
-  public static final Type CLASS_TYPE = Type.LONG_DECORATION;
-  // Variables
+    public static final Type CLASS_TYPE = Type.LONG_DECORATION;
+    // Variables
 
-  // String literals
-  private static final String COLORS_STR = "Colors of the decoration";
-  private static final String STYLE_STR = "Style";
-  private static final String MINIMAL_LENGTH_STR = "Minimal length selling";
-  private static final String WIDTH_STR = "Width";
+    // String literals
+    private static final String COLORS_STR = "Colors of the decoration";
+    private static final String STYLE_STR = "Style";
+    private static final String MINIMAL_LENGTH_STR = "Minimal length selling";
+    private static final String WIDTH_STR = "Width";
 
-  protected static final String PRICE_PER_METER = "Price per meter";
+    protected static final String PRICE_PER_METER = "Price per meter";
 
-  @Getter
-  @Setter
-  protected TypedList<String> color = new TypedLinkedList<String>("");
+    @Getter
+    @Setter
+    protected TypedList<String> color = new TypedLinkedList<String>("");
 
-  @Getter
-  @Setter
-  protected String style = "";
+    @Getter
+    @Setter
+    protected String style = "";
 
-  @Getter
-  @Setter
-  protected int minimalLength;
+    @Getter
+    @Setter
+    protected int minimalLength;
 
-  @Getter
-  @Setter
-  protected int widthInCentimeters;
+    @Getter
+    @Setter
+    protected int widthInCentimeters;
 
-  /**
-   * Constructor with all parameters.
-   */
-  public LongDecoration(
-      String name, 
-      Usage usage, 
-      int avalaibleAmount, 
-      TypedList<String> color, 
-      String style,
-      String material, 
-      int minimalLength, 
-      int widthInCentimeters, 
-      float pricePerMeter
-  ) {
-    super(name, CLASS_TYPE, usage, material, avalaibleAmount, pricePerMeter);
-    this.color = color;
-    this.style = style;
-    this.minimalLength = minimalLength;
-    this.widthInCentimeters = widthInCentimeters;
-  }
+    /**
+     * Constructor with all parameters.
+     */
+    public LongDecoration(
+            String name,
+            Usage usage,
+            int avalaibleAmount,
+            TypedList<String> color,
+            String style,
+            String material,
+            int minimalLength,
+            int widthInCentimeters,
+            float pricePerMeter) {
+        super(name, CLASS_TYPE, usage, material, avalaibleAmount, pricePerMeter);
+        this.color = color;
+        this.style = style;
+        this.minimalLength = minimalLength;
+        this.widthInCentimeters = widthInCentimeters;
+    }
 
-  public LongDecoration() {
-    super(CLASS_TYPE);
-  }
+    public LongDecoration() {
+        super(CLASS_TYPE);
+    }
 
-  // Text menu functions
-  @Override
-  @SuppressWarnings("unchecked")
-  public void setFields(final List<FieldDescription> fields) {
+    // Text menu functions
+    @Override
+    @SuppressWarnings("unchecked")
+    public void setFields(final List<FieldDescription> fields) {
 
-    // Colors
-    this.color = (TypedList<String>) fields.get(5).getValue();
+        // Colors
+        this.color = (TypedList<String>) fields.get(5).getValue();
 
-    // Style
-    this.style = (String) fields.get(6).getValue();
+        // Style
+        this.style = (String) fields.get(6).getValue();
 
-    // Minimal length
-    this.minimalLength = (Integer) fields.get(7).getValue();
+        // Minimal length
+        this.minimalLength = (Integer) fields.get(7).getValue();
 
-    // Width
-    this.widthInCentimeters = (Integer) fields.get(8).getValue();
+        // Width
+        this.widthInCentimeters = (Integer) fields.get(8).getValue();
 
-    super.setFields(fields);
-  }
+        super.setFields(fields);
+    }
 
-  @Override
-  public List<FieldDescription> getFields() {
-    List<FieldDescription> out = super.getFields();
+    @Override
+    public List<FieldDescription> getFields() {
+        List<FieldDescription> out = super.getFields();
 
-    // Colors
-    var tmpColors = TEMPLATE_FIELDS[0];
-    tmpColors.setValue(this.color);
-    out.add(tmpColors);
+        // Colors
+        var tmpColors = TEMPLATE_FIELDS[0];
+        tmpColors.setValue(this.color);
+        out.add(tmpColors);
 
-    // Style
-    var tmpStyle = TEMPLATE_FIELDS[1];
-    tmpStyle.setValue(this.style);
-    out.add(tmpStyle);
+        // Style
+        var tmpStyle = TEMPLATE_FIELDS[1];
+        tmpStyle.setValue(this.style);
+        out.add(tmpStyle);
 
-    // Minimal length
-    var tmpMinLen = TEMPLATE_FIELDS[2];
-    tmpMinLen.setValue(this.minimalLength);
-    out.add(tmpMinLen);
+        // Minimal length
+        var tmpMinLen = TEMPLATE_FIELDS[2];
+        tmpMinLen.setValue(this.minimalLength);
+        out.add(tmpMinLen);
 
-    // Width
-    var tmpWidth = TEMPLATE_FIELDS[3];
-    tmpWidth.setValue(this.widthInCentimeters);
-    out.add(tmpWidth);
+        // Width
+        var tmpWidth = TEMPLATE_FIELDS[3];
+        tmpWidth.setValue(this.widthInCentimeters);
+        out.add(tmpWidth);
 
-    return out;
-  }
+        return out;
+    }
 
-  @Override
-  public String toString() {
-    return super.toString() + String.format(DESCRIPTION_STR,
-        this.color.toString(),
-        this.style,
-        String.valueOf(this.minimalLength),
-        String.valueOf(this.widthInCentimeters),
-        String.valueOf(this.price));
-  }
+    @Override
+    public String toString() {
+        return super.toString() + String.format(DESCRIPTION_STR,
+                this.color.toString(),
+                this.style,
+                String.valueOf(this.minimalLength),
+                String.valueOf(this.widthInCentimeters),
+                String.valueOf(this.price));
+    }
 
-  private static final String DESCRIPTION_STR = 
-      COLORS_STR + DIVIDER 
-      + STYLE_STR + DIVIDER 
-      + MINIMAL_LENGTH_STR + DIVIDER
-      + WIDTH_STR + DIVIDER 
-      + PRICE_PER_METER + DIVIDER;
+    private static final String DESCRIPTION_STR = COLORS_STR + DIVIDER
+            + STYLE_STR + DIVIDER
+            + MINIMAL_LENGTH_STR + DIVIDER
+            + WIDTH_STR + DIVIDER
+            + PRICE_PER_METER + DIVIDER;
 
-  private static final FieldDescription[] TEMPLATE_FIELDS = {
-      new FieldDescription(null, COLORS_STR),
-      new FieldDescription(null, STYLE_STR),
-      new FieldDescription(null, MINIMAL_LENGTH_STR),
-      new FieldDescription(null, WIDTH_STR)
-  };
+    private static final FieldDescription[] TEMPLATE_FIELDS = {
+            new FieldDescription(null, COLORS_STR),
+            new FieldDescription(null, STYLE_STR),
+            new FieldDescription(null, MINIMAL_LENGTH_STR),
+            new FieldDescription(null, WIDTH_STR)
+    };
 }

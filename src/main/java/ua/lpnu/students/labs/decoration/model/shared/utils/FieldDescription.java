@@ -11,6 +11,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public final class FieldDescription {
-  private Object value;
-  private final String message;
+    private Object value;
+    private final String message;
 }

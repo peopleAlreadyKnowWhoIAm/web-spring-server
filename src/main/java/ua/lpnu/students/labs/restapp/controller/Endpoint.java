@@ -70,7 +70,7 @@ public class Endpoint {
      * @return response with status and inform message
      */
     @PUT
-    @Path("id/{id: \\d*}")
+    @Path("id/{id: \\d+}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateDecoration(@PathParam("id") long id, ElectricDecoration decoration) {
@@ -88,7 +88,7 @@ public class Endpoint {
      * @return responce with message
      */
     @DELETE
-    @Path("id/{id: \\d*}")
+    @Path("id/{id: \\d+}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteDecoration(@PathParam("id") long id) {
         decorationService.deleteDecoration(id);

@@ -9,10 +9,10 @@ import java.util.List;
  * @param <T> type of the datastructure
  */
 public interface TypedList<T> extends List<T> {
-  /**
-   * Get type of the list.
-   *
-   * @return type of the list
-   */
-  T getType();
+    /**
+     * Get type of the list.
+     *
+     * @return type of the list
+     */
+    T getType();
 }

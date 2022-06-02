@@ -39,7 +39,7 @@ public class ElectricDecoration extends Decoration {
     @Override
     public String toString() {
         return super.toString() + String.format(DESCRIPTION_STR,
-                this.colourOfLights.toString(),
+                this.colourOfLights,
                 String.valueOf(this.length),
                 String.valueOf(this.amountLampsPerMeter),
                 String.valueOf(this.powerInWatts),
