@@ -8,9 +8,9 @@
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <groupId>ua.iot.labs</groupId>
-    <artifactId>laba8</artifactId>
+    <artifactId>web-spring-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>laba8</name>
+    <name>web-spring-server</name>
     <description>University exercise</description>
     <properties>
         <java.version>17</java.version>
