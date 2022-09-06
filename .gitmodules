@@ -1,4 +1,4 @@
 [submodule "site"]
 	path = src/main/resources/static
 	url = https://github.com/peopleAlreadyKnowWhoIAm/web-labs-3-5.git
-	branch = laba3-4
+	branch = laba5
