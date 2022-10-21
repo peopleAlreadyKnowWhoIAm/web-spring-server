@@ -1,70 +1,55 @@
 package ua.lpnu.students.labs.restapp.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import ua.lpnu.students.labs.restapp.model.shared.Usage;
 
 /**
  * Electric decoration class.
  */
 @NoArgsConstructor
-@Getter
-@Setter
+@AllArgsConstructor
+@Data
 @Table("electric-decoration")
 public class ElectricDecoration {
 
     String name = "";
-    String material = "";
-    Usage usage = Usage.FOR_CHRISTMASS;
-    @JsonProperty("amount_avalaible")
-    int avalaibleAmount;
+    String description = "";
+    @Column("amountAvalaible")
+    int amountAvalaible;
     float price;
 
     @Id
     private long id;
-    @JsonProperty("colors")
-    String colourOfLights = "";
+    String colors = "";
     int length;
-    @JsonProperty("lamps_per_meter")
-    int amountLampsPerMeter;
-    @JsonProperty("power")
-    int powerInWatts;
+    int power;
 
+    @MappedCollection(idColumn = "decorationId", keyColumn = "numInList")
+    List<ImageId> imageIds;
 
     /**
      * Constructor without id and type.
      */
-    public ElectricDecoration(String name, Usage usage, String material, int avalaibleAmount,
-            String colourOfLights, int length, int amountLampsPerMeter, int powerInWatts, float price) {
+    public ElectricDecoration(String name, String description, int avalaibleAmount,
+            String colourOfLights, int length, int powerInWatts, float price,List<ImageId> imageIds) {
         this.name = name;
-        this.material = material;
-        this.usage = usage;
-        this.avalaibleAmount = avalaibleAmount;
+        this.description = description;
+        this.amountAvalaible = avalaibleAmount;
         this.price = price;
-        this.colourOfLights = colourOfLights;
+        this.colors = colourOfLights;
         this.length = length;
-        this.amountLampsPerMeter = amountLampsPerMeter;
-        this.powerInWatts = powerInWatts;
-    }
-
-    ElectricDecoration(String name, String material, Usage usage, int avalaibleAmount, float price,
-            long id, String colourOfLights, int length, int amountLampsPerMeter, int powerInWatts) {
-        this.name = name;
-        this.material = material;
-        this.usage = usage;
-        this.avalaibleAmount = avalaibleAmount;
-        this.price = price;
-        this.id = id;
-        this.colourOfLights = colourOfLights;
-        this.length = length;
-        this.amountLampsPerMeter = amountLampsPerMeter;
-        this.powerInWatts = powerInWatts;
+        this.power = powerInWatts;
+        this.imageIds = imageIds;
     }
 }

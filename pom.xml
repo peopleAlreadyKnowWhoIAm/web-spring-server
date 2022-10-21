@@ -179,21 +179,4 @@
             </plugin>
         </plugins>
     </reporting>
-
-
-    <dependencyManagement>
-
-
-        <dependencies>
-
-
-            <dependency>
-                <groupId>org.ow2.asm</groupId>
-                <artifactId>asm</artifactId>
-                <version>9.1</version>
-            </dependency>
-
-        </dependencies>
-
-    </dependencyManagement>
 </project>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ua.lpnu.students.labs.restapp.logic.DecorationService;
@@ -17,7 +18,7 @@ import ua.lpnu.students.labs.restapp.model.ElectricDecoration;
 
 @RestController
 @RequestMapping("/decorations")
-public class DataTransferController {
+public class DecorationController {
 
     @Autowired
     DecorationService service;
@@ -28,7 +29,7 @@ public class DataTransferController {
     }
 
     @GetMapping("/{id:\\d+}")
-    public ResponseEntity<ElectricDecoration> getDecoration(@PathVariable String id) {
+    public ResponseEntity<ElectricDecoration> getDecorationById(@PathVariable String id) {
         long id_n = Long.valueOf(id);
         var res = service.getById(id_n);
         if (res.isPresent()) {
@@ -37,14 +38,64 @@ public class DataTransferController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<Iterable<ElectricDecoration>> getFilteredDecoration(
+            @RequestParam(required = false, name = "sort") String sortMethod,
+            @RequestParam(required = false, name = "search") String search,
+            @RequestParam(required = false, name = "price-from") String priceFromStr,
+            @RequestParam(required = false, name = "price-to") String priceToStr,
+            @RequestParam(required = false, name = "length-from") String lengthFromStr,
+            @RequestParam(required = false, name = "length-to") String lengthToStr) {
+        float priceFrom = -1;
+        if (priceFromStr != null) {
+            try {
+                priceFrom = Float.parseFloat(priceFromStr);
+            } catch (NumberFormatException e) {
+                priceFrom = -1;
+            }
+        }
+
+        float priceTo = -1;
+        if (priceToStr != null) {
+            try {
+                priceTo = Float.parseFloat(priceToStr);
+            } catch (NumberFormatException e) {
+                priceTo = -1;
+            }
+        }
+
+        float lengthFrom = -1;
+        if (lengthFromStr != null) {
+            try {
+                lengthFrom = Float.parseFloat(lengthFromStr);
+            } catch (NumberFormatException e) {
+                lengthFrom = -1;
+            }
+        }
+
+        float lengthTo = -1;
+        if (lengthToStr != null) {
+            try {
+                lengthTo = Float.parseFloat(lengthToStr);
+            } catch (NumberFormatException e) {
+                lengthTo = -1;
+            }
+        }
+
+        return new ResponseEntity<>(service.filter(search, sortMethod, priceFrom, priceTo, lengthFrom, lengthTo),
+                HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<String> addDecoration(@RequestBody ElectricDecoration decoration) {
+        System.out.println(decoration.toString());
         service.addDecoration(decoration);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{id:\\d+}")
-    public ResponseEntity<String> updateDecoration(@PathVariable String id, @RequestBody ElectricDecoration decoration) {
+    public ResponseEntity<String> updateDecoration(@PathVariable String id,
+            @RequestBody ElectricDecoration decoration) {
         long id_n = Long.valueOf(id);
         boolean result = service.updateDecoration(id_n, decoration);
         if (result) {
